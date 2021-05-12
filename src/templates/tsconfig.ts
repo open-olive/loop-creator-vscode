@@ -1,4 +1,4 @@
-{
+const tsconfigTemplate = `{
   "compilerOptions": {
     "outDir": "dist",
     "allowJs": true,
@@ -13,4 +13,5 @@
     "typeRoots": ["./node_modules/@types"]
   },
   "files": ["./src/index.ts"]
-}
+}`;
+export default tsconfigTemplate;

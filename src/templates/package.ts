@@ -1,4 +1,4 @@
-{
+const packageTemplate = `{
   "name": "{{it.projectName}}",
   "version": "0.0.1",
   "description": "",
@@ -62,4 +62,5 @@
       }
     }
   }
-}
+}`;
+export default packageTemplate;

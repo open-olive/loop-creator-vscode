@@ -13,3 +13,4 @@ export const openDialogForFolder = async (): Promise<Uri> => {
     return Promise.reject();
   }
 };
+

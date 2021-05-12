@@ -4,7 +4,11 @@ import * as path from "path";
 import { Uri } from "vscode";
 import * as Sqrl from "squirrelly";
 import { openDialogForFolder } from "./utils";
-
+import createLoopForm from "./createLoopForm";
+import indexTemplate from "./templates/src";
+import packageTemplate from "./templates/package";
+import readmeTemplate from "./templates/README";
+import tsconfigTemplate from "./templates/tsconfig";
 interface IWebviewMessage<T> {
   command: string;
   payload: T;
@@ -46,18 +50,12 @@ export class LoopCreator {
     networkUrl: string,
     urlReason: string
   ) {
-    let templatePath: string;
-    let templateContents: string;
     let fileContents: string;
 
-    templatePath = path.join(this.context.extensionPath, "templates", "README.md.squirrelly");
-    templateContents = await fs.readFile(templatePath, "utf-8");
-    fileContents = Sqrl.render(templateContents, { projectName });
+    fileContents = Sqrl.render(readmeTemplate, { projectName });
     await fs.writeFile(path.join(basePath, "README.md"), fileContents);
 
-    templatePath = path.join(this.context.extensionPath, "templates", "package.json.squirrelly");
-    templateContents = await fs.readFile(templatePath, "utf-8");
-    fileContents = Sqrl.render(templateContents, {
+    fileContents = Sqrl.render(packageTemplate, {
       isTypeScript,
       ldkVersion,
       projectName,
@@ -72,9 +70,8 @@ export class LoopCreator {
     });
     await fs.writeFile(path.join(basePath, "package.json"), fileContents);
 
-    templatePath = path.join(this.context.extensionPath, "templates", "src", "index.ts.squirrelly");
-    templateContents = await fs.readFile(templatePath, "utf-8");
-    fileContents = Sqrl.render(templateContents, {
+    
+    fileContents = Sqrl.render(indexTemplate, {
       isTypeScript,
       projectName,
       aptitudes,
@@ -85,9 +82,7 @@ export class LoopCreator {
     );
 
     if (isTypeScript) {
-      templatePath = path.join(this.context.extensionPath, "templates", "tsconfig.json");
-      fileContents = await fs.readFile(templatePath, "utf-8");
-      await fs.writeFile(path.join(basePath, "tsconfig.json"), fileContents);
+      await fs.writeFile(path.join(basePath, "tsconfig.json"), tsconfigTemplate);
     }
   }
 
@@ -139,9 +134,7 @@ export class LoopCreator {
       }
     );
 
-    const createLoopFormPath = path.join(this.context.extensionPath, "src", "createLoopForm.html");
-    const createLoopFormHtml = fs.readFileSync(createLoopFormPath, "utf-8");
-    panel.webview.html = createLoopFormHtml;
+    panel.webview.html = createLoopForm;
 
     panel.webview.onDidReceiveMessage(async (message: IWebviewMessage<LoopFormData>) => {
       try {

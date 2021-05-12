@@ -1,4 +1,5 @@
-import { whisper, {{ it.aptitudes.join(", ") }} } from "@oliveai/ldk";
+const indexTemplate = 
+`import { whisper, {{ it.aptitudes.join(", ") }} } from "@oliveai/ldk";
 import { Urgency, WhisperComponentType } from "@oliveai/ldk/dist/whisper";
 import "fastestsmallesttextencoderdecoder";
 
@@ -245,4 +246,5 @@ function createIntroWhisper() {
 
 {{ /if }}
 {{/each}}
-})()
+})()`;
+export default indexTemplate;

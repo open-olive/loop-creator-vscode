@@ -1,4 +1,5 @@
-<html>
+const creatLoopForm =
+`<html>
   <head>
     <title>Create Loop</title>
     <style>
@@ -222,7 +223,7 @@
         if (message.command === "getProjectPath") {
           document.getElementById("path").value = message.payload;
         } else {
-          throw new Error(`Invalid command "${message.command}".`);
+          throw new Error('Invalid command.');
         }
       });
 
@@ -265,3 +266,5 @@
     </script>
   </body>
 </html>
+`;
+export default creatLoopForm;
