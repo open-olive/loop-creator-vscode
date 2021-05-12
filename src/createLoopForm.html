@@ -1,0 +1,267 @@
+<html>
+  <head>
+    <title>Create Loop</title>
+    <style>
+      body {
+        background-color: #000000;
+        color: #ffffff;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      .pas,
+      input,
+      select {
+        padding: 5px;
+      }
+      body,
+      h2,
+      .pam,
+      .subheading {
+        padding: 10px;
+      }
+      h2,
+      .subheading {
+        font-weight: 400;
+        padding-bottom: 0;
+      }
+      .subheading {
+        padding-top: 0;
+        color: #8e8e8e;
+      }
+      .required,
+      h2 {
+        color: #b388ff;
+      }
+      .accent {
+        background-color: #651fff;
+        color: #ffffff;
+      }
+      hr {
+        border-top: 1px solid #651fff;
+      }
+      button {
+        background-color: #651fff;
+        color: #ffffff;
+        border: none;
+      }
+      button:disabled {
+        border: 1px solid #999999;
+        background-color: #cccccc;
+        color: #666666;
+      }
+      input[type="text"],
+      input[type="password"],
+      select {
+        background: #e0cfff;
+      }
+      .reason {
+        min-width: 250px;
+      }
+    </style>
+  </head>
+  <body>
+    <img
+      src="https://www.oliveai.com/wp-content/uploads/2020/04/Olive_vector_logo_white.svg"
+      width="200"
+    />
+    <h2>Create Loop</h2>
+    <hr />
+    <form id="createLoopForm">
+      <div class="pam">
+        <label for="ldkVersion"><span class="required">*</span>LDK Version</label><br />
+        <input type="text" id="ldkVersion" name="ldkVersion" value="3.0.0-beta.1" />
+      </div>
+      <div class="pam">
+        <span
+          ><label><span class="required">*</span>Loop Language:</label></span
+        ><br />
+        <span>
+          <select id="language" name="language">
+            <option value="TypeScript">TypeScript</option>
+            <option value="JavaScript">JavaScript</option>
+          </select>
+        </span>
+      </div>
+      <div class="pam">
+        <label for="path"><span class="required">*</span>Project Path</label><br />
+        <input type="text" id="path" name="path" value="" />
+        <button class="pas" onclick="openFolderBrowser()" type="button">Browse</button>
+      </div>
+      <div class="pam">
+        <label for="projectName"><span class="required">*</span>Project Name</label><br />
+        <input type="text" id="projectName" name="projectName" value="" />
+      </div>
+      <div class="pam">
+        <span><label>Aptitudes to Include</label></span
+        ><br />
+        <table border="0">
+          <tr>
+            <td>
+              <input type="checkbox" id="aptitudesClipboard" name="aptitudes" value="clipboard" />
+              <label for="aptitudesClipboard">Clipboard</label>
+            </td>
+            <td>
+              <input
+                type="text"
+                id="clipboardReason"
+                name="clipboardReason"
+                value=""
+                placeholder="Reason you are using this aptitude"
+                class="reason"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input type="checkbox" id="aptitudesKeyboard" name="aptitudes" value="keyboard" />
+              <label for="aptitudesKeyboard">Keyboard</label>
+            </td>
+            <td>
+              <input
+                type="text"
+                id="keyboardReason"
+                name="keyboardReason"
+                value=""
+                placeholder="Reason you are using this aptitude"
+                class="reason"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input type="checkbox" id="aptitudesSearch" name="aptitudes" value="ui" />
+              <label for="aptitudesSearch">Search</label>
+            </td>
+            <td>
+              <input
+                type="text"
+                id="searchReason"
+                name="searchReason"
+                value=""
+                placeholder="Reason you are using this aptitude"
+                class="reason"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input type="checkbox" id="aptitudesWindow" name="aptitudes" value="window" />
+              <label for="aptitudesWindow">Window</label>
+            </td>
+            <td>
+              <input
+                type="text"
+                id="windowReason"
+                name="windowReason"
+                value=""
+                placeholder="Reason you are using this aptitude"
+                class="reason"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input
+                type="checkbox"
+                id="aptitudesNetwork"
+                name="aptitudes"
+                value="network"
+                onclick="showNetwork('networkOptions')"
+              />
+              <label for="aptitudesNetwork">Network</label>
+            </td>
+            <td>
+              <input
+                type="text"
+                id="networkReason"
+                name="networkReason"
+                value=""
+                placeholder="Reason you are using this aptitude"
+                class="reason"
+              />
+            </td>
+          </tr>
+          <tr id="networkOptions" style="display: none">
+            <td></td>
+            <td>
+              <input
+                type="text"
+                id="networkUrl"
+                name="networkUrl"
+                value=""
+                placeholder="URL to use in the loop"
+                class="reason"
+              />
+              <br />
+              <input
+                type="text"
+                id="urlReason"
+                name="urlReason"
+                value=""
+                placeholder="Reason you are using this URL"
+                class="reason"
+              />
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="pam">
+        <button id="createLoop" class="pas" type="submit">Create Loop</button>
+      </div>
+    </form>
+    <span class="required">*</span> Required
+    <script>
+      window.vscode = acquireVsCodeApi();
+
+      function openFolderBrowser() {
+        vscode.postMessage({ command: "openFolderDialog" });
+      }
+
+      window.addEventListener("message", (event) => {
+        const message = event.data;
+
+        if (message.command === "getProjectPath") {
+          document.getElementById("path").value = message.payload;
+        } else {
+          throw new Error(`Invalid command "${message.command}".`);
+        }
+      });
+
+      function showNetwork(networkOptions) {
+        var networkchxbox = document.getElementById("aptitudesNetwork");
+        var visible = "none";
+        if (networkchxbox.checked) {
+          visible = "table-row";
+        }
+        document.getElementById(networkOptions).style.display = visible;
+      }
+
+      const loopForm = document.getElementById("createLoopForm");
+      loopForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        // Construct a FormData object, which fires the formdata event.
+        new FormData(loopForm);
+      });
+      loopForm.addEventListener("formdata", (e) => {
+        const payload = {
+          aptitudes: [],
+        };
+
+        for (let entry of e.formData.entries()) {
+          const key = entry[0];
+          const value = entry[1];
+          if (key === "aptitudes") {
+            payload["aptitudes"].push(value);
+          } else {
+            payload[key] = value;
+          }
+        }
+
+        vscode.postMessage({
+          command: "createLoop",
+          payload: payload,
+        });
+      });
+    </script>
+  </body>
+</html>
