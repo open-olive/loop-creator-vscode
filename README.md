@@ -13,7 +13,7 @@ This will open the Create Loop form to populate with the loop details.
 
 ![Create Loop Form](images/createLoopUi.png)
 
-Next [check the latest version of the LDK] (<https://github.com/open-olive/loop-development-kit>) and update it in the Create Loop form.
+Next [check the latest version of the LDK](<https://github.com/open-olive/loop-development-kit>) and update it in the Create Loop form.
 
 Select your preferred language.
 
