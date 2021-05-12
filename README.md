@@ -8,7 +8,7 @@ It supports generating loop code in Typescript and ES6 Javascript.
 
 ## Usage
 
-To get started use cmd/(mac/)/ctrl/(win/)+shift+p and type Create Loop
+To get started use cmd(mac)/ctrl(win)+shift+p and type Create Loop
 This will open the Create Loop form to populate with the loop details.
 
 ![Create Loop Form](images/createLoopUi.png)
