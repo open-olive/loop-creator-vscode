@@ -21,6 +21,8 @@ interface LoopFormData {
   networkReason: string;
   searchReason: string;
   windowReason: string;
+  networkUrl: string;
+  urlReason: string;
 }
 
 export class LoopCreator {
@@ -40,7 +42,9 @@ export class LoopCreator {
     keyboardReason: string,
     networkReason: string,
     searchReason: string,
-    windowReason: string
+    windowReason: string,
+    networkUrl: string,
+    urlReason: string
   ) {
     let templatePath: string;
     let templateContents: string;
@@ -63,6 +67,8 @@ export class LoopCreator {
       networkReason,
       searchReason,
       windowReason,
+      networkUrl,
+      urlReason,
     });
     await fs.writeFile(path.join(basePath, "package.json"), fileContents);
 
@@ -96,6 +102,8 @@ export class LoopCreator {
     networkReason,
     searchReason,
     windowReason,
+    networkUrl,
+    urlReason,
   }: LoopFormData) {
     await fs.ensureDir(basePath);
     await fs.ensureDir(path.join(basePath, "src"));
@@ -110,7 +118,9 @@ export class LoopCreator {
       keyboardReason,
       networkReason,
       searchReason,
-      windowReason
+      windowReason,
+      networkUrl,
+      urlReason,
     );
 
     let uri = Uri.file(basePath);
