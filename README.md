@@ -24,9 +24,10 @@ Give your loop project a name.
 Select the Aptitude's you want to include in your loop.
 
 For security purposes you need to provide the reason you are using the aptitude.
--State why the sensor is needed for the Loop and how it is being used
--State what information is collected as a result of using the sensor and what the data is used for
--Example: “We need access to your clipboard to detect when you copy a phone number, so that we can automatically do a phone number verification check for you.”
+
+- State why the sensor is needed for the Loop and how it is being used
+- State what information is collected as a result of using the sensor and what the data is used for
+- Example: “We need access to your clipboard to detect when you copy a phone number, so that we can automatically do a phone number verification check for you.”
 
 If you choose to use the network sensor to make http requests you will need to provide the url you will be accessing and the reason you are making requests to that url.
 
