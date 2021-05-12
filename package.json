@@ -2,7 +2,7 @@
   "name": "vscode-loop-development-kit",
   "displayName": "Loop Development Kit",
   "description": "Extension to generate boiler plate code for loops",
-  "publisher": "OliveAI",
+  "publisher": "Olive-AI",
   "version": "0.1.0",
   "engines": {
     "vscode": "^1.54.0"
