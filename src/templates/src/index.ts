@@ -1,5 +1,4 @@
-const indexTemplate = 
-`import { whisper, {{ it.aptitudes.join(", ") }} } from "@oliveai/ldk";
+const indexTemplate = `import { whisper, {{ it.aptitudes.join(", ") }} } from "@oliveai/ldk";
 import { Urgency, WhisperComponentType } from "@oliveai/ldk/dist/whisper";
 import "fastestsmallesttextencoderdecoder";
 
@@ -18,8 +17,7 @@ function createIntroWhisper() {
   // Collapse box.
   const collapsibleContent{{it.isTypeScript ? ': whisper.Markdown' : ''}} = {
     type: WhisperComponentType.Markdown,
-    body:
-      "# Collapsible Section\n  Content you put here can be expanded/collapsed.",
+    body: "# Collapsible Section\\n  Content you put here can be expanded/collapsed.",
   };
   const collapseBox{{it.isTypeScript ? ': whisper.CollapseBox' : ''}} = {
     type: WhisperComponentType.CollapseBox,
