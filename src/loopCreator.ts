@@ -4,11 +4,12 @@ import * as path from "path";
 import { Uri } from "vscode";
 import * as Sqrl from "squirrelly";
 import { openDialogForFolder } from "./utils";
-import createLoopForm from "./createLoopForm";
-import indexTemplate from "./templates/src";
-import packageTemplate from "./templates/package";
-import readmeTemplate from "./templates/README";
-import tsconfigTemplate from "./templates/tsconfig";
+import createLoopFormHtml from "./createLoopForm.html";
+import readmeTemplate from "./templates/README.md.squirrelly";
+import packageJsonTemplate from "./templates/package.json.squirrelly";
+import indexTemplate from "./templates/src/index.ts.squirrelly";
+import tsconfigTemplate from "./templates/tsconfig.json.squirrelly";
+
 interface IWebviewMessage<T> {
   command: string;
   payload: T;
@@ -55,7 +56,7 @@ export class LoopCreator {
     fileContents = Sqrl.render(readmeTemplate, { projectName });
     await fs.writeFile(path.join(basePath, "README.md"), fileContents);
 
-    fileContents = Sqrl.render(packageTemplate, {
+    fileContents = Sqrl.render(packageJsonTemplate, {
       isTypeScript,
       ldkVersion,
       projectName,
@@ -70,7 +71,6 @@ export class LoopCreator {
     });
     await fs.writeFile(path.join(basePath, "package.json"), fileContents);
 
-    
     fileContents = Sqrl.render(indexTemplate, {
       isTypeScript,
       projectName,
@@ -82,7 +82,10 @@ export class LoopCreator {
     );
 
     if (isTypeScript) {
-      await fs.writeFile(path.join(basePath, "tsconfig.json"), tsconfigTemplate);
+      await fs.writeFile(
+        path.join(basePath, "tsconfig.json"),
+        tsconfigTemplate
+      );
     }
   }
 
@@ -115,7 +118,7 @@ export class LoopCreator {
       searchReason,
       windowReason,
       networkUrl,
-      urlReason,
+      urlReason
     );
 
     let uri = Uri.file(basePath);
@@ -134,23 +137,28 @@ export class LoopCreator {
       }
     );
 
-    panel.webview.html = createLoopForm;
+    panel.webview.html = createLoopFormHtml;
 
-    panel.webview.onDidReceiveMessage(async (message: IWebviewMessage<LoopFormData>) => {
-      try {
-        if (message.command === "openFolderDialog") {
-          const uri = await openDialogForFolder();
-          panel.webview.postMessage({ command: "getProjectPath", payload: uri.path });
-        } else if (message.command === "createLoop") {
-          this.createLoop(message.payload);
-          panel.dispose();
-        } else {
-          throw new Error(`Invalid command "${message.command}".`);
+    panel.webview.onDidReceiveMessage(
+      async (message: IWebviewMessage<LoopFormData>) => {
+        try {
+          if (message.command === "openFolderDialog") {
+            const uri = await openDialogForFolder();
+            panel.webview.postMessage({
+              command: "getProjectPath",
+              payload: uri.path,
+            });
+          } else if (message.command === "createLoop") {
+            await this.createLoop(message.payload);
+            panel.dispose();
+          } else {
+            throw new Error(`Invalid command "${message.command}".`);
+          }
+        } catch (err) {
+          console.error(err);
+          vscode.window.showErrorMessage(`Error creating loop: ${err.message}`);
         }
-      } catch (err) {
-        console.error(err);
-        vscode.window.showErrorMessage(`Error creating loop: ${err.message}`);
       }
-    });
+    );
   }
 }
