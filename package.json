@@ -4,7 +4,7 @@
   "description": "Extension to generate boiler plate code for loops",
   "publisher": "Olive-AI",
   "icon": "images/oliveLogo.png",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "engines": {
     "vscode": "^1.54.0"
   },
