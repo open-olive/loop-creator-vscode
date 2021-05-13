@@ -1,0 +1,65 @@
+{
+  "name": "{{it.projectName}}",
+  "version": "0.0.1",
+  "description": "",
+  "main": "src/index.{{it.isTypeScript ? 'ts' : 'js'}}",
+  "scripts": {
+    "build": "webpack --entry core-js/fn/promise --entry ./src/index.{{it.isTypeScript ? 'ts' : 'js'}} --config ./node_modules/@oliveai/ldk/dist/webpack/config.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@oliveai/ldk": "{{it.ldkVersion}}",
+    "ts-loader": "^9.0.0",
+    "typescript": "^4.2.4"
+  },
+  "dependencies": {
+    "@babel/core": "^7.13.10",
+    "@babel/plugin-transform-async-to-generator": "^7.13.0",
+    "@babel/plugin-transform-destructuring": "^7.13.0",
+    "@babel/plugin-transform-runtime": "^7.13.10",
+    "@babel/preset-env": "^7.13.12",
+    "@babel/runtime": "^7.13.10",
+    "@babel/runtime-corejs2": "^7.13.10",
+    "babel-loader": "^8.2.2",
+    "fastestsmallesttextencoderdecoder": "^1.0.22",
+    "terser-webpack-plugin": "^5.1.1",
+    "webpack": "^5.28.0",
+    "webpack-cli": "^4.5.0",
+    "webpack-merge": "^5.7.3"
+  },
+  "ldk": {
+    "ldkVersion": "{{it.ldkVersion}}",
+    "permissions": {
+{{ @each(it.aptitudes) => aptitude }}
+{{ @if (aptitude === 'clipboard') }}
+      "clipboard": {
+        "reason": "{{it.clipboardReason}}"
+      },
+{{ #elif (aptitude === 'ui') }}
+      "ui": {
+        "reason": "{{it.searchReason}}"
+      },
+{{ #elif (aptitude === 'window') }}
+      "window": {
+        "reason": "{{it.windowReason}}"
+      },
+{{ #elif (aptitude === 'keyboard') }}
+      "keyboard": {
+        "reason": "{{it.keyboardReason}}"
+      },
+{{ #elif (aptitude === 'network') }}
+      "network": {
+        "reason": "{{it.networkReason}}",
+        "urlDomains": [
+          { "value": "{{it.networkUrl}}", "reason": "{{it.urlReason}}" }
+        ]
+      },
+{{ /if }}
+{{/each}}
+      "whisper": {
+        "reason": "To create whispers"
+      }
+    }
+  }
+}
