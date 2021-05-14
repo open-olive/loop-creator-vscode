@@ -35,6 +35,10 @@ const config = {
           },
         ],
       },
+      {
+        test: /\.(html|squirrelly)$/,
+        use: "raw-loader",
+      },
     ],
   },
 };
