@@ -2,7 +2,7 @@
 
 Loop Development Kit is an extension to generate boiler plate code to create loops for Olive Helps.
 
-You can download Olive Helps here: [Windows](<https://olive.page.link/olive-helps-windows>) [Mac](<https://olive.page.link/olive-helps-mac>)
+You can download Olive Helps here: [Windows](https://olive.page.link/olive-helps-windows) [Mac](https://olive.page.link/olive-helps-mac)
 
 It supports generating loop code in Typescript and ES6 Javascript.
 
@@ -13,7 +13,7 @@ This will open the Create Loop form to populate with the loop details.
 
 ![Create Loop Form](images/createLoopUi.png)
 
-Next [check the latest version of the LDK](<https://github.com/open-olive/loop-development-kit>) and update it in the Create Loop form.
+Next [check the latest version of the LDK](https://github.com/open-olive/loop-development-kit) and update it in the Create Loop form.
 
 Select your preferred language.
 
@@ -45,12 +45,8 @@ Enter the name of your loop and browse to your loop project location and select 
 
 ## Requirements
 
-You must have [node js](<https://nodejs.org/en/download/>) installed to build your loop.
+You must have [node js](https://nodejs.org/en/download/) installed to build your loop.
 
-You must have Olive Helps installed to be able to use and test your loop. [Windows](<https://olive.page.link/olive-helps-windows>) [Mac](<https://olive.page.link/olive-helps-mac>)
-
-## Release Notes
-
-Initial release
+You must have Olive Helps installed to be able to use and test your loop. [Windows](https://olive.page.link/olive-helps-windows) [Mac](https://olive.page.link/olive-helps-mac)
 
 **Enjoy!**
