@@ -10,24 +10,18 @@ import packageJsonTemplate from "./templates/package.json.squirrelly";
 import indexTemplate from "./templates/src/index.ts.squirrelly";
 import tsconfigTemplate from "./templates/tsconfig.json.squirrelly";
 
+const ldkVersion = "3.0.0-beta.3";
+
 interface IWebviewMessage<T> {
   command: string;
   payload: T;
 }
 
 interface LoopFormData {
-  ldkVersion: string;
   language: string;
   path: string;
   projectName: string;
   aptitudes: string[];
-  clipboardReason: string;
-  keyboardReason: string;
-  networkReason: string;
-  searchReason: string;
-  windowReason: string;
-  networkUrl: string;
-  urlReason: string;
 }
 
 export class LoopCreator {
@@ -40,16 +34,8 @@ export class LoopCreator {
   async createFiles(
     isTypeScript: boolean,
     basePath: string,
-    ldkVersion: string,
     projectName: string,
-    aptitudes: string[],
-    clipboardReason: string,
-    keyboardReason: string,
-    networkReason: string,
-    searchReason: string,
-    windowReason: string,
-    networkUrl: string,
-    urlReason: string
+    aptitudes: string[]
   ) {
     let fileContents: string;
 
@@ -58,16 +44,9 @@ export class LoopCreator {
 
     fileContents = Sqrl.render(packageJsonTemplate, {
       isTypeScript,
-      ldkVersion,
       projectName,
+      ldkVersion,
       aptitudes,
-      clipboardReason,
-      keyboardReason,
-      networkReason,
-      searchReason,
-      windowReason,
-      networkUrl,
-      urlReason,
     });
     await fs.writeFile(path.join(basePath, "package.json"), fileContents);
 
@@ -91,17 +70,9 @@ export class LoopCreator {
 
   async createLoop({
     language,
-    ldkVersion,
     path: basePath,
     projectName,
     aptitudes,
-    clipboardReason,
-    keyboardReason,
-    networkReason,
-    searchReason,
-    windowReason,
-    networkUrl,
-    urlReason,
   }: LoopFormData) {
     await fs.ensureDir(basePath);
     await fs.ensureDir(path.join(basePath, "src"));
@@ -109,16 +80,8 @@ export class LoopCreator {
     await this.createFiles(
       language === "TypeScript",
       basePath,
-      ldkVersion,
       projectName,
-      aptitudes,
-      clipboardReason,
-      keyboardReason,
-      networkReason,
-      searchReason,
-      windowReason,
-      networkUrl,
-      urlReason
+      aptitudes
     );
 
     let uri = Uri.file(basePath);
