@@ -67,8 +67,15 @@
     <hr />
     <form id="createLoopForm">
       <div class="pam">
-        <label for="ldkVersion"><span class="required">*</span>LDK Version</label><br />
-        <input type="text" id="ldkVersion" name="ldkVersion" value="3.0.0-beta.1" />
+        <label for="ldkVersion"
+          ><span class="required">*</span>LDK Version</label
+        ><br />
+        <input
+          type="text"
+          id="ldkVersion"
+          name="ldkVersion"
+          value="3.0.0-beta.3"
+        />
       </div>
       <div class="pam">
         <span
@@ -82,12 +89,17 @@
         </span>
       </div>
       <div class="pam">
-        <label for="path"><span class="required">*</span>Project Path</label><br />
+        <label for="path"><span class="required">*</span>Project Path</label
+        ><br />
         <input type="text" id="path" name="path" value="" />
-        <button class="pas" onclick="openFolderBrowser()" type="button">Browse</button>
+        <button class="pas" onclick="openFolderBrowser()" type="button">
+          Browse
+        </button>
       </div>
       <div class="pam">
-        <label for="projectName"><span class="required">*</span>Project Name</label><br />
+        <label for="projectName"
+          ><span class="required">*</span>Project Name</label
+        ><br />
         <input type="text" id="projectName" name="projectName" value="" />
       </div>
       <div class="pam">
@@ -96,66 +108,46 @@
         <table border="0">
           <tr>
             <td>
-              <input type="checkbox" id="aptitudesClipboard" name="aptitudes" value="clipboard" />
+              <input
+                type="checkbox"
+                id="aptitudesClipboard"
+                name="aptitudes"
+                value="clipboard"
+              />
               <label for="aptitudesClipboard">Clipboard</label>
             </td>
-            <td>
-              <input
-                type="text"
-                id="clipboardReason"
-                name="clipboardReason"
-                value=""
-                placeholder="Reason you are using this aptitude"
-                class="reason"
-              />
-            </td>
           </tr>
           <tr>
             <td>
-              <input type="checkbox" id="aptitudesKeyboard" name="aptitudes" value="keyboard" />
+              <input
+                type="checkbox"
+                id="aptitudesKeyboard"
+                name="aptitudes"
+                value="keyboard"
+              />
               <label for="aptitudesKeyboard">Keyboard</label>
             </td>
-            <td>
-              <input
-                type="text"
-                id="keyboardReason"
-                name="keyboardReason"
-                value=""
-                placeholder="Reason you are using this aptitude"
-                class="reason"
-              />
-            </td>
           </tr>
           <tr>
             <td>
-              <input type="checkbox" id="aptitudesSearch" name="aptitudes" value="ui" />
+              <input
+                type="checkbox"
+                id="aptitudesSearch"
+                name="aptitudes"
+                value="ui"
+              />
               <label for="aptitudesSearch">Search</label>
             </td>
-            <td>
-              <input
-                type="text"
-                id="searchReason"
-                name="searchReason"
-                value=""
-                placeholder="Reason you are using this aptitude"
-                class="reason"
-              />
-            </td>
           </tr>
           <tr>
             <td>
-              <input type="checkbox" id="aptitudesWindow" name="aptitudes" value="window" />
-              <label for="aptitudesWindow">Window</label>
-            </td>
-            <td>
               <input
-                type="text"
-                id="windowReason"
-                name="windowReason"
-                value=""
-                placeholder="Reason you are using this aptitude"
-                class="reason"
+                type="checkbox"
+                id="aptitudesWindow"
+                name="aptitudes"
+                value="window"
               />
+              <label for="aptitudesWindow">Window</label>
             </td>
           </tr>
           <tr>
@@ -165,41 +157,8 @@
                 id="aptitudesNetwork"
                 name="aptitudes"
                 value="network"
-                onclick="showNetwork('networkOptions')"
               />
               <label for="aptitudesNetwork">Network</label>
-            </td>
-            <td>
-              <input
-                type="text"
-                id="networkReason"
-                name="networkReason"
-                value=""
-                placeholder="Reason you are using this aptitude"
-                class="reason"
-              />
-            </td>
-          </tr>
-          <tr id="networkOptions" style="display: none">
-            <td></td>
-            <td>
-              <input
-                type="text"
-                id="networkUrl"
-                name="networkUrl"
-                value=""
-                placeholder="URL to use in the loop"
-                class="reason"
-              />
-              <br />
-              <input
-                type="text"
-                id="urlReason"
-                name="urlReason"
-                value=""
-                placeholder="Reason you are using this URL"
-                class="reason"
-              />
             </td>
           </tr>
         </table>

@@ -34,28 +34,28 @@ function createIntroWhisper() {
   const textInput{{it.isTypeScript ? ': whisper.TextInput' : ''}} = {
     type: WhisperComponentType.TextInput,
     label: "Text Input",
-    onChange: (val{{it.isTypeScript ? ': string' : ''}}) => {
+    onChange: (_error{{it.isTypeScript ? ': Error | undefined' : ''}}, val{{it.isTypeScript ? ': string' : ''}}) => {
       console.log("Text changed.", val);
     },
   };
   const email{{it.isTypeScript ? ': whisper.Email' : ''}} = {
     type: WhisperComponentType.Email,
     label: "Email",
-    onChange: (val{{it.isTypeScript ? ': string' : ''}}) => {
+    onChange: (_error{{it.isTypeScript ? ': Error | undefined' : ''}}, val{{it.isTypeScript ? ': string' : ''}}) => {
       console.log("Email changed: ", val);
     },
   };
   const password{{it.isTypeScript ? ': whisper.Password' : ''}} = {
     type: WhisperComponentType.Password,
     label: "Password",
-    onChange: (val{{it.isTypeScript ? ': string' : ''}}) => {
+    onChange: (_error{{it.isTypeScript ? ': Error | undefined' : ''}}, val{{it.isTypeScript ? ': string' : ''}}) => {
       console.log("Password changed: ", val);
     },
   };
   const telephone{{it.isTypeScript ? ': whisper.Telephone' : ''}} = {
     type: WhisperComponentType.Telephone,
     label: "Telephone Number",
-    onChange: (val{{it.isTypeScript ? ': string' : ''}}) => {
+    onChange: (_error{{it.isTypeScript ? ': Error | undefined' : ''}}, val{{it.isTypeScript ? ': string' : ''}}) => {
       console.log("Telephone number changed: ", val);
     },
   };
@@ -78,8 +78,8 @@ function createIntroWhisper() {
     label: "Checkbox",
     tooltip: "Here's a tooltip.",
     value: false,
-    onChange: (value{{it.isTypeScript ? ': boolean' : ''}}) => {
-      console.log("checkbox clicked: ", value);
+    onChange: (_error{{it.isTypeScript ? ': Error | undefined' : ''}}, val{{it.isTypeScript ? ': boolean' : ''}}) => {
+      console.log("checkbox clicked: ", val);
     },
   };
   const pair{{it.isTypeScript ? ': whisper.ListPair' : ''}} = {
@@ -97,7 +97,7 @@ function createIntroWhisper() {
     step: 2,
     tooltip: "Number Input",
     label: "Number Input",
-    onChange: (val{{it.isTypeScript ? ': number' : ''}}) => {
+    onChange: (_error{{it.isTypeScript ? ': Error | undefined' : ''}}, val{{it.isTypeScript ? ': number' : ''}}) => {
       console.log("got number change", val);
     },
   };
@@ -106,14 +106,14 @@ function createIntroWhisper() {
     label: "Select Box",
     options: ["One", "Two", "Three"],
     selected: 0,
-    onSelect: (val{{it.isTypeScript ? ': number' : ''}}) => {
+    onSelect: (_error{{it.isTypeScript ? ': Error | undefined' : ''}}, val{{it.isTypeScript ? ': number' : ''}}) => {
       console.log("Selected: ", val);
     },
   };
   const radioBtn{{it.isTypeScript ? ': whisper.RadioGroup' : ''}} = {
     type: WhisperComponentType.RadioGroup,
     options: ["Option 1", "Option 2", "Option 3"],
-    onSelect: (val{{it.isTypeScript ? ': number' : ''}}) => {
+    onSelect: (_error{{it.isTypeScript ? ': Error | undefined' : ''}}, val{{it.isTypeScript ? ': number' : ''}}) => {
       console.log("Radio button option selected: ", val);
     },
   };
@@ -231,7 +231,7 @@ function createIntroWhisper() {
   };
   const response = await network.httpRequest(request);
   const decoder = new TextDecoder("utf-8");
-  const parsedBody = decoder.decode(new Uint8Array(response.data));
+  const parsedBody = decoder.decode(new Uint8Array(response.body));
   whisper.create({
     label:  "Example Network Whisper",
     components: [
