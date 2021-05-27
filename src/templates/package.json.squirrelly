@@ -23,6 +23,9 @@
     "@babel/runtime-corejs2": "^7.13.10",
     "babel-loader": "^8.2.2",
     "core-js": "^3.12.1",
+{{ @if (it.aptitudes.includes("network")) }}
+    "date-fns": "^2.21.3",
+{{ /if }}
     "fastestsmallesttextencoderdecoder": "^1.0.22",
     "terser-webpack-plugin": "^5.1.1",
     "webpack": "^5.28.0",
@@ -45,7 +48,7 @@
       "network": {
         "urlDomains": [
           {
-            "value": "*.thecocktaildb.com"
+            "value": "*.fda.gov"
           }
         ]
       },

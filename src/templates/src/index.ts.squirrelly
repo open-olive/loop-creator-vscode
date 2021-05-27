@@ -1,6 +1,9 @@
 import { whisper, {{ it.aptitudes.join(", ") }} } from "@oliveai/ldk";
 import { Urgency, WhisperComponentType } from "@oliveai/ldk/dist/whisper";
 import "fastestsmallesttextencoderdecoder";
+{{ @if (it.aptitudes.includes("network")) }}
+import { add, format } from "date-fns";
+{{ /if }}
 
 function createIntroWhisper() {
   const divider{{it.isTypeScript ? ': whisper.Divider' : ''}} = {
@@ -223,12 +226,20 @@ function createIntroWhisper() {
 
 {{ #elif (aptitude === 'network') }}
   // Example for network aptitude.
+  const currentDate = new Date();
+  const threeMonthsAgo = add(currentDate, { months: -3 });
   const request{{it.isTypeScript ? ': network.HTTPRequest' : ''}} = {
-    url: "https://www.thecocktaildb.com/api/json/v1/1/random.php?a=Alcoholic",
+    url:
+      "https://api.fda.gov/food/enforcement.json?search=report_date:[" +
+      format(threeMonthsAgo, "yyyyMMdd") +
+      "+TO+" +
+      format(currentDate, "yyyyMMdd") +
+      "]&limit=10",
     method: "GET",
-    body: new Uint8Array,
-    headers: {}
+    body: new Uint8Array(),
+    headers: {},
   };
+
   const response = await network.httpRequest(request);
   const decoder = new TextDecoder("utf-8");
   const parsedBody = decoder.decode(new Uint8Array(response.body));
