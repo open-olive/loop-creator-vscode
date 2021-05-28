@@ -1,5 +1,5 @@
 import { whisper, {{ it.aptitudes.join(", ") }} } from "@oliveai/ldk";
-import { Urgency, WhisperComponentType } from "@oliveai/ldk/dist/whisper";
+import { {{it.isTypeScript ? 'Components, ' : ''}}Urgency, WhisperComponentType } from "@oliveai/ldk/dist/whisper";
 {{ @if (it.aptitudes.includes("network")) }}
 import { add, format } from "date-fns";
 {{ /if }}
@@ -228,28 +228,56 @@ function createIntroWhisper() {
   const currentDate = new Date();
   const threeMonthsAgo = add(currentDate, { months: -3 });
   const request{{it.isTypeScript ? ': network.HTTPRequest' : ''}} = {
+    method: "GET",
     url:
       "https://api.fda.gov/food/enforcement.json?search=report_date:[" +
       format(threeMonthsAgo, "yyyyMMdd") +
       "+TO+" +
       format(currentDate, "yyyyMMdd") +
       "]&limit=10",
-    method: "GET",
-    body: new Uint8Array(),
-    headers: {},
   };
 
   const response = await network.httpRequest(request);
-  const parsedBody = await network.decode(response.body);
+  const decodedBody = await network.decode(response.body);
+  const parsedObject = JSON.parse(decodedBody);
+  const recalls = parsedObject.results;
+
+  const components{{(it.isTypeScript ? ': Array<Components>' : '') | safe}} = [];
+  for (let recall of recalls) {
+    components.push({
+      type: WhisperComponentType.Link,
+      text: `${recall["recalling_firm"]} (${recall["recall_initiation_date"]})`,
+      onClick: () => {
+        const markdown =
+          `# Recalling Firm\n  ` +
+          `${recall["recalling_firm"]}\n  ` +
+          `# Recall Number\n  ` +
+          `${recall["recall_number"]}\n  ` +
+          `# Product Description\n  ` +
+          `${recall["product_description"]}\n  ` +
+          `# Reason for Recall\n  ` +
+          `${recall["reason_for_recall"]}`;
+
+        whisper.create({
+          label: `Recall for ${recall["recalling_firm"]}`,
+          components: [
+            {
+              type: WhisperComponentType.Markdown,
+              body: markdown,
+            },
+          ],
+          onClose: () => {},
+        });
+      },
+    });
+  }
+
   whisper.create({
-    label:  "Example Network Whisper",
-    components: [
-      {
-        type: WhisperComponentType.Markdown,
-        body: parsedBody
-      }
-    ],
-    onClose: () =>{ console.log("Network whisper closed") }
+    label: "Example Network Whisper (FDA Recalls)",
+    components: components,
+    onClose: () => {
+      console.log("Network whisper closed");
+    },
   });
 
 {{ /if }}
