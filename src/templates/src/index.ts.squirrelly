@@ -1,6 +1,5 @@
 import { whisper, {{ it.aptitudes.join(", ") }} } from "@oliveai/ldk";
 import { Urgency, WhisperComponentType } from "@oliveai/ldk/dist/whisper";
-import "fastestsmallesttextencoderdecoder";
 {{ @if (it.aptitudes.includes("network")) }}
 import { add, format } from "date-fns";
 {{ /if }}
@@ -241,8 +240,7 @@ function createIntroWhisper() {
   };
 
   const response = await network.httpRequest(request);
-  const decoder = new TextDecoder("utf-8");
-  const parsedBody = decoder.decode(new Uint8Array(response.body));
+  const parsedBody = await network.decode(response.body);
   whisper.create({
     label:  "Example Network Whisper",
     components: [
