@@ -293,7 +293,9 @@ function createIntroWhisper() {
   });
 
 {{ #elif (aptitude === 'filesystem') }}
-  // Example for filesystem aptitude.
+  // Example for filesystem aptitude. This uses relative paths and, when you do this, the loop is
+  // actually accessing a new "work" directory of its own. This work directory is automatically
+  // created for the loop, is separate from every other loop, and is initially empty.
   const writeMode = 0o755;
   const dirPath = "test-dir";
   if (!(await filesystem.exists(dirPath))) {
