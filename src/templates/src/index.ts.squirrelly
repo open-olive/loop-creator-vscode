@@ -276,7 +276,7 @@ function createIntroWhisper() {
   }
 
   whisper.create({
-    label: "Example Network Whisper (FDA Recalls)",
+    label: "Example for Network Aptitude (FDA Recalls)",
     components: components,
     onClose: () => {
       console.log("Network whisper closed");
