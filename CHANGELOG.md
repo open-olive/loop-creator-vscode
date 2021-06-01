@@ -9,6 +9,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 - Removed user-selectable LDK field. Will use hard-coded one instead to avoid supporting multiple
   versions of the LDK.
+- Improved network example to use FDA recalls API with child whispers.
 
 ## [0.1.5] - 2021-05-26
 
