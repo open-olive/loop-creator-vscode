@@ -7,7 +7,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
-...
+- Removed user-selectable LDK field. Will use hard-coded one instead to avoid supporting multiple
+  versions of the LDK.
 
 ## [0.1.5] - 2021-05-26
 
