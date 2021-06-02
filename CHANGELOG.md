@@ -12,6 +12,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [0.1.7] - 2021-06-02
 
 - Updated to LDK 3.0.0.
+- Removed onClose handlers for some example whispers (the handler is no longer required).
 
 ## [0.1.6] - 2021-06-01
 
