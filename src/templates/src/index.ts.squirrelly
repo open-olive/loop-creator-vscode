@@ -1,5 +1,17 @@
-import { whisper, {{ it.aptitudes.join(", ") }} } from "@oliveai/ldk";
-import { {{it.isTypeScript ? 'Components, ' : ''}}Urgency, WhisperComponentType } from "@oliveai/ldk/dist/whisper";
+import {
+  clipboard,
+  filesystem,
+  keyboard,
+  network,
+  ui,
+  whisper,
+  window,
+} from "@oliveai/ldk";
+import {
+  Components,
+  Urgency,
+  WhisperComponentType,
+} from "@oliveai/ldk/dist/whisper";
 {{ @if (it.aptitudes.includes("network")) }}
 import { add, format } from "date-fns";
 {{ /if }}
@@ -165,48 +177,39 @@ function createIntroWhisper() {
     });
   });
 
-{{ #elif (aptitude === 'ui') }}
-  // Example for search aptitudes.
-  const callback = (text{{it.isTypeScript ? ': string' : ''}}) => {
-    whisper.create({
-      label: "Search Aptitude Fired",
-      components: [
-        {
-          type: WhisperComponentType.Message,
-          body: text,
-        }
-      ],
-      onClose: () => { console.log("Search whisper closed"); },
-    });
-  };
+{{ #elif (aptitude === 'filesystem') }}
+  // Example for filesystem aptitude. This uses relative paths and, when you do this, the loop is
+  // actually accessing a new "work" directory of its own. This work directory is automatically
+  // created for the loop, is separate from every other loop, and is initially empty.
+  const writeMode = 0o755;
+  const dirPath = "test-dir";
+  if (!(await filesystem.exists(dirPath))) {
+    await filesystem.makeDir(dirPath, writeMode);
+  }
 
-  ui.listenSearchbar(callback);
-  ui.listenGlobalSearch(callback);
-
-{{ #elif (aptitude === 'window') }}
-  // Example for window aptitude.
-  window.listenActiveWindow((aw) => {
-    whisper.create({
-      label: "Active Window Changed",
-      components: [
-        {
-          type: WhisperComponentType.ListPair,
-          copyable: true,
-          label: "Window Name",
-          value: aw.path,
-          style: whisper.Urgency.None,
-        },
-        {
-          type: WhisperComponentType.ListPair,
-          copyable: true,
-          label: "Process Id",
-          value: aw.pid.toString(),
-          style: whisper.Urgency.None,
-        },
-      ],
-      onClose: () => { console.log("Window whisper closed.") }
-    });
+  const filePath = await filesystem.join([dirPath, "test.txt"]);
+  const encodedValue = await network.encode("some text");
+  await filesystem.writeFile({
+    path: filePath,
+    data: encodedValue,
+    writeOperation: filesystem.WriteOperation.overwrite,
+    writeMode: writeMode,
   });
+
+  const encodedFileContents = await filesystem.readFile(filePath);
+  const fileContents = await network.decode(encodedFileContents);
+  whisper.create({
+    label: "Example for Filesystem Aptitude",
+    components: [
+      {
+        type: WhisperComponentType.Markdown,
+        body: "# Example File Contents\n  " + fileContents,
+      },
+    ],
+    onClose: () => {},
+  });
+
+  await filesystem.remove(dirPath);
 
 {{ #elif (aptitude === 'keyboard') }}
   // Example for keyboard aptitude.
@@ -273,11 +276,54 @@ function createIntroWhisper() {
   }
 
   whisper.create({
-    label: "Example Network Whisper (FDA Recalls)",
+    label: "Example for Network Aptitude (FDA Recalls)",
     components: components,
     onClose: () => {
       console.log("Network whisper closed");
     },
+  });
+
+{{ #elif (aptitude === 'ui') }}
+  // Example for search aptitudes.
+  const callback = (text{{it.isTypeScript ? ': string' : ''}}) => {
+    whisper.create({
+      label: "Search Aptitude Fired",
+      components: [
+        {
+          type: WhisperComponentType.Message,
+          body: text,
+        }
+      ],
+      onClose: () => { console.log("Search whisper closed"); },
+    });
+  };
+
+  ui.listenSearchbar(callback);
+  ui.listenGlobalSearch(callback);
+
+{{ #elif (aptitude === 'window') }}
+  // Example for window aptitude.
+  window.listenActiveWindow((aw) => {
+    whisper.create({
+      label: "Active Window Changed",
+      components: [
+        {
+          type: WhisperComponentType.ListPair,
+          copyable: true,
+          label: "Window Name",
+          value: aw.path,
+          style: whisper.Urgency.None,
+        },
+        {
+          type: WhisperComponentType.ListPair,
+          copyable: true,
+          label: "Process Id",
+          value: aw.pid.toString(),
+          style: whisper.Urgency.None,
+        },
+      ],
+      onClose: () => { console.log("Window whisper closed.") }
+    });
   });
 
 {{ /if }}

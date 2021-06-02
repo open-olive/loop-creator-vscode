@@ -37,10 +37,8 @@
 {{ @each(it.aptitudes) => aptitude }}
 {{ @if (aptitude === 'clipboard') }}
       "clipboard": {},
-{{ #elif (aptitude === 'ui') }}
-      "ui": {},
-{{ #elif (aptitude === 'window') }}
-      "window": {},
+{{ #elif (aptitude === 'filesystem') }}
+      "filesystem": {},
 {{ #elif (aptitude === 'keyboard') }}
       "keyboard": {},
 {{ #elif (aptitude === 'network') }}
@@ -51,6 +49,10 @@
           }
         ]
       },
+{{ #elif (aptitude === 'ui') }}
+      "ui": {},
+{{ #elif (aptitude === 'window') }}
+      "window": {},
 {{ /if }}
 {{/each}}
       "whisper": {}
