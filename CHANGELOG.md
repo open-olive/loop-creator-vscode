@@ -11,15 +11,28 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [0.1.7] - 2021-06-02
 
+### Changed
+
 - Updated to LDK 3.0.0.
+
+### Removed
+
 - Removed onClose handlers for some example whispers (the handler is no longer required).
 
 ## [0.1.6] - 2021-06-01
 
+### Added
+
+- Added example for filesystem aptitude.
+
+### Changed
+
+- Improved network example to use FDA recalls API with child whispers.
+
+### Removed
+
 - Removed user-selectable LDK field. Will use hard-coded one instead to avoid supporting multiple
   versions of the LDK.
-- Improved network example to use FDA recalls API with child whispers.
-- Added example for filesystem aptitude.
 
 ## [0.1.5] - 2021-05-26
 
