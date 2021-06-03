@@ -173,7 +173,6 @@ function createIntroWhisper() {
           body: text,
         }
       ],
-      onClose: () => { console.log("Clipboard whisper closed"); },
     });
   });
 
@@ -206,7 +205,6 @@ function createIntroWhisper() {
         body: "# Example File Contents\n  " + fileContents,
       },
     ],
-    onClose: () => {},
   });
 
   await filesystem.remove(dirPath);
@@ -222,7 +220,6 @@ function createIntroWhisper() {
           body: text,
         }
       ],
-      onClose: () => { console.log("Keyboard whisper closed"); },
     })
   });
 
@@ -269,7 +266,6 @@ function createIntroWhisper() {
               body: markdown,
             },
           ],
-          onClose: () => {},
         });
       },
     });
@@ -278,9 +274,6 @@ function createIntroWhisper() {
   whisper.create({
     label: "Example for Network Aptitude (FDA Recalls)",
     components: components,
-    onClose: () => {
-      console.log("Network whisper closed");
-    },
   });
 
 {{ #elif (aptitude === 'ui') }}
@@ -294,7 +287,6 @@ function createIntroWhisper() {
           body: text,
         }
       ],
-      onClose: () => { console.log("Search whisper closed"); },
     });
   };
 
@@ -322,7 +314,6 @@ function createIntroWhisper() {
           style: whisper.Urgency.None,
         },
       ],
-      onClose: () => { console.log("Window whisper closed.") }
     });
   });
 

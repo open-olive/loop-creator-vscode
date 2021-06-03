@@ -10,7 +10,7 @@ import packageJsonTemplate from "./templates/package.json.squirrelly";
 import indexTemplate from "./templates/src/index.ts.squirrelly";
 import tsconfigTemplate from "./templates/tsconfig.json.squirrelly";
 
-const ldkVersion = "3.0.0-beta.3";
+const ldkVersion = "3.0.0";
 
 interface IWebviewMessage<T> {
   command: string;
