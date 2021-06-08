@@ -8,7 +8,9 @@ import {
   window,
 } from "@oliveai/ldk";
 import {
+  Alignment,
   Components,
+  Direction,
   Urgency,
   WhisperComponentType,
 } from "@oliveai/ldk/dist/whisper";
@@ -40,10 +42,36 @@ function createIntroWhisper() {
     open: true,
   };
 
-  // Example inputs.
-  const exampleInputsHeading{{it.isTypeScript ? ': whisper.Markdown' : ''}} = {
+  // Box example.
+  const boxHeader{{it.isTypeScript ? ': whisper.Markdown' : ''}} = {
     type: WhisperComponentType.Markdown,
-    body: "# Example Inputs",
+    body: "# Box with Child Components",
+  };
+  const firstButton{{it.isTypeScript ? ': whisper.Button' : ''}} = {
+    type: WhisperComponentType.Button,
+    label: "Button 1",
+    onClick: () => {
+      console.log("Button 1 clicked.");
+    },
+  };
+  const secondButton{{it.isTypeScript ? ': whisper.Button' : ''}} = {
+    type: WhisperComponentType.Button,
+    label: "Button 2",
+    onClick: () => {
+      console.log("Button 2 clicked.");
+    },
+  };
+  const box{{it.isTypeScript ? ': whisper.Box' : ''}} = {
+    type: WhisperComponentType.Box,
+    alignment: Alignment.SpaceEvenly,
+    direction: Direction.Horizontal,
+    children: [firstButton, secondButton],
+  };
+
+  // Various example components.
+  const exampleComponentsHeading{{it.isTypeScript ? ': whisper.Markdown' : ''}} = {
+    type: WhisperComponentType.Markdown,
+    body: "# Example Components",
   };
   const textInput{{it.isTypeScript ? ': whisper.TextInput' : ''}} = {
     type: WhisperComponentType.TextInput,
@@ -138,7 +166,10 @@ function createIntroWhisper() {
       divider,
       collapseBox,
       divider,
-      exampleInputsHeading,
+      boxHeader,
+      box,
+      divider,
+      exampleComponentsHeading,
       textInput,
       email,
       password,
