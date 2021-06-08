@@ -7,7 +7,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
-- ...
+### Changed
+
+- Added box example to intro whisper (with previous/next buttons).
 
 ## [0.1.7] - 2021-06-02
 
