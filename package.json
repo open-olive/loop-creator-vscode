@@ -6,6 +6,8 @@
   "icon": "images/oliveLogo.png",
   "version": "0.1.8",
   "engines": {
+    "node": "^14.17.1",
+    "npm": "^7.18.1",
     "vscode": "^1.54.0"
   },
   "repository": {
