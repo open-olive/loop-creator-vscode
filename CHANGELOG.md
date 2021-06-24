@@ -9,7 +9,12 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
-- ...
+## [0.1.9] - 2021-06-24
+
+### Changed
+
+- Upgraded to LDK 3.0.2.
+- Upgraded .nvmrc to Node 14.17.1.
 
 ## [0.1.8] - 2021-06-15
 
