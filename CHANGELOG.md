@@ -9,6 +9,12 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
+- ...
+
+### Removed
+
+- Removed old ldkVersion property in `package.json` under `ldk` section.
+
 ## [0.1.9] - 2021-06-24
 
 ### Changed
