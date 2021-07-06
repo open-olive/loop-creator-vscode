@@ -10,8 +10,6 @@ import packageJsonTemplate from "./templates/package.json.squirrelly";
 import indexTemplate from "./templates/src/index.ts.squirrelly";
 import tsconfigTemplate from "./templates/tsconfig.json.squirrelly";
 
-const ldkVersion = "3.1.0";
-
 interface IWebviewMessage<T> {
   command: string;
   payload: T;
@@ -45,7 +43,6 @@ export class LoopCreator {
     fileContents = Sqrl.render(packageJsonTemplate, {
       isTypeScript,
       projectName,
-      ldkVersion,
       aptitudes,
     });
     await fs.writeFile(path.join(basePath, "package.json"), fileContents);
