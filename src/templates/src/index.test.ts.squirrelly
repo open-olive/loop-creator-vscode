@@ -1,0 +1,3 @@
+describe('{{it.projectName}}', () => {
+  it('should pass', () => expect(true).toBeTruthy());
+});

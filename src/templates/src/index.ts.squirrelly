@@ -1,35 +1,48 @@
 import {
-{{ @if (it.aptitudes.includes("clipboard")) }}
+{{ @if (it.aptitudes.includes('clipboard')) }}
   clipboard,
 {{ /if }}
-{{ @if (it.aptitudes.includes("filesystem")) }}
+{{ @if (it.aptitudes.includes('filesystem')) }}
   filesystem,
 {{ /if }}
-{{ @if (it.aptitudes.includes("keyboard")) }}
+{{ @if (it.aptitudes.includes('keyboard')) }}
   keyboard,
 {{ /if }}
-{{ @if (it.aptitudes.includes("network")) }}
+{{ @if (it.aptitudes.includes('network') || it.aptitudes.includes('keyboard')) }}
   network,
 {{ /if }}
-{{ @if (it.aptitudes.includes("ui")) }}
+{{ @if (it.aptitudes.includes('ui')) }}
   ui,
 {{ /if }}
   whisper,
-{{ @if (it.aptitudes.includes("window")) }}
+{{ @if (it.aptitudes.includes('window')) }}
   window,
 {{ /if }}
-} from "@oliveai/ldk";
-{{ @if (it.aptitudes.includes("network")) }}
-import { add, format } from "date-fns";
+} from '@oliveai/ldk';
+import {
+{{ @if (it.aptitudes.includes('network')) }}
+  oneLine,
+{{ /if }}
+  stripIndent
+} from 'common-tags';
+{{ @if (it.aptitudes.includes('network')) }}
+import { add, format } from 'date-fns';
+{{ /if }}
+{{ @if (it.isTypeScript) }}
+
+type UpdateFunction = (newMessage?: string, numClones?: number, label?: string) => void;
 {{ /if }}
 
+const DEFAULT_LABEL = 'Loop Started';
 // Global variable for updating whisper state
-let WHISPER{{it.isTypeScript ? ': whisper.Whisper': ''}};
+let WHISPER{{it.isTypeScript ? ': whisper.Whisper' : ''}};
 
-function createIntroWhisperComponents(
-  newMessage{{it.isTypeScript ? '?: string' : ''}},
-  numClones{{it.isTypeScript ? ': number' : ''}} = 1
-) {
+const createIntroWhisperComponents = (
+  updateFn{{it.isTypeScript ? ': UpdateFunction' : ''}},
+  newMessage = '',
+  numClones = 1,
+  label = DEFAULT_LABEL
+) => {
   const divider{{it.isTypeScript ? ': whisper.Divider' : ''}} = {
     type: whisper.WhisperComponentType.Divider,
   };
@@ -37,15 +50,17 @@ function createIntroWhisperComponents(
   // Intro message.
   const introMessage{{it.isTypeScript ? ': whisper.Message' : ''}} = {
     type: whisper.WhisperComponentType.Message,
-    body: "These are some components you can use in whispers.",
+    body: 'These are some components you can use in whispers.',
     style: whisper.Urgency.Success,
   };
 
   // Collapse box.
   const collapsibleContent{{it.isTypeScript ? ': whisper.Markdown' : ''}} = {
     type: whisper.WhisperComponentType.Markdown,
-    body:
-      "# Collapsible Section\n  Content you put here can be expanded/collapsed.",
+    body: stripIndent`
+    # Collapsible Section
+    Content you put here can be expanded/collapsed.
+    `,
   };
   const collapseBox{{it.isTypeScript ? ': whisper.CollapseBox' : ''}} = {
     type: whisper.WhisperComponentType.CollapseBox,
@@ -56,20 +71,20 @@ function createIntroWhisperComponents(
   // Box example.
   const boxHeader{{it.isTypeScript ? ': whisper.Markdown' : ''}} = {
     type: whisper.WhisperComponentType.Markdown,
-    body: "# Box with Child Components",
+    body: '# Box with Child Components',
   };
   const firstButton{{it.isTypeScript ? ': whisper.Button' : ''}} = {
     type: whisper.WhisperComponentType.Button,
-    label: "Button 1",
+    label: 'Button 1',
     onClick: () => {
-      console.log("Button 1 clicked.");
+      console.log('Button 1 clicked.');
     },
   };
   const secondButton{{it.isTypeScript ? ': whisper.Button' : ''}} = {
     type: whisper.WhisperComponentType.Button,
-    label: "Button 2",
+    label: 'Button 2',
     onClick: () => {
-      console.log("Button 2 clicked.");
+      console.log('Button 2 clicked.');
     },
   };
   const box{{it.isTypeScript ? ': whisper.Box' : ''}} = {
@@ -82,64 +97,64 @@ function createIntroWhisperComponents(
   // Various example components.
   const exampleComponentsHeading{{it.isTypeScript ? ': whisper.Markdown' : ''}} = {
     type: whisper.WhisperComponentType.Markdown,
-    body: "# Example Components",
+    body: '# Example Components',
   };
   const textInput{{it.isTypeScript ? ': whisper.TextInput' : ''}} = {
     type: whisper.WhisperComponentType.TextInput,
-    label: "Text Input",
+    label: 'Text Input',
     onChange: (_error{{it.isTypeScript ? ': Error | undefined' : ''}}, val{{it.isTypeScript ? ': string' : ''}}) => {
-      console.log("Text changed.", val);
+      console.log('Text changed.', val);
     },
   };
   const email{{it.isTypeScript ? ': whisper.Email' : ''}} = {
     type: whisper.WhisperComponentType.Email,
-    label: "Email",
+    label: 'Email',
     onChange: (_error{{it.isTypeScript ? ': Error | undefined' : ''}}, val{{it.isTypeScript ? ': string' : ''}}) => {
-      console.log("Email changed: ", val);
+      console.log('Email changed: ', val);
     },
   };
   const password{{it.isTypeScript ? ': whisper.Password' : ''}} = {
     type: whisper.WhisperComponentType.Password,
-    label: "Password",
+    label: 'Password',
     onChange: (_error{{it.isTypeScript ? ': Error | undefined' : ''}}, val{{it.isTypeScript ? ': string' : ''}}) => {
-      console.log("Password changed: ", val);
+      console.log('Password changed: ', val);
     },
   };
   const telephone{{it.isTypeScript ? ': whisper.Telephone' : ''}} = {
     type: whisper.WhisperComponentType.Telephone,
-    label: "Telephone Number",
+    label: 'Telephone Number',
     onChange: (_error{{it.isTypeScript ? ': Error | undefined' : ''}}, val{{it.isTypeScript ? ': string' : ''}}) => {
-      console.log("Telephone number changed: ", val);
+      console.log('Telephone number changed: ', val);
     },
   };
   const button{{it.isTypeScript ? ': whisper.Button' : ''}} = {
     type: whisper.WhisperComponentType.Button,
-    label: "Button",
+    label: 'Button',
     onClick: () => {
-      console.log("Button clicked.");
+      console.log('Button clicked.');
     },
   };
   const link{{it.isTypeScript ? ': whisper.Link' : ''}} = {
     type: whisper.WhisperComponentType.Link,
-    text: "Example of a link",
+    text: 'Example of a link',
     onClick: () => {
-      console.log("Link clicked.");
+      console.log('Link clicked.');
     },
   };
   const checkbox{{it.isTypeScript ? ': whisper.Checkbox' : ''}} = {
     type: whisper.WhisperComponentType.Checkbox,
-    label: "Checkbox",
+    label: 'Checkbox',
     tooltip: "Here's a tooltip.",
     value: false,
     onChange: (_error{{it.isTypeScript ? ': Error | undefined' : ''}}, val{{it.isTypeScript ? ': boolean' : ''}}) => {
-      console.log("checkbox clicked: ", val);
+      console.log('checkbox clicked: ', val);
     },
   };
   const pair{{it.isTypeScript ? ': whisper.ListPair' : ''}} = {
     type: whisper.WhisperComponentType.ListPair,
     copyable: true,
-    label: "List pair example:",
-    value: "This value is copyable.",
+    label: 'List pair example:',
+    value: 'This value is copyable.',
     style: whisper.Urgency.None,
   };
   const numberInput{{it.isTypeScript ? ': whisper.NumberInput' : ''}} = {
@@ -148,74 +163,76 @@ function createIntroWhisperComponents(
     max: 10,
     min: 1,
     step: 2,
-    tooltip: "Number Input",
-    label: "Number Input",
+    tooltip: 'Number Input',
+    label: 'Number Input',
     onChange: (_error{{it.isTypeScript ? ': Error | undefined' : ''}}, val{{it.isTypeScript ? ': number' : ''}}) => {
-      console.log("got number change", val);
+      console.log('got number change', val);
     },
   };
   const select{{it.isTypeScript ? ': whisper.Select' : ''}} = {
     type: whisper.WhisperComponentType.Select,
-    label: "Select Box",
-    options: ["One", "Two", "Three"],
+    label: 'Select Box',
+    options: ['One', 'Two', 'Three'],
     selected: 0,
     onSelect: (_error{{it.isTypeScript ? ': Error | undefined' : ''}}, val{{it.isTypeScript ? ': number' : ''}}) => {
-      console.log("Selected: ", val);
+      console.log('Selected: ', val);
     },
   };
   const radioBtn{{it.isTypeScript ? ': whisper.RadioGroup' : ''}} = {
     type: whisper.WhisperComponentType.RadioGroup,
-    options: ["Option 1", "Option 2", "Option 3"],
+    options: ['Option 1', 'Option 2', 'Option 3'],
     onSelect: (_error{{it.isTypeScript ? ': Error | undefined' : ''}}, val{{it.isTypeScript ? ': number' : ''}}) => {
-      console.log("Radio button option selected: ", val);
+      console.log('Radio button option selected: ', val);
     },
   };
 
   // Showing how to use whisper.update
   const updatableComponentsHeading{{it.isTypeScript ? ': whisper.Markdown' : ''}} = {
     type: whisper.WhisperComponentType.Markdown,
-    body: "# Updatable Whisper Components",
+    body: '# Updatable Whisper Components',
   };
   const updatableMessage{{it.isTypeScript ? ': whisper.Message' : ''}} = {
     type: whisper.WhisperComponentType.Message,
-    header: "This is a component hooked up to Updatable Whisper logic",
-    body: newMessage || "Type in the field below to update this line of text",
+    header: 'This is a component hooked up to Updatable Whisper logic',
+    body: newMessage || 'Type in the field below to update this line of text',
     style: whisper.Urgency.Success,
   };
   const updatableMessageInput{{it.isTypeScript ? ': whisper.TextInput' : ''}} = {
     type: whisper.WhisperComponentType.TextInput,
-    label: "New Text Input",
-    onChange: (_error{{it.isTypeScript ? ': Error | undefined' : ''}} , val{{it.isTypeScript ? ': string' : ''}}) => {
-      updateIntroWhisper(val, numClones);
+    label: 'New Text Input',
+    onChange: (_error{{it.isTypeScript ? ': Error | undefined' : ''}}, val{{it.isTypeScript ? ': string' : ''}}) => {
+      console.log(`Updating message text: ${val}`);
+      updateFn(val, numClones, label);
     },
   };
   const updatableLabelInput{{it.isTypeScript ? ': whisper.TextInput' : ''}} = {
     type: whisper.WhisperComponentType.TextInput,
-    label: "Change Whisper Label",
-    onChange: (_error{{it.isTypeScript ? ': Error | undefined' : ''}} , val{{it.isTypeScript ? ': string' : ''}}) => {
-      updateIntroWhisper(newMessage, numClones, val);
+    label: 'Change Whisper Label',
+    onChange: (_error{{it.isTypeScript ? ': Error | undefined' : ''}}, val{{it.isTypeScript ? ': string' : ''}}) => {
+      console.log(`Updating whisper label: ${val}`);
+      updateFn(newMessage, numClones, val);
     },
   };
   const resetButton{{it.isTypeScript ? ': whisper.Button' : ''}} = {
     type: whisper.WhisperComponentType.Button,
-    label: "Reset Clones",
+    label: 'Reset Clones',
     size: whisper.ButtonSize.Large,
     buttonStyle: whisper.ButtonStyle.Secondary,
     onClick: () => {
-      numClones = 1;
-      console.log(`Resetting number of clones: ${numClones}`);
-      updateIntroWhisper(newMessage, numClones);
+      const newNumClones = 1;
+      console.log(`Resetting number of clones: ${newNumClones}`);
+      updateFn(newMessage, newNumClones, label);
     },
   };
   const clonedComponents{{it.isTypeScript ? ': whisper.ChildComponents[]' : ''}} = [];
-  for (let i = numClones; i > 0; i--) {
+  for (let i = numClones; i > 0; i -= 1) {
     const clone{{it.isTypeScript ? ': whisper.Button' : ''}} = {
       type: whisper.WhisperComponentType.Button,
-      label: "Clone Me",
+      label: 'Clone Me',
       onClick: () => {
-        numClones++;
-        console.log(`Adding another clone: ${numClones}`);
-        updateIntroWhisper(newMessage, numClones);
+        const newNumClones = numClones + 1;
+        console.log(`Adding another clone: ${newNumClones}`);
+        updateFn(newMessage, newNumClones, label);
       },
     };
     clonedComponents.push(clone);
@@ -249,30 +266,28 @@ function createIntroWhisperComponents(
     resetButton,
     ...clonedComponents,
   ];
-}
+};
 
-async function createIntroWhisper() {
-  WHISPER = await whisper.create({
-    components: createIntroWhisperComponents(),
-    label: "Loop Started",
-    onClose: () => console.log("{{it.projectName}} intro whisper was closed."),
-  });
-}
-
-function updateIntroWhisper(
-  newMessage{{it.isTypeScript ? '?: string' : ''}},
-  numClones{{it.isTypeScript ? ': number' : ''}} = 1,
-  label{{it.isTypeScript ? ': string' : ''}} = "Loop Started"
-) {
+const updateIntroWhisper{{it.isTypeScript ? ': UpdateFunction' : ''}} = (newMessage, numClones, label) => {
   WHISPER.update(
-    { label, components: createIntroWhisperComponents(newMessage, numClones) },
-    (err{{it.isTypeScript ? ': Error' : ''}}) =>
-      err && console.error("There was an error updating the whisper", err)
+    {
+      label: label || DEFAULT_LABEL,
+      components: createIntroWhisperComponents(updateIntroWhisper, newMessage, numClones, label),
+    },
+    (err{{it.isTypeScript ? ': Error' : ''}}) => err && console.error('There was an error updating the whisper', err)
   );
-}
+};
 
-(async function main(){{(it.isTypeScript ? ': Promise<void>' : '') | safe}} {
-  console.log("{{it.projectName}} loop started");
+const createIntroWhisper = async () => {
+  WHISPER = await whisper.create({
+    components: createIntroWhisperComponents(updateIntroWhisper),
+    label: DEFAULT_LABEL,
+    onClose: () => console.log('{{it.projectName}} intro whisper was closed.'),
+  });
+};
+
+(async () => {
+  console.log('{{it.projectName}} loop started');
 
   await createIntroWhisper();
 {{ @each(it.aptitudes) => aptitude }}
@@ -281,42 +296,45 @@ function updateIntroWhisper(
   // Example for clipboard aptitude.
   clipboard.listen(false, (text{{it.isTypeScript ? ': string' : ''}}) => {
     whisper.create({
-      label: "Clipboard Aptitude Fired",
+      label: 'Clipboard Aptitude Fired',
       components: [
         {
           type: whisper.WhisperComponentType.Message,
           body: text,
-        }
+        },
       ],
     });
   });
 {{ #elif (aptitude === 'filesystem') }}
   // Example for filesystem aptitude. This uses relative paths and, when you do this, the loop is
-  // actually accessing a new "work" directory of its own. This work directory is automatically
+  // actually accessing a new 'work' directory of its own. This work directory is automatically
   // created for the loop, is separate from every other loop, and is initially empty.
   const writeMode = 0o755;
-  const dirPath = "test-dir";
+  const dirPath = 'test-dir';
   if (!(await filesystem.exists(dirPath))) {
     await filesystem.makeDir(dirPath, writeMode);
   }
 
-  const filePath = await filesystem.join([dirPath, "test.txt"]);
-  const encodedValue = await network.encode("some text");
+  const filePath = await filesystem.join([dirPath, 'test.txt']);
+  const encodedValue = await network.encode('some text');
   await filesystem.writeFile({
     path: filePath,
     data: encodedValue,
     writeOperation: filesystem.WriteOperation.overwrite,
-    writeMode: writeMode,
+    writeMode,
   });
 
   const encodedFileContents = await filesystem.readFile(filePath);
   const fileContents = await network.decode(encodedFileContents);
   whisper.create({
-    label: "Example for Filesystem Aptitude",
+    label: 'Example for Filesystem Aptitude',
     components: [
       {
         type: whisper.WhisperComponentType.Markdown,
-        body: "# Example File Contents\n  " + fileContents,
+        body: stripIndent`
+        # Example File Contents
+        ${fileContents}
+        `,
       },
     ],
   });
@@ -326,27 +344,28 @@ function updateIntroWhisper(
   // Example for keyboard aptitude.
   keyboard.listenText((text{{it.isTypeScript ? ': string' : ''}}) => {
     whisper.create({
-      label:  "Keyboard Aptitude Fired",
+      label: 'Keyboard Aptitude Fired',
       components: [
         {
           type: whisper.WhisperComponentType.Message,
           body: text,
-        }
+        },
       ],
-    })
+    });
   });
 {{ #elif (aptitude === 'network') }}
   // Example for network aptitude.
   const currentDate = new Date();
   const threeMonthsAgo = add(currentDate, { months: -3 });
   const request{{it.isTypeScript ? ': network.HTTPRequest' : ''}} = {
-    method: "GET",
-    url:
-      "https://api.fda.gov/food/enforcement.json?search=report_date:[" +
-      format(threeMonthsAgo, "yyyyMMdd") +
-      "+TO+" +
-      format(currentDate, "yyyyMMdd") +
-      "]&limit=10",
+    method: 'GET',
+    url: oneLine`
+    https://api.fda.gov/food/enforcement.json?search=report_date:[
+    ${format(threeMonthsAgo, 'yyyyMMdd')}
+    +TO+
+    ${format(currentDate, 'yyyyMMdd')}
+    ]&limit=10
+    `,
   };
 
   const response = await network.httpRequest(request);
@@ -355,23 +374,25 @@ function updateIntroWhisper(
   const recalls = parsedObject.results;
 
   const components{{(it.isTypeScript ? ': Array<whisper.Component>' : '') | safe}} = [];
-  for (let recall of recalls) {
+
+  recalls.forEach((recall{{it.isTypeScript ? ': { [key: string]: string }' : ''}}) => {
     components.push({
       type: whisper.WhisperComponentType.Link,
-      text: `${recall["recalling_firm"]} (${recall["recall_initiation_date"]})`,
+      text: `${recall.recalling_firm} (${recall.recall_initiation_date})`,
       onClick: () => {
-        const markdown =
-          `# Recalling Firm\n  ` +
-          `${recall["recalling_firm"]}\n  ` +
-          `# Recall Number\n  ` +
-          `${recall["recall_number"]}\n  ` +
-          `# Product Description\n  ` +
-          `${recall["product_description"]}\n  ` +
-          `# Reason for Recall\n  ` +
-          `${recall["reason_for_recall"]}`;
+        const markdown = stripIndent`
+        # Recalling Firm
+        ${recall.recalling_firm}
+        # Recall Number
+        ${recall.recall_number}
+        # Product Description
+        ${recall.product_description}
+        # Reason for Recall
+        ${recall.reason_for_recall}
+        `;
 
         whisper.create({
-          label: `Recall for ${recall["recalling_firm"]}`,
+          label: `Recall for ${recall.recalling_firm}`,
           components: [
             {
               type: whisper.WhisperComponentType.Markdown,
@@ -381,22 +402,22 @@ function updateIntroWhisper(
         });
       },
     });
-  }
+  });
 
   whisper.create({
-    label: "Example for Network Aptitude (FDA Recalls)",
-    components: components,
+    label: 'Example for Network Aptitude (FDA Recalls)',
+    components,
   });
 {{ #elif (aptitude === 'ui') }}
   // Example for search aptitudes.
   const callback = (text{{it.isTypeScript ? ': string' : ''}}) => {
     whisper.create({
-      label: "Search Aptitude Fired",
+      label: 'Search Aptitude Fired',
       components: [
         {
           type: whisper.WhisperComponentType.Message,
           body: text,
-        }
+        },
       ],
     });
   };
@@ -407,19 +428,19 @@ function updateIntroWhisper(
   // Example for window aptitude.
   window.listenActiveWindow((aw) => {
     whisper.create({
-      label: "Active Window Changed",
+      label: 'Active Window Changed',
       components: [
         {
           type: whisper.WhisperComponentType.ListPair,
           copyable: true,
-          label: "Window Name",
+          label: 'Window Name',
           value: aw.path,
           style: whisper.Urgency.None,
         },
         {
           type: whisper.WhisperComponentType.ListPair,
           copyable: true,
-          label: "Process Id",
+          label: 'Process Id',
           value: aw.pid.toString(),
           style: whisper.Urgency.None,
         },
@@ -428,4 +449,4 @@ function updateIntroWhisper(
   });
 {{ /if }}
 {{/each}}
-})()
+})();
