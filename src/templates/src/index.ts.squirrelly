@@ -8,7 +8,7 @@ import {
 {{ @if (it.aptitudes.includes('keyboard')) }}
   keyboard,
 {{ /if }}
-{{ @if (it.aptitudes.includes('network') || it.aptitudes.includes('keyboard')) }}
+{{ @if (it.aptitudes.includes('network') || it.aptitudes.includes('filesystem')) }}
   network,
 {{ /if }}
 {{ @if (it.aptitudes.includes('ui')) }}
