@@ -1,23 +1,25 @@
 import { whisper } from '@oliveai/ldk';
 
+{{ @if (it.isTypeScript) }}
 interface Props {
   searchText: string;
 }
+{{ /if }}
 export default class UiWhisper {
-  whisper: whisper.Whisper;
+  whisper{{it.isTypeScript ? ': whisper.Whisper' : ''}};
 
   label = 'UI Search Aptitude Fired';
 
-  props: Props = {
+  props{{it.isTypeScript ? ': Props' : ''}} = {
     searchText: '',
   };
 
-  constructor(searchText: string) {
+  constructor(searchText{{it.isTypeScript ? ': string' : ''}}) {
     this.props.searchText = searchText;
   }
 
   createComponents() {
-    const message: whisper.Message = {
+    const message{{it.isTypeScript ? ': whisper.Message' : ''}} = {
       type: whisper.WhisperComponentType.Message,
       body: this.props.searchText,
     };
@@ -41,7 +43,7 @@ export default class UiWhisper {
     this.whisper.close(UiWhisper.onClose);
   }
 
-  static onClose(err?: Error) {
+  static onClose(err{{it.isTypeScript ? '?: Error' : ''}}) {
     if (err) {
       console.error('There was an error closing Ui whisper', err);
     }

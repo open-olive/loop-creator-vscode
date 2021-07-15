@@ -1,24 +1,26 @@
 import { whisper } from '@oliveai/ldk';
 import { stripIndent } from 'common-tags';
 
+{{ @if (it.isTypeScript) }}
 interface Props {
   fileContents: string;
 }
+{{ /if }}
 export default class FilesystemWhisper {
-  whisper: whisper.Whisper;
+  whisper{{it.isTypeScript ? ': whisper.Whisper' : ''}};
 
   label = 'Example Filesystem Aptitude Whisper';
 
-  props: Props = {
+  props{{it.isTypeScript ? ': Props' : ''}} = {
     fileContents: '',
   };
 
-  constructor(fileContents: string) {
+  constructor(fileContents{{it.isTypeScript ? ': string' : ''}}) {
     this.props.fileContents = fileContents;
   }
 
   createComponents() {
-    const markdown: whisper.Markdown = {
+    const markdown{{it.isTypeScript ? ': whisper.Markdown' : ''}} = {
       type: whisper.WhisperComponentType.Markdown,
       body: stripIndent`
       # Example File Contents
@@ -45,7 +47,7 @@ export default class FilesystemWhisper {
     this.whisper.close(FilesystemWhisper.onClose);
   }
 
-  static onClose(err?: Error) {
+  static onClose(err{{it.isTypeScript ? '?: Error' : ''}}) {
     if (err) {
       console.error('There was an error closing Filesystem whisper', err);
     }

@@ -121,77 +121,77 @@ describe('Intro Whisper', () => {
     const components = newWhisper.createComponents();
 
     // Check box's first button onClick
-    ((components[5] as whisper.Box).children[0] as whisper.Button).onClick(null, null);
+    ((components[5]{{it.isTypeScript ? ' as whisper.Box' : ''}}).children[0]{{it.isTypeScript ? ' as whisper.Button' : ''}}).onClick(null, null);
     expect(console.log).toBeCalledWith('Button 1 clicked.');
 
     // Check box's second button onClick
-    ((components[5] as whisper.Box).children[1] as whisper.Button).onClick(null, null);
+    ((components[5]{{it.isTypeScript ? ' as whisper.Box' : ''}}).children[1]{{it.isTypeScript ? ' as whisper.Button' : ''}}).onClick(null, null);
     expect(console.log).toBeCalledWith('Button 2 clicked.');
 
     // Check textInput's onChange
-    (components[8] as whisper.TextInput).onChange(null, 'test', null);
+    (components[8]{{it.isTypeScript ? ' as whisper.TextInput' : ''}}).onChange(null, 'test', null);
     expect(console.log).toBeCalledWith('Text changed: ', 'test');
 
     // Check email's onChange
-    (components[9] as whisper.Email).onChange(null, 'test', null);
+    (components[9]{{it.isTypeScript ? ' as whisper.Email' : ''}}).onChange(null, 'test', null);
     expect(console.log).toBeCalledWith('Email changed: ', 'test');
 
     // Check password's onChange
-    (components[10] as whisper.Password).onChange(null, 'test', null);
+    (components[10]{{it.isTypeScript ? ' as whisper.Password' : ''}}).onChange(null, 'test', null);
     expect(console.log).toBeCalledWith('Password changed: ', 'test');
 
     // Check telephone's onChange
-    (components[11] as whisper.Telephone).onChange(null, 'test', null);
+    (components[11]{{it.isTypeScript ? ' as whisper.Telephone' : ''}}).onChange(null, 'test', null);
     expect(console.log).toBeCalledWith('Telephone number changed: ', 'test');
 
     // Check button's onClick
-    (components[12] as whisper.Button).onClick(null, null);
+    (components[12]{{it.isTypeScript ? ' as whisper.Button' : ''}}).onClick(null, null);
     expect(console.log).toBeCalledWith('Button clicked.');
 
     // Check link's onClick
-    (components[13] as whisper.Link).onClick(null, null);
+    (components[13]{{it.isTypeScript ? ' as whisper.Link' : ''}}).onClick(null, null);
     expect(console.log).toBeCalledWith('Link clicked.');
 
     // Check checkbox's onChange
-    (components[14] as whisper.Checkbox).onChange(null, true, null);
+    (components[14]{{it.isTypeScript ? ' as whisper.Checkbox' : ''}}).onChange(null, true, null);
     expect(console.log).toBeCalledWith('Checkbox clicked: ', true);
 
     // Check numberInput's onChange
-    (components[16] as whisper.NumberInput).onChange(null, 0, null);
+    (components[16]{{it.isTypeScript ? ' as whisper.NumberInput' : ''}}).onChange(null, 0, null);
     expect(console.log).toBeCalledWith('Number changed: ', 0);
 
     // Check select's onSelect
-    (components[17] as whisper.Select).onSelect(null, 0, null);
+    (components[17]{{it.isTypeScript ? ' as whisper.Select' : ''}}).onSelect(null, 0, null);
     expect(console.log).toBeCalledWith('Selected: ', 0);
 
     // Check radioBtn's onSelect
-    (components[18] as whisper.RadioGroup).onSelect(null, 0, null);
+    (components[18]{{it.isTypeScript ? ' as whisper.RadioGroup' : ''}}).onSelect(null, 0, null);
     expect(console.log).toBeCalledWith('Radio button option selected: ', 0);
 
     // Check updatableMessageInput's onSelect
-    (components[22] as whisper.TextInput).onChange(null, 'test message', null);
+    (components[22]{{it.isTypeScript ? ' as whisper.TextInput' : ''}}).onChange(null, 'test message', null);
     expect(console.log).toBeCalledWith('Updating message text: ', 'test message');
     expect(whisperUpdateSpy).toBeCalled();
     expect(newWhisper.props.newMessage).toEqual('test message');
 
     // Check updatableLabelInput's onSelect
-    (components[23] as whisper.TextInput).onChange(null, 'test label', null);
+    (components[23]{{it.isTypeScript ? ' as whisper.TextInput' : ''}}).onChange(null, 'test label', null);
     expect(console.log).toBeCalledWith('Updating whisper label: ', 'test label');
     expect(whisperUpdateSpy).toBeCalled();
     expect(newWhisper.props.label).toEqual('test label');
 
     // Check clicking on a clone button twice
-    (components[25] as whisper.Button).onClick(null, null);
+    (components[25]{{it.isTypeScript ? ' as whisper.Button' : ''}}).onClick(null, null);
     expect(console.log).toBeCalledWith('Adding another clone: ', 2);
     expect(whisperUpdateSpy).toBeCalled();
     expect(newWhisper.props.numClones).toEqual(2);
-    (components[25] as whisper.Button).onClick(null, null);
+    (components[25]{{it.isTypeScript ? ' as whisper.Button' : ''}}).onClick(null, null);
     expect(console.log).toBeCalledWith('Adding another clone: ', 3);
     expect(whisperUpdateSpy).toBeCalled();
     expect(newWhisper.props.numClones).toEqual(3);
 
     // Check clicking on reset clones button
-    (components[24] as whisper.Button).onClick(null, null);
+    (components[24]{{it.isTypeScript ? ' as whisper.Button' : ''}}).onClick(null, null);
     expect(console.log).toBeCalledWith('Resetting number of clones: ', 1);
     expect(whisperUpdateSpy).toBeCalled();
     expect(newWhisper.props.numClones).toEqual(1);

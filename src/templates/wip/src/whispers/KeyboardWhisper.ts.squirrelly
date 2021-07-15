@@ -1,23 +1,25 @@
 import { whisper } from '@oliveai/ldk';
 
+{{ @if (it.isTypeScript) }}
 interface Props {
   keyboardText: string;
 }
+{{ /if }}
 export default class KeyboardWhisper {
-  whisper: whisper.Whisper;
+  whisper{{it.isTypeScript ? ': whisper.Whisper' : ''}};
 
   label = 'Keyboard Aptitude Fired';
 
-  props: Props = {
+  props{{it.isTypeScript ? ': Props' : ''}} = {
     keyboardText: '',
   };
 
-  constructor(keyboardText: string) {
+  constructor(keyboardText{{it.isTypeScript ? ': string' : ''}}) {
     this.props.keyboardText = keyboardText;
   }
 
   createComponents() {
-    const message: whisper.Message = {
+    const message{{it.isTypeScript ? ': whisper.Message' : ''}} = {
       type: whisper.WhisperComponentType.Message,
       body: this.props.keyboardText,
     };
@@ -41,7 +43,7 @@ export default class KeyboardWhisper {
     this.whisper.close(KeyboardWhisper.onClose);
   }
 
-  static onClose(err?: Error) {
+  static onClose(err{{it.isTypeScript ? '?: Error' : ''}}) {
     if (err) {
       console.error('There was an error closing Keyboard whisper', err);
     }
