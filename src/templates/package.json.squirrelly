@@ -5,8 +5,8 @@
   "main": "src/index.{{it.isTypeScript ? 'ts' : 'js'}}",
   "scripts": {
     "build": "webpack --entry ./src/index.{{it.isTypeScript ? 'ts' : 'js'}} --config ./node_modules/@oliveai/ldk/dist/webpack/config.js",
-    "test": "jest",
-    "test:coverage": "jest --collect-coverage",
+    "test": "jest --maxWorkers=1",
+    "test:coverage": "npm run test -- --collect-coverage",
     "lint": "eslint ./ --ignore-path .gitignore",
     "lint:fix": "npm run lint -- --fix"
   },
@@ -59,7 +59,8 @@
           "ignoreCodes": [
             151001
           ]
-        }
+        },
+        "isolatedModules": true
       }
     },
 {{ /if }}
