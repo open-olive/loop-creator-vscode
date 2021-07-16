@@ -1,23 +1,25 @@
 import { whisper } from '@oliveai/ldk';
 
+{{ @if (it.isTypeScript) }}
 interface Props {
   clipboardText: string;
 }
+{{ /if }}
 export default class ClipboardWhisper {
-  whisper: whisper.Whisper;
+  whisper{{it.isTypeScript ? ': whisper.Whisper' : ''}};
 
   label = 'Clipboard Aptitude Fired';
 
-  props: Props = {
+  props{{it.isTypeScript ? ': Props' : ''}} = {
     clipboardText: '',
   };
 
-  constructor(clipboardText: string) {
+  constructor(clipboardText{{it.isTypeScript ? ': string' : ''}}) {
     this.props.clipboardText = clipboardText;
   }
 
   createComponents() {
-    const message: whisper.Message = {
+    const message{{it.isTypeScript ? ': whisper.Message' : ''}} = {
       type: whisper.WhisperComponentType.Message,
       body: this.props.clipboardText,
     };
@@ -41,7 +43,7 @@ export default class ClipboardWhisper {
     this.whisper.close(ClipboardWhisper.onClose);
   }
 
-  static onClose(err?: Error) {
+  static onClose(err{{it.isTypeScript ? '?: Error' : ''}}) {
     if (err) {
       console.error('There was an error closing Clipboard whisper', err);
     }

@@ -5,7 +5,7 @@ jest.mock('@oliveai/ldk');
 
 const whisperCloseSpy = jest.fn();
 
-const TEST_PARAM = { path: 'test', pid: 0 } as window.WindowInfo;
+const TEST_PARAM = { path: 'test', pid: 0 }{{it.isTypeScript ? ' as window.WindowInfo' : ''}};
 
 describe('Window Whisper', () => {
   beforeEach(() => {

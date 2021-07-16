@@ -1,22 +1,24 @@
 import { whisper } from '@oliveai/ldk';
 import { stripIndent } from 'common-tags';
 
+{{ @if (it.isTypeScript) }}
 type Recall = {
   [key: string]: string;
 };
 interface Props {
   recalls: Recall[];
 }
+{{ /if }}
 export default class NetworkWhisper {
-  whisper: whisper.Whisper;
+  whisper{{it.isTypeScript ? ': whisper.Whisper' : ''}};
 
   label = 'Example for Network Aptitude (FDA Recalls)';
 
-  props: Props = {
+  props{{it.isTypeScript ? ': Props' : ''}} = {
     recalls: [],
   };
 
-  constructor(recalls: Recall[]) {
+  constructor(recalls{{it.isTypeScript ? ': Recall[]' : ''}}) {
     this.props.recalls = recalls;
   }
 
@@ -70,7 +72,7 @@ export default class NetworkWhisper {
     this.whisper.close(NetworkWhisper.onClose);
   }
 
-  static onClose(err?: Error) {
+  static onClose(err{{it.isTypeScript ? '?: Error' : ''}}) {
     if (err) {
       console.error('There was an error closing Network whisper', err);
     }
