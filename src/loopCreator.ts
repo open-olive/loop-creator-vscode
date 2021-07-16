@@ -5,17 +5,7 @@ import { Uri } from 'vscode';
 import * as Sqrl from 'squirrelly';
 import { openDialogForFolder } from './utils';
 import createLoopFormHtml from './createLoopForm.html';
-import eslintrcTemplate from './templates/.eslintrc.squirrelly';
-import gitignoreTemplate from './templates/.gitignore.squirrelly';
-import prettierrcTemplate from './templates/.prettierrc.squirrelly';
-import packageJsonTemplate from './templates/package.json.squirrelly';
-import readmeTemplate from './templates/README.md.squirrelly';
-import tsconfigTemplate from './templates/tsconfig.json.squirrelly';
-import indexTestTemplate from './templates/src/index.test.ts.squirrelly';
-import indexTemplate from './templates/src/index.ts.squirrelly';
-import jestGlobalSetupTemplate from './templates/src/jestGlobalSetup.js.squirrelly';
-import aptitudesTemplates from './templates/src/aptitudes';
-import whispersTemplates from './templates/src/whispers';
+import templates from './templates';
 
 interface IWebviewMessage<T> {
   command: string;
@@ -57,28 +47,28 @@ export class LoopCreator {
     // #region /
     await fs.ensureDir(basePath);
 
-    renderTemplate(eslintrcTemplate, path.join(basePath, '.eslintrc'));
-    renderTemplate(gitignoreTemplate, path.join(basePath, '.gitignore'));
-    renderTemplate(prettierrcTemplate, path.join(basePath, '.prettierrc'));
-    renderTemplate(packageJsonTemplate, path.join(basePath, 'package.json'));
-    renderTemplate(readmeTemplate, path.join(basePath, 'README.md'));
+    renderTemplate(templates.eslintrc, path.join(basePath, '.eslintrc'));
+    renderTemplate(templates.gitignore, path.join(basePath, '.gitignore'));
+    renderTemplate(templates.prettierrc, path.join(basePath, '.prettierrc'));
+    renderTemplate(templates.packageJson, path.join(basePath, 'package.json'));
+    renderTemplate(templates.readme, path.join(basePath, 'README.md'));
     if (isTypeScript) {
-      renderTemplate(tsconfigTemplate, path.join(basePath, 'tsconfig.json'));
+      renderTemplate(templates.tsconfig, path.join(basePath, 'tsconfig.json'));
     }
 
     // #region /src/
     await fs.ensureDir(path.join(basePath, 'src'));
 
     renderTemplate(
-      indexTestTemplate,
+      templates.src.indexTest,
       path.join(basePath, 'src', filenameWithExtension('index.test'))
     );
     renderTemplate(
-      indexTemplate,
+      templates.src.index,
       path.join(basePath, 'src', filenameWithExtension('index'))
     );
     renderTemplate(
-      jestGlobalSetupTemplate,
+      templates.src.jestGlobalSetup,
       path.join(basePath, 'src', 'jestGlobalSetup.js')
     );
 
@@ -87,7 +77,7 @@ export class LoopCreator {
       await fs.ensureDir(path.join(basePath, 'src', 'aptitudes'));
 
       renderTemplate(
-        aptitudesTemplates.index,
+        templates.src.aptitudes.index,
         path.join(basePath, 'src', 'aptitudes', filenameWithExtension('index'))
       );
 
@@ -96,7 +86,7 @@ export class LoopCreator {
           path.join(basePath, 'src', 'aptitudes', 'clipboard')
         );
         renderTemplate(
-          aptitudesTemplates.clipboardListener,
+          templates.src.aptitudes.clipboardListener,
           path.join(
             basePath,
             'src',
@@ -106,7 +96,7 @@ export class LoopCreator {
           )
         );
         renderTemplate(
-          aptitudesTemplates.clipboardListenerTest,
+          templates.src.aptitudes.clipboardListenerTest,
           path.join(
             basePath,
             'src',
@@ -122,7 +112,7 @@ export class LoopCreator {
           path.join(basePath, 'src', 'aptitudes', 'filesystem')
         );
         renderTemplate(
-          aptitudesTemplates.filesystemExample,
+          templates.src.aptitudes.filesystemExample,
           path.join(
             basePath,
             'src',
@@ -132,7 +122,7 @@ export class LoopCreator {
           )
         );
         renderTemplate(
-          aptitudesTemplates.filesystemExampleTest,
+          templates.src.aptitudes.filesystemExampleTest,
           path.join(
             basePath,
             'src',
@@ -146,7 +136,7 @@ export class LoopCreator {
       if (aptitudes.includes('keyboard')) {
         await fs.ensureDir(path.join(basePath, 'src', 'aptitudes', 'keyboard'));
         renderTemplate(
-          aptitudesTemplates.keyboardListener,
+          templates.src.aptitudes.keyboardListener,
           path.join(
             basePath,
             'src',
@@ -156,7 +146,7 @@ export class LoopCreator {
           )
         );
         renderTemplate(
-          aptitudesTemplates.keyboardListenerTest,
+          templates.src.aptitudes.keyboardListenerTest,
           path.join(
             basePath,
             'src',
@@ -170,7 +160,7 @@ export class LoopCreator {
       if (aptitudes.includes('network')) {
         await fs.ensureDir(path.join(basePath, 'src', 'aptitudes', 'network'));
         renderTemplate(
-          aptitudesTemplates.networkExample,
+          templates.src.aptitudes.networkExample,
           path.join(
             basePath,
             'src',
@@ -180,7 +170,7 @@ export class LoopCreator {
           )
         );
         renderTemplate(
-          aptitudesTemplates.networkExampleTest,
+          templates.src.aptitudes.networkExampleTest,
           path.join(
             basePath,
             'src',
@@ -194,7 +184,7 @@ export class LoopCreator {
       if (aptitudes.includes('ui')) {
         await fs.ensureDir(path.join(basePath, 'src', 'aptitudes', 'ui'));
         renderTemplate(
-          aptitudesTemplates.searchListener,
+          templates.src.aptitudes.searchListener,
           path.join(
             basePath,
             'src',
@@ -204,7 +194,7 @@ export class LoopCreator {
           )
         );
         renderTemplate(
-          aptitudesTemplates.searchListenerTest,
+          templates.src.aptitudes.searchListenerTest,
           path.join(
             basePath,
             'src',
@@ -218,7 +208,7 @@ export class LoopCreator {
       if (aptitudes.includes('window')) {
         await fs.ensureDir(path.join(basePath, 'src', 'aptitudes', 'window'));
         renderTemplate(
-          aptitudesTemplates.activeWindowListener,
+          templates.src.aptitudes.activeWindowListener,
           path.join(
             basePath,
             'src',
@@ -228,7 +218,7 @@ export class LoopCreator {
           )
         );
         renderTemplate(
-          aptitudesTemplates.activeWindowListenerTest,
+          templates.src.aptitudes.activeWindowListenerTest,
           path.join(
             basePath,
             'src',
@@ -245,11 +235,11 @@ export class LoopCreator {
     await fs.ensureDir(path.join(basePath, 'src', 'whispers'));
 
     renderTemplate(
-      whispersTemplates.index,
+      templates.src.whispers.index,
       path.join(basePath, 'src', 'whispers', filenameWithExtension('index'))
     );
     renderTemplate(
-      whispersTemplates.introWhisper,
+      templates.src.whispers.introWhisper,
       path.join(
         basePath,
         'src',
@@ -258,7 +248,7 @@ export class LoopCreator {
       )
     );
     renderTemplate(
-      whispersTemplates.introWhisperTest,
+      templates.src.whispers.introWhisperTest,
       path.join(
         basePath,
         'src',
@@ -269,7 +259,7 @@ export class LoopCreator {
 
     if (aptitudes.includes('clipboard')) {
       renderTemplate(
-        whispersTemplates.clipboardWhisper,
+        templates.src.whispers.clipboardWhisper,
         path.join(
           basePath,
           'src',
@@ -278,7 +268,7 @@ export class LoopCreator {
         )
       );
       renderTemplate(
-        whispersTemplates.clipboardWhisperTest,
+        templates.src.whispers.clipboardWhisperTest,
         path.join(
           basePath,
           'src',
@@ -290,7 +280,7 @@ export class LoopCreator {
 
     if (aptitudes.includes('filesystem')) {
       renderTemplate(
-        whispersTemplates.filesystemWhisper,
+        templates.src.whispers.filesystemWhisper,
         path.join(
           basePath,
           'src',
@@ -299,7 +289,7 @@ export class LoopCreator {
         )
       );
       renderTemplate(
-        whispersTemplates.filesystemWhisperTest,
+        templates.src.whispers.filesystemWhisperTest,
         path.join(
           basePath,
           'src',
@@ -311,7 +301,7 @@ export class LoopCreator {
 
     if (aptitudes.includes('keyboard')) {
       renderTemplate(
-        whispersTemplates.keyboardWhisper,
+        templates.src.whispers.keyboardWhisper,
         path.join(
           basePath,
           'src',
@@ -320,7 +310,7 @@ export class LoopCreator {
         )
       );
       renderTemplate(
-        whispersTemplates.keyboardWhisperTest,
+        templates.src.whispers.keyboardWhisperTest,
         path.join(
           basePath,
           'src',
@@ -332,7 +322,7 @@ export class LoopCreator {
 
     if (aptitudes.includes('network')) {
       renderTemplate(
-        whispersTemplates.networkWhisper,
+        templates.src.whispers.networkWhisper,
         path.join(
           basePath,
           'src',
@@ -341,7 +331,7 @@ export class LoopCreator {
         )
       );
       renderTemplate(
-        whispersTemplates.networkWhisperTest,
+        templates.src.whispers.networkWhisperTest,
         path.join(
           basePath,
           'src',
@@ -353,7 +343,7 @@ export class LoopCreator {
 
     if (aptitudes.includes('ui')) {
       renderTemplate(
-        whispersTemplates.uiWhisper,
+        templates.src.whispers.uiWhisper,
         path.join(
           basePath,
           'src',
@@ -362,7 +352,7 @@ export class LoopCreator {
         )
       );
       renderTemplate(
-        whispersTemplates.uiWhisperTest,
+        templates.src.whispers.uiWhisperTest,
         path.join(
           basePath,
           'src',
@@ -374,7 +364,7 @@ export class LoopCreator {
 
     if (aptitudes.includes('window')) {
       renderTemplate(
-        whispersTemplates.windowWhisper,
+        templates.src.whispers.windowWhisper,
         path.join(
           basePath,
           'src',
@@ -383,7 +373,7 @@ export class LoopCreator {
         )
       );
       renderTemplate(
-        whispersTemplates.windowWhisperTest,
+        templates.src.whispers.windowWhisperTest,
         path.join(
           basePath,
           'src',
