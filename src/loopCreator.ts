@@ -32,6 +32,15 @@ export class LoopCreator {
     projectName: string,
     aptitudes: string[]
   ) {
+    const isAptitudeIncluded = {
+      clipboard: aptitudes.includes('clipboard'),
+      filesystem: aptitudes.includes('filesystem'),
+      keyboard: aptitudes.includes('keyboard'),
+      network: aptitudes.includes('network'),
+      ui: aptitudes.includes('ui'),
+      window: aptitudes.includes('window'),
+    };
+
     const filenameWithExtension = (filename: string) =>
       `${filename}${isTypeScript ? '.ts' : '.js'}`;
 
@@ -81,7 +90,7 @@ export class LoopCreator {
         path.join(basePath, 'src', 'aptitudes', filenameWithExtension('index'))
       );
 
-      if (aptitudes.includes('clipboard')) {
+      if (isAptitudeIncluded.clipboard) {
         await fs.ensureDir(
           path.join(basePath, 'src', 'aptitudes', 'clipboard')
         );
@@ -107,7 +116,7 @@ export class LoopCreator {
         );
       }
 
-      if (aptitudes.includes('filesystem')) {
+      if (isAptitudeIncluded.filesystem) {
         await fs.ensureDir(
           path.join(basePath, 'src', 'aptitudes', 'filesystem')
         );
@@ -133,7 +142,7 @@ export class LoopCreator {
         );
       }
 
-      if (aptitudes.includes('keyboard')) {
+      if (isAptitudeIncluded.keyboard) {
         await fs.ensureDir(path.join(basePath, 'src', 'aptitudes', 'keyboard'));
         renderTemplate(
           templates.src.aptitudes.keyboardListener,
@@ -157,7 +166,7 @@ export class LoopCreator {
         );
       }
 
-      if (aptitudes.includes('network')) {
+      if (isAptitudeIncluded.network) {
         await fs.ensureDir(path.join(basePath, 'src', 'aptitudes', 'network'));
         renderTemplate(
           templates.src.aptitudes.networkExample,
@@ -181,7 +190,7 @@ export class LoopCreator {
         );
       }
 
-      if (aptitudes.includes('ui')) {
+      if (isAptitudeIncluded.ui) {
         await fs.ensureDir(path.join(basePath, 'src', 'aptitudes', 'ui'));
         renderTemplate(
           templates.src.aptitudes.searchListener,
@@ -205,7 +214,7 @@ export class LoopCreator {
         );
       }
 
-      if (aptitudes.includes('window')) {
+      if (isAptitudeIncluded.window) {
         await fs.ensureDir(path.join(basePath, 'src', 'aptitudes', 'window'));
         renderTemplate(
           templates.src.aptitudes.activeWindowListener,
@@ -257,7 +266,7 @@ export class LoopCreator {
       )
     );
 
-    if (aptitudes.includes('clipboard')) {
+    if (isAptitudeIncluded.clipboard) {
       renderTemplate(
         templates.src.whispers.clipboardWhisper,
         path.join(
@@ -278,7 +287,7 @@ export class LoopCreator {
       );
     }
 
-    if (aptitudes.includes('filesystem')) {
+    if (isAptitudeIncluded.filesystem) {
       renderTemplate(
         templates.src.whispers.filesystemWhisper,
         path.join(
@@ -299,7 +308,7 @@ export class LoopCreator {
       );
     }
 
-    if (aptitudes.includes('keyboard')) {
+    if (isAptitudeIncluded.keyboard) {
       renderTemplate(
         templates.src.whispers.keyboardWhisper,
         path.join(
@@ -320,7 +329,7 @@ export class LoopCreator {
       );
     }
 
-    if (aptitudes.includes('network')) {
+    if (isAptitudeIncluded.network) {
       renderTemplate(
         templates.src.whispers.networkWhisper,
         path.join(
@@ -341,7 +350,7 @@ export class LoopCreator {
       );
     }
 
-    if (aptitudes.includes('ui')) {
+    if (isAptitudeIncluded.ui) {
       renderTemplate(
         templates.src.whispers.uiWhisper,
         path.join(
@@ -362,7 +371,7 @@ export class LoopCreator {
       );
     }
 
-    if (aptitudes.includes('window')) {
+    if (isAptitudeIncluded.window) {
       renderTemplate(
         templates.src.whispers.windowWhisper,
         path.join(
