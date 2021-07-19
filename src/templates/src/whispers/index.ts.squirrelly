@@ -1,44 +1,45 @@
-import { IntroWhisper } from './whispers';
-{{ @if (it.aptitudes.length > 0) }}
-import {
+import IntroWhisper from './IntroWhisper';
 {{ @if (it.aptitudes.includes('clipboard')) }}
-  clipboardListener,
+import ClipboardWhisper from './ClipboardWhisper';
 {{ /if }}
 {{ @if (it.aptitudes.includes('filesystem')) }}
-  filesystemExample,
+import FilesystemWhisper from './FilesystemWhisper';
 {{ /if }}
 {{ @if (it.aptitudes.includes('keyboard')) }}
-  keyboardListener,
+import KeyboardWhisper from './KeyboardWhisper';
 {{ /if }}
 {{ @if (it.aptitudes.includes('network')) }}
-  networkExample,
+import NetworkWhisper from './NetworkWhisper';
 {{ /if }}
 {{ @if (it.aptitudes.includes('ui')) }}
-  searchListener,
+import UiWhisper from './UiWhisper';
 {{ /if }}
 {{ @if (it.aptitudes.includes('window')) }}
-  activeWindowListener,
+import WindowWhisper from './WindowWhisper';
 {{ /if }}
-} from './aptitudes';
 
+{{ @if (it.aptitudes.length) }}
+export {
+  IntroWhisper,
 {{ @if (it.aptitudes.includes('clipboard')) }}
-clipboardListener.listen();
+  ClipboardWhisper,
 {{ /if }}
 {{ @if (it.aptitudes.includes('filesystem')) }}
-filesystemExample.run();
+  FilesystemWhisper,
 {{ /if }}
 {{ @if (it.aptitudes.includes('keyboard')) }}
-keyboardListener.listen();
+  KeyboardWhisper,
 {{ /if }}
 {{ @if (it.aptitudes.includes('network')) }}
-networkExample.run();
+  NetworkWhisper,
 {{ /if }}
 {{ @if (it.aptitudes.includes('ui')) }}
-searchListener.listen();
+  UiWhisper,
 {{ /if }}
 {{ @if (it.aptitudes.includes('window')) }}
-activeWindowListener.listen();
+  WindowWhisper,
 {{ /if }}
+};
+{{ #else }}
+export { IntroWhisper };
 {{ /if }}
-
-new IntroWhisper().show();

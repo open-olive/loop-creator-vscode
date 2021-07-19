@@ -21,8 +21,10 @@
     "typescript": "^4.2.4",
     "eslint-config-airbnb-typescript-prettier": "^4.2.0",
 {{ #else }}
+    "babel-jest": "^27.0.6",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-jest": "^24.3.6",
     "eslint-plugin-prettier": "^3.4.0",
 {{ /if }}
@@ -50,6 +52,20 @@
     "webpack-cli": "^4.5.0",
     "webpack-merge": "^5.7.3"
   },
+{{ @if (!it.isTypeScript) }}
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "node": true
+          }
+        }
+      ]
+    ]
+  },
+{{ /if }}
   "jest": {
 {{ @if (it.isTypeScript) }}
     "preset": "ts-jest",
