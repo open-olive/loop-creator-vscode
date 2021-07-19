@@ -26,7 +26,19 @@ Select the example Aptitudes you want to include in your loop.
 
 Click create loop, this will open a new VS Code window with your project.
 
-You will need to run [npm install] to install packages and [npm run build] to build the loop.
+You will need to run `npm install` to install packages and `npm run build` to build the loop.
+
+You can also use the provided configs to lint and test your code:
+
+```shell
+# ESLint and Prettier
+npm run lint          # Check for issues
+npm run lint:fix      # Fix all auto-fixable issues
+
+# Jest
+npm run test          # Run unit tests
+npm run test:coverage # Run unit tests with coverage report
+```
 
 Now you can install your loop locally in Olive Helps. To do this open the Loop Library in Olive Helps
 and click "Install Local Loop".

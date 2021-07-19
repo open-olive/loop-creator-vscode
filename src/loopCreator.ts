@@ -5,15 +5,7 @@ import { Uri } from 'vscode';
 import * as Sqrl from 'squirrelly';
 import { openDialogForFolder } from './utils';
 import createLoopFormHtml from './createLoopForm.html';
-import eslintrcTemplate from './templates/.eslintrc.squirrelly';
-import gitignoreTemplate from './templates/.gitignore.squirrelly';
-import prettierrcTemplate from './templates/.prettierrc.squirrelly';
-import packageJsonTemplate from './templates/package.json.squirrelly';
-import readmeTemplate from './templates/README.md.squirrelly';
-import tsconfigTemplate from './templates/tsconfig.json.squirrelly';
-import indexTemplate from './templates/src/index.ts.squirrelly';
-import indexTestTemplate from './templates/src/index.test.ts.squirrelly';
-import jestGlobalSetupTemplate from './templates/src/jestGlobalSetup.js.squirrelly';
+import templates from './templates';
 
 interface IWebviewMessage<T> {
   command: string;
@@ -40,81 +32,368 @@ export class LoopCreator {
     projectName: string,
     aptitudes: string[]
   ) {
-    let fileContents: string;
+    const isAptitudeIncluded = {
+      clipboard: aptitudes.includes('clipboard'),
+      filesystem: aptitudes.includes('filesystem'),
+      keyboard: aptitudes.includes('keyboard'),
+      network: aptitudes.includes('network'),
+      ui: aptitudes.includes('ui'),
+      window: aptitudes.includes('window'),
+    };
 
-    fileContents = Sqrl.render(indexTestTemplate, {
-      isTypeScript,
-      projectName,
-      aptitudes,
-    });
-    await fs.writeFile(
-      path.join(basePath, 'src', `index.test.${isTypeScript ? 'ts' : 'js'}`),
-      fileContents
-    );
+    const filenameWithExtension = (filename: string) =>
+      `${filename}${isTypeScript ? '.ts' : '.js'}`;
 
-    fileContents = Sqrl.render(indexTemplate, {
-      isTypeScript,
-      projectName,
-      aptitudes,
-    });
-    await fs.writeFile(
-      path.join(basePath, 'src', `index.${isTypeScript ? 'ts' : 'js'}`),
-      fileContents
-    );
-
-    fileContents = Sqrl.render(jestGlobalSetupTemplate, {
-      isTypeScript,
-      projectName,
-      aptitudes,
-    });
-    await fs.writeFile(
-      path.join(basePath, 'src', 'jestGlobalSetup.js'),
-      fileContents
-    );
-
-    fileContents = Sqrl.render(eslintrcTemplate, {
-      isTypeScript,
-      projectName,
-      aptitudes,
-    });
-    await fs.writeFile(path.join(basePath, '.eslintrc'), fileContents);
-
-    fileContents = Sqrl.render(gitignoreTemplate, {
-      isTypeScript,
-      projectName,
-      aptitudes,
-    });
-    await fs.writeFile(path.join(basePath, '.gitignore'), fileContents);
-
-    fileContents = Sqrl.render(prettierrcTemplate, {
-      isTypeScript,
-      projectName,
-      aptitudes,
-    });
-    await fs.writeFile(path.join(basePath, '.prettierrc'), fileContents);
-
-    fileContents = Sqrl.render(packageJsonTemplate, {
-      isTypeScript,
-      projectName,
-      aptitudes,
-    });
-    await fs.writeFile(path.join(basePath, 'package.json'), fileContents);
-
-    fileContents = Sqrl.render(readmeTemplate, {
-      isTypeScript,
-      projectName,
-      aptitudes,
-    });
-    await fs.writeFile(path.join(basePath, 'README.md'), fileContents);
-
-    if (isTypeScript) {
-      fileContents = Sqrl.render(tsconfigTemplate, {
+    const renderTemplate = (template: any, filePath: string) => {
+      const fileContents = Sqrl.render(template, {
         isTypeScript,
         projectName,
         aptitudes,
       });
-      await fs.writeFile(path.join(basePath, 'tsconfig.json'), fileContents);
+      fs.writeFile(filePath, fileContents);
+    };
+
+    // #region /
+    await fs.ensureDir(basePath);
+
+    renderTemplate(templates.eslintrc, path.join(basePath, '.eslintrc'));
+    renderTemplate(templates.gitignore, path.join(basePath, '.gitignore'));
+    renderTemplate(templates.prettierrc, path.join(basePath, '.prettierrc'));
+    renderTemplate(templates.packageJson, path.join(basePath, 'package.json'));
+    renderTemplate(templates.readme, path.join(basePath, 'README.md'));
+    if (isTypeScript) {
+      renderTemplate(templates.tsconfig, path.join(basePath, 'tsconfig.json'));
     }
+
+    // #region /src/
+    await fs.ensureDir(path.join(basePath, 'src'));
+
+    renderTemplate(
+      templates.src.indexTest,
+      path.join(basePath, 'src', filenameWithExtension('index.test'))
+    );
+    renderTemplate(
+      templates.src.index,
+      path.join(basePath, 'src', filenameWithExtension('index'))
+    );
+    renderTemplate(
+      templates.src.jestGlobalSetup,
+      path.join(basePath, 'src', 'jestGlobalSetup.js')
+    );
+
+    // #region /src/aptitudes/
+    if (aptitudes.length) {
+      await fs.ensureDir(path.join(basePath, 'src', 'aptitudes'));
+
+      renderTemplate(
+        templates.src.aptitudes.index,
+        path.join(basePath, 'src', 'aptitudes', filenameWithExtension('index'))
+      );
+
+      if (isAptitudeIncluded.clipboard) {
+        await fs.ensureDir(
+          path.join(basePath, 'src', 'aptitudes', 'clipboard')
+        );
+        renderTemplate(
+          templates.src.aptitudes.clipboardListener,
+          path.join(
+            basePath,
+            'src',
+            'aptitudes',
+            'clipboard',
+            filenameWithExtension('clipboardListener')
+          )
+        );
+        renderTemplate(
+          templates.src.aptitudes.clipboardListenerTest,
+          path.join(
+            basePath,
+            'src',
+            'aptitudes',
+            'clipboard',
+            filenameWithExtension('clipboardListener.test')
+          )
+        );
+      }
+
+      if (isAptitudeIncluded.filesystem) {
+        await fs.ensureDir(
+          path.join(basePath, 'src', 'aptitudes', 'filesystem')
+        );
+        renderTemplate(
+          templates.src.aptitudes.filesystemExample,
+          path.join(
+            basePath,
+            'src',
+            'aptitudes',
+            'filesystem',
+            filenameWithExtension('filesystemExample')
+          )
+        );
+        renderTemplate(
+          templates.src.aptitudes.filesystemExampleTest,
+          path.join(
+            basePath,
+            'src',
+            'aptitudes',
+            'filesystem',
+            filenameWithExtension('filesystemExample.test')
+          )
+        );
+      }
+
+      if (isAptitudeIncluded.keyboard) {
+        await fs.ensureDir(path.join(basePath, 'src', 'aptitudes', 'keyboard'));
+        renderTemplate(
+          templates.src.aptitudes.keyboardListener,
+          path.join(
+            basePath,
+            'src',
+            'aptitudes',
+            'keyboard',
+            filenameWithExtension('keyboardListener')
+          )
+        );
+        renderTemplate(
+          templates.src.aptitudes.keyboardListenerTest,
+          path.join(
+            basePath,
+            'src',
+            'aptitudes',
+            'keyboard',
+            filenameWithExtension('keyboardListener.test')
+          )
+        );
+      }
+
+      if (isAptitudeIncluded.network) {
+        await fs.ensureDir(path.join(basePath, 'src', 'aptitudes', 'network'));
+        renderTemplate(
+          templates.src.aptitudes.networkExample,
+          path.join(
+            basePath,
+            'src',
+            'aptitudes',
+            'network',
+            filenameWithExtension('networkExample')
+          )
+        );
+        renderTemplate(
+          templates.src.aptitudes.networkExampleTest,
+          path.join(
+            basePath,
+            'src',
+            'aptitudes',
+            'network',
+            filenameWithExtension('networkExample.test')
+          )
+        );
+      }
+
+      if (isAptitudeIncluded.ui) {
+        await fs.ensureDir(path.join(basePath, 'src', 'aptitudes', 'ui'));
+        renderTemplate(
+          templates.src.aptitudes.searchListener,
+          path.join(
+            basePath,
+            'src',
+            'aptitudes',
+            'ui',
+            filenameWithExtension('searchListener')
+          )
+        );
+        renderTemplate(
+          templates.src.aptitudes.searchListenerTest,
+          path.join(
+            basePath,
+            'src',
+            'aptitudes',
+            'ui',
+            filenameWithExtension('searchListener.test')
+          )
+        );
+      }
+
+      if (isAptitudeIncluded.window) {
+        await fs.ensureDir(path.join(basePath, 'src', 'aptitudes', 'window'));
+        renderTemplate(
+          templates.src.aptitudes.activeWindowListener,
+          path.join(
+            basePath,
+            'src',
+            'aptitudes',
+            'window',
+            filenameWithExtension('activeWindowListener')
+          )
+        );
+        renderTemplate(
+          templates.src.aptitudes.activeWindowListenerTest,
+          path.join(
+            basePath,
+            'src',
+            'aptitudes',
+            'window',
+            filenameWithExtension('activeWindowListener.test')
+          )
+        );
+      }
+    }
+    // #endregion /src/aptitudes/
+
+    // #region /src/whispers/
+    await fs.ensureDir(path.join(basePath, 'src', 'whispers'));
+
+    renderTemplate(
+      templates.src.whispers.index,
+      path.join(basePath, 'src', 'whispers', filenameWithExtension('index'))
+    );
+    renderTemplate(
+      templates.src.whispers.introWhisper,
+      path.join(
+        basePath,
+        'src',
+        'whispers',
+        filenameWithExtension('IntroWhisper')
+      )
+    );
+    renderTemplate(
+      templates.src.whispers.introWhisperTest,
+      path.join(
+        basePath,
+        'src',
+        'whispers',
+        filenameWithExtension('IntroWhisper.test')
+      )
+    );
+
+    if (isAptitudeIncluded.clipboard) {
+      renderTemplate(
+        templates.src.whispers.clipboardWhisper,
+        path.join(
+          basePath,
+          'src',
+          'whispers',
+          filenameWithExtension('ClipboardWhisper')
+        )
+      );
+      renderTemplate(
+        templates.src.whispers.clipboardWhisperTest,
+        path.join(
+          basePath,
+          'src',
+          'whispers',
+          filenameWithExtension('ClipboardWhisper.test')
+        )
+      );
+    }
+
+    if (isAptitudeIncluded.filesystem) {
+      renderTemplate(
+        templates.src.whispers.filesystemWhisper,
+        path.join(
+          basePath,
+          'src',
+          'whispers',
+          filenameWithExtension('FilesystemWhisper')
+        )
+      );
+      renderTemplate(
+        templates.src.whispers.filesystemWhisperTest,
+        path.join(
+          basePath,
+          'src',
+          'whispers',
+          filenameWithExtension('FilesystemWhisper.test')
+        )
+      );
+    }
+
+    if (isAptitudeIncluded.keyboard) {
+      renderTemplate(
+        templates.src.whispers.keyboardWhisper,
+        path.join(
+          basePath,
+          'src',
+          'whispers',
+          filenameWithExtension('KeyboardWhisper')
+        )
+      );
+      renderTemplate(
+        templates.src.whispers.keyboardWhisperTest,
+        path.join(
+          basePath,
+          'src',
+          'whispers',
+          filenameWithExtension('KeyboardWhisper.test')
+        )
+      );
+    }
+
+    if (isAptitudeIncluded.network) {
+      renderTemplate(
+        templates.src.whispers.networkWhisper,
+        path.join(
+          basePath,
+          'src',
+          'whispers',
+          filenameWithExtension('NetworkWhisper')
+        )
+      );
+      renderTemplate(
+        templates.src.whispers.networkWhisperTest,
+        path.join(
+          basePath,
+          'src',
+          'whispers',
+          filenameWithExtension('NetworkWhisper.test')
+        )
+      );
+    }
+
+    if (isAptitudeIncluded.ui) {
+      renderTemplate(
+        templates.src.whispers.uiWhisper,
+        path.join(
+          basePath,
+          'src',
+          'whispers',
+          filenameWithExtension('UiWhisper')
+        )
+      );
+      renderTemplate(
+        templates.src.whispers.uiWhisperTest,
+        path.join(
+          basePath,
+          'src',
+          'whispers',
+          filenameWithExtension('UiWhisper.test')
+        )
+      );
+    }
+
+    if (isAptitudeIncluded.window) {
+      renderTemplate(
+        templates.src.whispers.windowWhisper,
+        path.join(
+          basePath,
+          'src',
+          'whispers',
+          filenameWithExtension('WindowWhisper')
+        )
+      );
+      renderTemplate(
+        templates.src.whispers.windowWhisperTest,
+        path.join(
+          basePath,
+          'src',
+          'whispers',
+          filenameWithExtension('WindowWhisper.test')
+        )
+      );
+    }
+    // #endregion /src/whispers/
+    // #endregion /src/
+    // #endregion /
   }
 
   async createLoop({
@@ -123,9 +402,6 @@ export class LoopCreator {
     projectName,
     aptitudes,
   }: LoopFormData) {
-    await fs.ensureDir(basePath);
-    await fs.ensureDir(path.join(basePath, 'src'));
-
     await this.createFiles(
       language === 'TypeScript',
       basePath,
