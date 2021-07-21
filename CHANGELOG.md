@@ -11,6 +11,14 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 - ...
 
+## [0.1.11]
+
+### Changed
+
+- Added updatable whisper logic to generated loop
+- Added ESLint, Prettier, and Jest
+- Refactored code structure to make it more compatible with Jest and updatable whispers
+
 ## [0.1.10]
 
 ### Changed
