@@ -1,0 +1,75 @@
+<script>
+  window.addEventListener("message", (event) => {
+    const message = event.data;
+
+    if (message.command === "loading") {
+      if (message.value === "start") {
+        document.getElementById("vscode-loading").style.display = "flex";
+        document.getElementById("vscode-message-loading").style.display =
+          "inline";
+        document.getElementById("vscode-message-error").style.display = "none";
+      }
+      if (message.value === "success") {
+        document.getElementById("vscode-loading").style.display = "none";
+      }
+      if (message.value === "error") {
+        document.getElementById("vscode-message-loading").style.display =
+          "none";
+        document.getElementById("vscode-message-error").style.display =
+          "inline";
+
+        setInterval(() => {
+          document.getElementById("vscode-loading").style.display = "none";
+        }, 3000);
+      }
+    }
+  });
+</script>
+
+<style>
+  #vscode-loading {
+    align-items: center;
+    background: rgba(255, 255, 255, 0.9);
+    color: #212121;
+    display: none;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    width: 400px;
+    z-index: 1000000;
+  }
+
+  #vscode-loading-img {
+    border: 2vw solid #fff;
+    border-top: 2vw solid #651fff;
+    border-radius: 50%;
+    width: 15vw;
+    height: 15vw;
+    animation: spin 1000ms linear infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  .vscode-text {
+    margin-top: 12px;
+  }
+
+  #vscode-message-error {
+    display: none;
+  }
+</style>
+
+<div id="vscode-loading">
+  <div id="vscode-loading-img"></div>
+  <div id="vscode-message-loading" class="vscode-text">Compiling loop...</div>
+  <div id="vscode-message-error" class="vscode-text">Failed!</div>
+</div>
