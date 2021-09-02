@@ -219,7 +219,7 @@ describe('Intro Whisper', () => {
     newWhisper.update({});
 
     expect(mockWhisperUpdate).toBeCalledWith({
-      label: 'jest - Intro Whisper',
+      label: 'Intro Whisper',
       components: expect.arrayContaining([
         expect.objectContaining({
           type: whisper.WhisperComponentType.Message,
@@ -270,7 +270,7 @@ describe('Intro Whisper', () => {
 
     expect(whisper.create).toBeCalledWith(
       expect.objectContaining({
-        label: 'jest - Intro Whisper',
+        label: 'Intro Whisper',
         onClose: IntroWhisper.onClose,
       })
     );
