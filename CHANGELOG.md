@@ -11,6 +11,14 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 - ...
 
+## [0.1.12]
+
+### Changed
+
+- Updated to latest LDK (3.2.0).
+- Removed "jest - ..." prefix from intro whisper.
+- Bumped to latest Node LTS release in .nvmrc file.
+
 ## [0.1.11]
 
 ### Changed
