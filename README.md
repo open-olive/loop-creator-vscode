@@ -1,18 +1,17 @@
-# Loop Development Kit README
+# Loop Development Kit (LDK) Extension for VS Code
 
-Loop Development Kit is an extension to generate boiler plate code to create loops for Olive Helps.
+This is a VS Code extension to generate boiler plate code to create loops for Olive Helps.
 
 You can download Olive Helps here:
 
 - [Windows](https://olive.page.link/olive-helps-windows)
 - [Mac](https://olive.page.link/olive-helps-mac)
 
-It supports generating loop code in Typescript and ES6 Javascript.
+It supports generating loop code in Typescript and Javascript (ES6).
 
 ## Usage
 
-To get started use cmd(mac)/ctrl(win)+shift+p and type Create Loop
-This will open the Create Loop form to populate with the loop details.
+To get started, press Cmd(Mac)/Ctrl(Windows)+Shift+p and type "Create Loop". This will open the Create Loop form to populate with the loop details.
 
 ![Create Loop Form](images/createLoopUi.png)
 
@@ -54,5 +53,16 @@ You must have Olive Helps installed to be able to use and test your loop:
 
 - [Windows](https://olive.page.link/olive-helps-windows)
 - [Mac](https://olive.page.link/olive-helps-mac)
+
+## Extension Development
+
+To change the VS Code extension itself, follow these instructions:
+
+1. Clone the repository.
+1. Make changes. You can run the source in debug mode from VS Code by selecting Run > Start Debugging (F5). This will launch a separate VS Code extension window with the extension under development installed.
+1. Add entries as needed in CHANGELOG.md.
+1. Bump the version of the extension itself in `package.json`.
+1. When you're ready to publish, generate an extension package by running `npx vsce package` in the source directory.
+1. Upload this to the VS Code extension store (requires appropriate permissions). 
 
 **Enjoy!**
