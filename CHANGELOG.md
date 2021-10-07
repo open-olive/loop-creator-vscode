@@ -11,6 +11,12 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 - ...
 
+## [0.1.13]
+
+### Changed
+
+- Bug fix for Windows file paths beginning with a '/'
+
 ## [0.1.12]
 
 ### Changed

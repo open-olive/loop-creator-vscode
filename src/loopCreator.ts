@@ -434,7 +434,7 @@ export class LoopCreator {
             const uri = await openDialogForFolder();
             panel.webview.postMessage({
               command: 'getProjectPath',
-              payload: uri.path,
+              payload: uri.fsPath,
             });
           } else if (message.command === 'createLoop') {
             await this.createLoop(message.payload);
