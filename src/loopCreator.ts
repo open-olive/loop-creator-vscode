@@ -49,6 +49,7 @@ export class LoopCreator {
         isTypeScript,
         projectName,
         aptitudes,
+        promiseVoid: ": Promise<void>",
       });
       fs.writeFile(filePath, fileContents);
     };
@@ -81,6 +82,7 @@ export class LoopCreator {
       path.join(basePath, 'src', 'jestGlobalSetup.js')
     );
 
+
     // #region /src/aptitudes/
     if (aptitudes.length) {
       await fs.ensureDir(path.join(basePath, 'src', 'aptitudes'));
@@ -88,6 +90,29 @@ export class LoopCreator {
       renderTemplate(
         templates.src.aptitudes.index,
         path.join(basePath, 'src', 'aptitudes', filenameWithExtension('index'))
+      );
+
+      await fs.ensureDir(path.join(basePath, "src", "aptitudes", "ui"));
+
+      renderTemplate(
+        templates.src.aptitudes.openHandler,
+        path.join(
+          basePath,
+          "src",
+          "aptitudes",
+          "ui",
+          filenameWithExtension("openHandler")
+        )
+      );
+      renderTemplate(
+        templates.src.aptitudes.openHandlerTest,
+        path.join(
+          basePath,
+          "src",
+          "aptitudes",
+          "ui",
+          filenameWithExtension("openHandler.test")
+        )
       );
 
       if (isAptitudeIncluded.clipboard) {
@@ -237,6 +262,37 @@ export class LoopCreator {
           )
         );
       }
+    }
+    else {
+      await fs.ensureDir(path.join(basePath, "src", "aptitudes"));
+
+      renderTemplate(
+        templates.src.aptitudes.index,
+        path.join(basePath, "src", "aptitudes", filenameWithExtension("index"))
+      );
+
+      await fs.ensureDir(path.join(basePath, "src", "aptitudes", "ui"));
+
+      renderTemplate(
+        templates.src.aptitudes.openHandler,
+        path.join(
+          basePath,
+          "src",
+          "aptitudes",
+          "ui",
+          filenameWithExtension("openHandler")
+        )
+      );
+      renderTemplate(
+        templates.src.aptitudes.openHandlerTest,
+        path.join(
+          basePath,
+          "src",
+          "aptitudes",
+          "ui",
+          filenameWithExtension("openHandler.test")
+        )
+      );
     }
     // #endregion /src/aptitudes/
 
@@ -442,7 +498,7 @@ export class LoopCreator {
           } else {
             throw new Error(`Invalid command "${message.command}".`);
           }
-        } catch (err) {
+        } catch (err: any) {
           console.error(err);
           vscode.window.showErrorMessage(`Error creating loop: ${err.message}`);
         }
