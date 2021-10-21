@@ -19,26 +19,39 @@ import {
 {{ @if (it.aptitudes.includes('window')) }}
   activeWindowListener,
 {{ /if }}
+  openHandler,
 } from './aptitudes';
 
+(async function main(){{ @if (it.isTypeScript) }}{{ it.promiseVoid | safe }}{{ /if }} {
+  console.log('Example Loop Started');
 {{ @if (it.aptitudes.includes('clipboard')) }}
-clipboardListener.listen();
+  clipboardListener.listen();
 {{ /if }}
 {{ @if (it.aptitudes.includes('filesystem')) }}
-filesystemExample.run();
+  filesystemExample.run();
 {{ /if }}
 {{ @if (it.aptitudes.includes('keyboard')) }}
-keyboardListener.listen();
+  keyboardListener.listen();
 {{ /if }}
 {{ @if (it.aptitudes.includes('network')) }}
-networkExample.run();
+  networkExample.run();
 {{ /if }}
 {{ @if (it.aptitudes.includes('ui')) }}
-searchListener.listen();
+  searchListener.listen();
 {{ /if }}
 {{ @if (it.aptitudes.includes('window')) }}
-activeWindowListener.listen();
+  activeWindowListener.listen();
 {{ /if }}
-{{ /if }}
+  openHandler.start();
+  new IntroWhisper().show();
+})();
+{{ #else }}
+import { openHandler } from './aptitudes';
 
-new IntroWhisper().show();
+(async function main(){{ @if (it.isTypeScript) }}{{it.promiseVoid | safe}}{{ /if }} {
+  console.log('Example Loop Started');
+  openHandler.start();
+  new IntroWhisper().show();
+})();
+
+{{ /if }}

@@ -6,6 +6,8 @@ import keyboardListenerTest from './keyboard/keyboardListener.test.ts.squirrelly
 import keyboardListener from './keyboard/keyboardListener.ts.squirrelly';
 import networkExampleTest from './network/networkExample.test.ts.squirrelly';
 import networkExample from './network/networkExample.ts.squirrelly';
+import openHandlerTest from './ui/openHandler.test.ts.squirrelly';
+import openHandler from './ui/openHandler.ts.squirrelly';
 import searchListenerTest from './ui/searchListener.test.ts.squirrelly';
 import searchListener from './ui/searchListener.ts.squirrelly';
 import activeWindowListenerTest from './window/activeWindowListener.test.ts.squirrelly';
@@ -21,6 +23,8 @@ export default {
   keyboardListener,
   networkExampleTest,
   networkExample,
+  openHandlerTest,
+  openHandler,
   searchListenerTest,
   searchListener,
   activeWindowListenerTest,

@@ -16,6 +16,7 @@ import searchListener from './ui/searchListener';
 {{ @if (it.aptitudes.includes('window')) }}
 import activeWindowListener from './window/activeWindowListener';
 {{ /if }}
+import openHandler from './ui/openHandler';
 
 export {
 {{ @if (it.aptitudes.includes('clipboard')) }}
@@ -36,4 +37,5 @@ export {
 {{ @if (it.aptitudes.includes('window')) }}
   activeWindowListener,
 {{ /if }}
+  openHandler,
 };
