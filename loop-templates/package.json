@@ -1,0 +1,11 @@
+{
+  "name": "loop-templates",
+  "version": "1.0.0",
+  "description": "Loop templates used by Olive's loop generation tools.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT"
+}
