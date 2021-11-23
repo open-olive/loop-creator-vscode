@@ -6,11 +6,12 @@ const path = require('path');
 const { execSync } = require('child_process');
 const prompts = require('prompts');
 const Sqrl = require('squirrelly');
+const { default: templates } = require('@oliveai/loop-templates');
 
 const projectOptions = {
   name: '',
   language: '',
-  aptitudes: [],
+  aptitudes: []
 };
 
 const installNodeModules = () => {
@@ -25,21 +26,22 @@ const installNodeModules = () => {
 
 const createProject = async () => {
   try {
-    const { name: projectName, aptitudes, language } = projectOptions;
+    const { name: projectName, aptitudes: projectAptitudes, language } = projectOptions;
     const isTypeScript = language === 'typescript';
 
     // Render a given template file to a given target file path
     const renderTemplate = async (template, filePath) => {
-      const fileContents = await Sqrl.renderFile(template, {
+      const fileContents = await Sqrl.render(template, {
         isTypeScript,
         projectName,
-        aptitudes,
+        aptitudes: projectAptitudes,
+        promiseVoid: ': Promise<void>'
       });
 
-      fs.writeFile(filePath, fileContents);
+      await fs.writeFile(filePath, fileContents);
     };
 
-    // Replace TS file extension with the right one, or add an extension if it doesn't exist
+    // Replace TS file extension with the right one
     const filenameWithExtension = (filename) => {
       const fileExtension = isTypeScript ? '.ts' : '.js';
 
@@ -47,121 +49,43 @@ const createProject = async () => {
         return filename.replace('.ts', fileExtension);
       }
 
-      return `${filename}${fileExtension}`;
+      return filename;
+    };
+
+    const renderFileMap = async (templatesObject, targetFilePath) => {
+      const { fileMap } = templatesObject;
+      if (!fileMap) {
+        return console.error('There is no file map on this object');
+      }
+
+      for (const [key, { fileName, aptitude }] of Object.entries(fileMap)) {
+        // If it's not a general template
+        // AND if it's not a template for an aptitude we're using
+        // AND if it's not a 'nonzero' aptitude while we have aptitudes in our project
+        const nonzero = projectAptitudes.length && aptitude === 'nonzero';
+        if (aptitude !== 'any' && !projectAptitudes.includes(aptitude) && !nonzero) return;
+
+        // If it's a string, it's a template. Otherwise, it's a directory/object.
+        if (typeof templatesObject[key] === 'string') {
+          await renderTemplate(
+            templatesObject[key],
+            path.join(targetFilePath, filenameWithExtension(fileName))
+          );
+        } else if (typeof templatesObject[key] === 'object') {
+          // Create directory for this set of templates
+          const newTargetFilePath = path.join(targetFilePath, key);
+          await fs.mkdir(newTargetFilePath);
+
+          await renderFileMap(templatesObject[key], newTargetFilePath);
+        }
+      }
     };
 
     // Target path: the project being created
     const targetBasePath = `./${projectName}`;
-    // Source path: this script's template files
-    const sourceBasePath = path.join(__dirname, 'templates');
-
-    // Creating base template files from /template
-    const baseTemplateFiles = await fs.readdir(sourceBasePath);
-    const baseTemplateSquirrellyFiles = baseTemplateFiles.filter((filename) =>
-      filename.endsWith('.squirrelly'),
-    );
-
     await fs.mkdir(targetBasePath);
 
-    baseTemplateSquirrellyFiles.forEach((squirrellyFilename) => {
-      const renderedFilename = squirrellyFilename.replace('.squirrelly', '');
-      renderTemplate(
-        path.join(sourceBasePath, squirrellyFilename),
-        path.join(targetBasePath, renderedFilename),
-      );
-    });
-
-    // Source for 'src' directory (./templates/src)
-    const sourceSrcPath = path.join(sourceBasePath, 'src');
-    // Creating base template source files from /template/src
-    const baseTemplateSrcFiles = await fs.readdir(sourceSrcPath);
-    const baseTemplateSrcSquirrellyFiles = baseTemplateSrcFiles.filter((filename) =>
-      filename.endsWith('.squirrelly'),
-    );
-
-    const targetSrcPath = path.join(targetBasePath, 'src');
-    await fs.mkdir(targetSrcPath);
-
-    baseTemplateSrcSquirrellyFiles.forEach((squirrellyFilename) => {
-      let renderedFilename = squirrellyFilename.replace('.squirrelly', '');
-      if (renderedFilename.endsWith('.ts')) {
-        renderedFilename = filenameWithExtension(renderedFilename);
-      }
-      renderTemplate(
-        path.join(sourceSrcPath, squirrellyFilename),
-        path.join(targetSrcPath, renderedFilename),
-      );
-    });
-
-    const sourceAptitudesPath = path.join(sourceSrcPath, 'aptitudes');
-    const targetAptitudesPath = path.join(targetSrcPath, 'aptitudes');
-    await fs.mkdir(targetAptitudesPath);
-
-    const sourceWhispersPath = path.join(sourceSrcPath, 'whispers');
-    const targetWhispersPath = path.join(targetSrcPath, 'whispers');
-    await fs.mkdir(targetWhispersPath);
-
-    // "search" aptitude create "ui" templates
-    aptitudes.forEach(async (aptitude) => {
-      const APTITUDE_FILENAMES = {
-        clipboard: 'clipboardListener',
-        filesystem: 'filesystemExample',
-        keyboard: 'keyboardListener',
-        network: 'networkExample',
-        ui: 'searchListener',
-        window: 'activeWindowListener',
-      };
-
-      const aptitudeFilename = APTITUDE_FILENAMES[aptitude];
-      // Change first letter to uppercase, e.g. ClipboardWhisper
-      const whisperFilename = aptitude[0].toUpperCase() + aptitude.slice(1) + 'Whisper';
-
-      const sourceAptitudePath = path.join(sourceAptitudesPath, aptitude);
-      const targetAptitudePath = path.join(targetAptitudesPath, aptitude);
-      await fs.mkdir(targetAptitudePath);
-
-      // Render aptitude
-      renderTemplate(
-        path.join(sourceAptitudePath, `${aptitudeFilename}.ts.squirrelly`),
-        path.join(targetAptitudePath, filenameWithExtension(aptitudeFilename)),
-      );
-
-      // Render aptitude unit test
-      renderTemplate(
-        path.join(sourceAptitudePath, `${aptitudeFilename}.test.ts.squirrelly`),
-        path.join(targetAptitudePath, filenameWithExtension(`${aptitudeFilename}.test`)),
-      );
-
-      // Render whisper
-      renderTemplate(
-        path.join(sourceWhispersPath, `${whisperFilename}.ts.squirrelly`),
-        path.join(targetWhispersPath, filenameWithExtension(whisperFilename)),
-      );
-
-      // Render whisper unit test
-      renderTemplate(
-        path.join(sourceWhispersPath, `${whisperFilename}.test.ts.squirrelly`),
-        path.join(targetWhispersPath, filenameWithExtension(`${whisperFilename}.test`)),
-      );
-    });
-
-    // Render aptitude index file
-    renderTemplate(
-      path.join(sourceAptitudesPath, 'index.ts.squirrelly'),
-      path.join(targetAptitudesPath, filenameWithExtension('index')),
-    );
-
-    // Render whisper index file
-    renderTemplate(
-      path.join(sourceWhispersPath, 'index.ts.squirrelly'),
-      path.join(targetWhispersPath, filenameWithExtension('index')),
-    );
-
-    // Render intro whisper
-    renderTemplate(
-      path.join(sourceWhispersPath, 'IntroWhisper.ts.squirrelly'),
-      path.join(targetWhispersPath, filenameWithExtension('IntroWhisper')),
-    );
+    await renderFileMap(templates, targetBasePath);
 
     installNodeModules();
   } catch (error) {
@@ -176,8 +100,8 @@ const languagePrompt = () => {
     message: 'Which language do you want to use?',
     choices: [
       { title: 'TypeScript', value: 'typescript' },
-      { title: 'JavaScript', value: 'javascript' },
-    ],
+      { title: 'JavaScript', value: 'javascript' }
+    ]
   }).then((response) => {
     const { language } = response;
     projectOptions.language = language;
@@ -197,9 +121,9 @@ const aptitudesPrompt = () => {
       { title: 'Keyboard', value: 'keyboard' },
       { title: 'Network', value: 'network' },
       { title: 'Search', value: 'ui' },
-      { title: 'Window', value: 'window' },
+      { title: 'Window', value: 'window' }
     ],
-    hint: 'Use your spacebar to select. You can select multiple!',
+    hint: 'Use your spacebar to select. You can select multiple!'
   }).then((response) => {
     const { aptitudes } = response;
     projectOptions.aptitudes = aptitudes;
@@ -221,7 +145,7 @@ const projectNamePrompt = () =>
       const projectNameFormatted = projectNameInput.replace(/ /g, '-').toLowerCase();
 
       return projectNameFormatted.match(NPM_PROJECT_NAME_PATTERN);
-    },
+    }
   }).then((response) => {
     try {
       const { projectName } = response;

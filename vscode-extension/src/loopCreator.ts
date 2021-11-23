@@ -3,9 +3,10 @@ import * as fs from 'fs-extra';
 import * as path from 'path';
 import { Uri } from 'vscode';
 import * as Sqrl from 'squirrelly';
+import templates from '@oliveai/loop-templates';
+import { TemplatesObject } from '@oliveai/loop-templates/dist/types';
 import { openDialogForFolder } from './utils';
 import createLoopFormHtml from './createLoopForm.html';
-import templates from './templates';
 
 interface IWebviewMessage<T> {
   command: string;
@@ -32,442 +33,74 @@ export class LoopCreator {
     projectName: string,
     aptitudes: string[]
   ) {
-    const isAptitudeIncluded = {
-      clipboard: aptitudes.includes('clipboard'),
-      filesystem: aptitudes.includes('filesystem'),
-      keyboard: aptitudes.includes('keyboard'),
-      network: aptitudes.includes('network'),
-      ui: aptitudes.includes('ui'),
-      window: aptitudes.includes('window'),
-    };
+    // Replace TS file extension with the right one
+    const filenameWithExtension = (filename: string) => {
+      const fileExtension = isTypeScript ? '.ts' : '.js';
 
-    const filenameWithExtension = (filename: string) =>
-      `${filename}${isTypeScript ? '.ts' : '.js'}`;
+      if (filename.endsWith('.ts')) {
+        return filename.replace('.ts', fileExtension);
+      }
+
+      return filename;
+    };
 
     const renderTemplate = (template: any, filePath: string) => {
       const fileContents = Sqrl.render(template, {
         isTypeScript,
         projectName,
         aptitudes,
-        promiseVoid: ": Promise<void>",
+        promiseVoid: ': Promise<void>'
       });
       fs.writeFile(filePath, fileContents);
+    };
+
+    const renderFileMap = async (templatesObject: TemplatesObject, targetFilePath: string) => {
+      const projectAptitudes = aptitudes;
+      const { fileMap } = templatesObject;
+      if (!fileMap) {
+        return console.error('There is no file map on this object');
+      }
+
+      for (const [key, { fileName, aptitude }] of Object.entries(fileMap)) {
+        // If it's not a general template
+        // AND if it's not a template for an aptitude we're using
+        // AND if it's not a 'nonzero' aptitude while we have aptitudes in our project
+        const nonzero = projectAptitudes.length && aptitude === 'nonzero';
+        if (aptitude !== 'any' && !projectAptitudes.includes(aptitude) && !nonzero) {
+          return;
+        }
+
+        // If it's a string, it's a template. Otherwise, it's a directory/object.
+        if (typeof templatesObject[key] === 'string') {
+          await renderTemplate(
+            templatesObject[key],
+            path.join(targetFilePath, filenameWithExtension(fileName))
+          );
+        } else if (typeof templatesObject[key] === 'object') {
+          // Create directory for this set of templates
+          const newTargetFilePath = path.join(targetFilePath, key);
+          await fs.mkdir(newTargetFilePath);
+
+          await renderFileMap(templatesObject[key] as TemplatesObject, newTargetFilePath);
+        }
+      }
     };
 
     // #region /
     await fs.ensureDir(basePath);
 
-    renderTemplate(templates.eslintrc, path.join(basePath, '.eslintrc'));
-    renderTemplate(templates.gitignore, path.join(basePath, '.gitignore'));
-    renderTemplate(templates.prettierrc, path.join(basePath, '.prettierrc'));
-    renderTemplate(templates.packageJson, path.join(basePath, 'package.json'));
-    renderTemplate(templates.readme, path.join(basePath, 'README.md'));
-    if (isTypeScript) {
-      renderTemplate(templates.tsconfig, path.join(basePath, 'tsconfig.json'));
-    }
-
-    // #region /src/
-    await fs.ensureDir(path.join(basePath, 'src'));
-
-    renderTemplate(
-      templates.src.indexTest,
-      path.join(basePath, 'src', filenameWithExtension('index.test'))
-    );
-    renderTemplate(
-      templates.src.index,
-      path.join(basePath, 'src', filenameWithExtension('index'))
-    );
-    renderTemplate(
-      templates.src.jestGlobalSetup,
-      path.join(basePath, 'src', 'jestGlobalSetup.js')
-    );
-
-
-    // #region /src/aptitudes/
-    if (aptitudes.length) {
-      await fs.ensureDir(path.join(basePath, 'src', 'aptitudes'));
-
-      renderTemplate(
-        templates.src.aptitudes.index,
-        path.join(basePath, 'src', 'aptitudes', filenameWithExtension('index'))
-      );
-
-      await fs.ensureDir(path.join(basePath, "src", "aptitudes", "ui"));
-
-      renderTemplate(
-        templates.src.aptitudes.openHandler,
-        path.join(
-          basePath,
-          "src",
-          "aptitudes",
-          "ui",
-          filenameWithExtension("openHandler")
-        )
-      );
-      renderTemplate(
-        templates.src.aptitudes.openHandlerTest,
-        path.join(
-          basePath,
-          "src",
-          "aptitudes",
-          "ui",
-          filenameWithExtension("openHandler.test")
-        )
-      );
-
-      if (isAptitudeIncluded.clipboard) {
-        await fs.ensureDir(
-          path.join(basePath, 'src', 'aptitudes', 'clipboard')
-        );
-        renderTemplate(
-          templates.src.aptitudes.clipboardListener,
-          path.join(
-            basePath,
-            'src',
-            'aptitudes',
-            'clipboard',
-            filenameWithExtension('clipboardListener')
-          )
-        );
-        renderTemplate(
-          templates.src.aptitudes.clipboardListenerTest,
-          path.join(
-            basePath,
-            'src',
-            'aptitudes',
-            'clipboard',
-            filenameWithExtension('clipboardListener.test')
-          )
-        );
-      }
-
-      if (isAptitudeIncluded.filesystem) {
-        await fs.ensureDir(
-          path.join(basePath, 'src', 'aptitudes', 'filesystem')
-        );
-        renderTemplate(
-          templates.src.aptitudes.filesystemExample,
-          path.join(
-            basePath,
-            'src',
-            'aptitudes',
-            'filesystem',
-            filenameWithExtension('filesystemExample')
-          )
-        );
-        renderTemplate(
-          templates.src.aptitudes.filesystemExampleTest,
-          path.join(
-            basePath,
-            'src',
-            'aptitudes',
-            'filesystem',
-            filenameWithExtension('filesystemExample.test')
-          )
-        );
-      }
-
-      if (isAptitudeIncluded.keyboard) {
-        await fs.ensureDir(path.join(basePath, 'src', 'aptitudes', 'keyboard'));
-        renderTemplate(
-          templates.src.aptitudes.keyboardListener,
-          path.join(
-            basePath,
-            'src',
-            'aptitudes',
-            'keyboard',
-            filenameWithExtension('keyboardListener')
-          )
-        );
-        renderTemplate(
-          templates.src.aptitudes.keyboardListenerTest,
-          path.join(
-            basePath,
-            'src',
-            'aptitudes',
-            'keyboard',
-            filenameWithExtension('keyboardListener.test')
-          )
-        );
-      }
-
-      if (isAptitudeIncluded.network) {
-        await fs.ensureDir(path.join(basePath, 'src', 'aptitudes', 'network'));
-        renderTemplate(
-          templates.src.aptitudes.networkExample,
-          path.join(
-            basePath,
-            'src',
-            'aptitudes',
-            'network',
-            filenameWithExtension('networkExample')
-          )
-        );
-        renderTemplate(
-          templates.src.aptitudes.networkExampleTest,
-          path.join(
-            basePath,
-            'src',
-            'aptitudes',
-            'network',
-            filenameWithExtension('networkExample.test')
-          )
-        );
-      }
-
-      if (isAptitudeIncluded.ui) {
-        await fs.ensureDir(path.join(basePath, 'src', 'aptitudes', 'ui'));
-        renderTemplate(
-          templates.src.aptitudes.searchListener,
-          path.join(
-            basePath,
-            'src',
-            'aptitudes',
-            'ui',
-            filenameWithExtension('searchListener')
-          )
-        );
-        renderTemplate(
-          templates.src.aptitudes.searchListenerTest,
-          path.join(
-            basePath,
-            'src',
-            'aptitudes',
-            'ui',
-            filenameWithExtension('searchListener.test')
-          )
-        );
-      }
-
-      if (isAptitudeIncluded.window) {
-        await fs.ensureDir(path.join(basePath, 'src', 'aptitudes', 'window'));
-        renderTemplate(
-          templates.src.aptitudes.activeWindowListener,
-          path.join(
-            basePath,
-            'src',
-            'aptitudes',
-            'window',
-            filenameWithExtension('activeWindowListener')
-          )
-        );
-        renderTemplate(
-          templates.src.aptitudes.activeWindowListenerTest,
-          path.join(
-            basePath,
-            'src',
-            'aptitudes',
-            'window',
-            filenameWithExtension('activeWindowListener.test')
-          )
-        );
-      }
-    }
-    else {
-      await fs.ensureDir(path.join(basePath, "src", "aptitudes"));
-
-      renderTemplate(
-        templates.src.aptitudes.index,
-        path.join(basePath, "src", "aptitudes", filenameWithExtension("index"))
-      );
-
-      await fs.ensureDir(path.join(basePath, "src", "aptitudes", "ui"));
-
-      renderTemplate(
-        templates.src.aptitudes.openHandler,
-        path.join(
-          basePath,
-          "src",
-          "aptitudes",
-          "ui",
-          filenameWithExtension("openHandler")
-        )
-      );
-      renderTemplate(
-        templates.src.aptitudes.openHandlerTest,
-        path.join(
-          basePath,
-          "src",
-          "aptitudes",
-          "ui",
-          filenameWithExtension("openHandler.test")
-        )
-      );
-    }
-    // #endregion /src/aptitudes/
-
-    // #region /src/whispers/
-    await fs.ensureDir(path.join(basePath, 'src', 'whispers'));
-
-    renderTemplate(
-      templates.src.whispers.index,
-      path.join(basePath, 'src', 'whispers', filenameWithExtension('index'))
-    );
-    renderTemplate(
-      templates.src.whispers.introWhisper,
-      path.join(
-        basePath,
-        'src',
-        'whispers',
-        filenameWithExtension('IntroWhisper')
-      )
-    );
-    renderTemplate(
-      templates.src.whispers.introWhisperTest,
-      path.join(
-        basePath,
-        'src',
-        'whispers',
-        filenameWithExtension('IntroWhisper.test')
-      )
-    );
-
-    if (isAptitudeIncluded.clipboard) {
-      renderTemplate(
-        templates.src.whispers.clipboardWhisper,
-        path.join(
-          basePath,
-          'src',
-          'whispers',
-          filenameWithExtension('ClipboardWhisper')
-        )
-      );
-      renderTemplate(
-        templates.src.whispers.clipboardWhisperTest,
-        path.join(
-          basePath,
-          'src',
-          'whispers',
-          filenameWithExtension('ClipboardWhisper.test')
-        )
-      );
-    }
-
-    if (isAptitudeIncluded.filesystem) {
-      renderTemplate(
-        templates.src.whispers.filesystemWhisper,
-        path.join(
-          basePath,
-          'src',
-          'whispers',
-          filenameWithExtension('FilesystemWhisper')
-        )
-      );
-      renderTemplate(
-        templates.src.whispers.filesystemWhisperTest,
-        path.join(
-          basePath,
-          'src',
-          'whispers',
-          filenameWithExtension('FilesystemWhisper.test')
-        )
-      );
-    }
-
-    if (isAptitudeIncluded.keyboard) {
-      renderTemplate(
-        templates.src.whispers.keyboardWhisper,
-        path.join(
-          basePath,
-          'src',
-          'whispers',
-          filenameWithExtension('KeyboardWhisper')
-        )
-      );
-      renderTemplate(
-        templates.src.whispers.keyboardWhisperTest,
-        path.join(
-          basePath,
-          'src',
-          'whispers',
-          filenameWithExtension('KeyboardWhisper.test')
-        )
-      );
-    }
-
-    if (isAptitudeIncluded.network) {
-      renderTemplate(
-        templates.src.whispers.networkWhisper,
-        path.join(
-          basePath,
-          'src',
-          'whispers',
-          filenameWithExtension('NetworkWhisper')
-        )
-      );
-      renderTemplate(
-        templates.src.whispers.networkWhisperTest,
-        path.join(
-          basePath,
-          'src',
-          'whispers',
-          filenameWithExtension('NetworkWhisper.test')
-        )
-      );
-    }
-
-    if (isAptitudeIncluded.ui) {
-      renderTemplate(
-        templates.src.whispers.uiWhisper,
-        path.join(
-          basePath,
-          'src',
-          'whispers',
-          filenameWithExtension('UiWhisper')
-        )
-      );
-      renderTemplate(
-        templates.src.whispers.uiWhisperTest,
-        path.join(
-          basePath,
-          'src',
-          'whispers',
-          filenameWithExtension('UiWhisper.test')
-        )
-      );
-    }
-
-    if (isAptitudeIncluded.window) {
-      renderTemplate(
-        templates.src.whispers.windowWhisper,
-        path.join(
-          basePath,
-          'src',
-          'whispers',
-          filenameWithExtension('WindowWhisper')
-        )
-      );
-      renderTemplate(
-        templates.src.whispers.windowWhisperTest,
-        path.join(
-          basePath,
-          'src',
-          'whispers',
-          filenameWithExtension('WindowWhisper.test')
-        )
-      );
-    }
+    await renderFileMap(templates, basePath);
     // #endregion /src/whispers/
     // #endregion /src/
     // #endregion /
   }
 
-  async createLoop({
-    language,
-    path: basePath,
-    projectName,
-    aptitudes,
-  }: LoopFormData) {
-    await this.createFiles(
-      language === 'TypeScript',
-      basePath,
-      projectName,
-      aptitudes
-    );
+  async createLoop({ language, path: basePath, projectName, aptitudes }: LoopFormData) {
+    await this.createFiles(language === 'TypeScript', basePath, projectName, aptitudes);
 
     let uri = Uri.file(basePath);
     await vscode.commands.executeCommand('vscode.openFolder', uri, {
-      forceNewWindow: true,
+      forceNewWindow: true
     });
   }
 
@@ -477,32 +110,30 @@ export class LoopCreator {
       'Create Loop', // Title of the panel displayed to the user
       vscode.ViewColumn.One,
       {
-        enableScripts: true,
+        enableScripts: true
       }
     );
 
     panel.webview.html = createLoopFormHtml;
 
-    panel.webview.onDidReceiveMessage(
-      async (message: IWebviewMessage<LoopFormData>) => {
-        try {
-          if (message.command === 'openFolderDialog') {
-            const uri = await openDialogForFolder();
-            panel.webview.postMessage({
-              command: 'getProjectPath',
-              payload: uri.fsPath,
-            });
-          } else if (message.command === 'createLoop') {
-            await this.createLoop(message.payload);
-            panel.dispose();
-          } else {
-            throw new Error(`Invalid command "${message.command}".`);
-          }
-        } catch (err: any) {
-          console.error(err);
-          vscode.window.showErrorMessage(`Error creating loop: ${err.message}`);
+    panel.webview.onDidReceiveMessage(async (message: IWebviewMessage<LoopFormData>) => {
+      try {
+        if (message.command === 'openFolderDialog') {
+          const uri = await openDialogForFolder();
+          panel.webview.postMessage({
+            command: 'getProjectPath',
+            payload: uri.fsPath
+          });
+        } else if (message.command === 'createLoop') {
+          await this.createLoop(message.payload);
+          panel.dispose();
+        } else {
+          throw new Error(`Invalid command "${message.command}".`);
         }
+      } catch (err: any) {
+        console.error(err);
+        vscode.window.showErrorMessage(`Error creating loop: ${err.message}`);
       }
-    );
+    });
   }
 }
