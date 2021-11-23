@@ -1,33 +1,29 @@
-import clipboardListenerTest from './clipboard/clipboardListener.test.ts.squirrelly';
-import clipboardListener from './clipboard/clipboardListener.ts.squirrelly';
-import filesystemExampleTest from './filesystem/filesystemExample.test.ts.squirrelly';
-import filesystemExample from './filesystem/filesystemExample.ts.squirrelly';
-import keyboardListenerTest from './keyboard/keyboardListener.test.ts.squirrelly';
-import keyboardListener from './keyboard/keyboardListener.ts.squirrelly';
-import networkExampleTest from './network/networkExample.test.ts.squirrelly';
-import networkExample from './network/networkExample.ts.squirrelly';
-import openHandlerTest from './ui/openHandler.test.ts.squirrelly';
-import openHandler from './ui/openHandler.ts.squirrelly';
-import searchListenerTest from './ui/searchListener.test.ts.squirrelly';
-import searchListener from './ui/searchListener.ts.squirrelly';
-import activeWindowListenerTest from './window/activeWindowListener.test.ts.squirrelly';
-import activeWindowListener from './window/activeWindowListener.ts.squirrelly';
+import clipboard from './clipboard';
+import filesystem from './filesystem';
+import keyboard from './keyboard';
+import network from './network';
+import ui from './ui';
+import window from './window';
 import index from './index.ts.squirrelly';
+import { FileMap } from '@/types';
+
+const fileMap: FileMap = {
+  clipboard: { fileName: 'clipboard', aptitude: 'clipboard' },
+  filesystem: { fileName: 'filesystem', aptitude: 'filesystem' },
+  keyboard: { fileName: 'keyboard', aptitude: 'keyboard' },
+  network: { fileName: 'network', aptitude: 'network' },
+  ui: { fileName: 'ui', aptitude: 'nonzero' },
+  window: { fileName: 'window', aptitude: 'window' },
+  index: { fileName: 'index.ts', aptitude: 'any' }
+};
 
 export default {
-  clipboardListenerTest,
-  clipboardListener,
-  filesystemExampleTest,
-  filesystemExample,
-  keyboardListenerTest,
-  keyboardListener,
-  networkExampleTest,
-  networkExample,
-  openHandlerTest,
-  openHandler,
-  searchListenerTest,
-  searchListener,
-  activeWindowListenerTest,
-  activeWindowListener,
+  clipboard,
+  filesystem,
+  keyboard,
+  network,
+  ui,
+  window,
   index,
+  fileMap
 };
