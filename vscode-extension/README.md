@@ -63,6 +63,6 @@ To change the VS Code extension itself, follow these instructions:
 1. Add entries as needed in CHANGELOG.md.
 1. Bump the version of the extension itself in `package.json`.
 1. When you're ready to publish, generate an extension package by running `npx vsce package` in the source directory.
-1. Upload this to the VS Code extension store (requires appropriate permissions). 
+1. Upload this to the VS Code extension store (requires appropriate permissions).
 
 **Enjoy!**

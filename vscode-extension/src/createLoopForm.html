@@ -48,8 +48,8 @@
         background-color: #cccccc;
         color: #666666;
       }
-      input[type="text"],
-      input[type="password"],
+      input[type='text'],
+      input[type='password'],
       select {
         background: #e0cfff;
       }
@@ -60,7 +60,7 @@
   </head>
   <body>
     <img
-      src="https://www.oliveai.com/wp-content/uploads/2020/04/Olive_vector_logo_white.svg"
+      src="https://static.wixstatic.com/shapes/ae75c9_10a586b9dd6c4e2990808e711f72de9a.svg"
       width="200"
     />
     <h2>Create Loop</h2>
@@ -78,17 +78,12 @@
         </span>
       </div>
       <div class="pam">
-        <label for="path"><span class="required">*</span>Project Path</label
-        ><br />
+        <label for="path"><span class="required">*</span>Project Path</label><br />
         <input type="text" id="path" name="path" value="" />
-        <button class="pas" onclick="openFolderBrowser()" type="button">
-          Browse
-        </button>
+        <button class="pas" onclick="openFolderBrowser()" type="button">Browse</button>
       </div>
       <div class="pam">
-        <label for="projectName"
-          ><span class="required">*</span>Project Name</label
-        ><br />
+        <label for="projectName"><span class="required">*</span>Project Name</label><br />
         <input type="text" id="projectName" name="projectName" value="" />
       </div>
       <div class="pam">
@@ -130,34 +125,19 @@
           </tr>
           <tr>
             <td>
-              <input
-                type="checkbox"
-                id="aptitudesNetwork"
-                name="aptitudes"
-                value="network"
-              />
+              <input type="checkbox" id="aptitudesNetwork" name="aptitudes" value="network" />
               <label for="aptitudesNetwork">Network</label>
             </td>
           </tr>
           <tr>
             <td>
-              <input
-                type="checkbox"
-                id="aptitudesSearch"
-                name="aptitudes"
-                value="ui"
-              />
+              <input type="checkbox" id="aptitudesSearch" name="aptitudes" value="ui" />
               <label for="aptitudesSearch">Search</label>
             </td>
           </tr>
           <tr>
             <td>
-              <input
-                type="checkbox"
-                id="aptitudesWindow"
-                name="aptitudes"
-                value="window"
-              />
+              <input type="checkbox" id="aptitudesWindow" name="aptitudes" value="window" />
               <label for="aptitudesWindow">Window</label>
             </td>
           </tr>
@@ -172,53 +152,53 @@
       window.vscode = acquireVsCodeApi();
 
       function openFolderBrowser() {
-        vscode.postMessage({ command: "openFolderDialog" });
+        vscode.postMessage({ command: 'openFolderDialog' });
       }
 
-      window.addEventListener("message", (event) => {
+      window.addEventListener('message', (event) => {
         const message = event.data;
 
-        if (message.command === "getProjectPath") {
-          document.getElementById("path").value = message.payload;
+        if (message.command === 'getProjectPath') {
+          document.getElementById('path').value = message.payload;
         } else {
           throw new Error(`Invalid command "${message.command}".`);
         }
       });
 
       function showNetwork(networkOptions) {
-        var networkchxbox = document.getElementById("aptitudesNetwork");
-        var visible = "none";
+        var networkchxbox = document.getElementById('aptitudesNetwork');
+        var visible = 'none';
         if (networkchxbox.checked) {
-          visible = "table-row";
+          visible = 'table-row';
         }
         document.getElementById(networkOptions).style.display = visible;
       }
 
-      const loopForm = document.getElementById("createLoopForm");
-      loopForm.addEventListener("submit", (e) => {
+      const loopForm = document.getElementById('createLoopForm');
+      loopForm.addEventListener('submit', (e) => {
         e.preventDefault();
 
         // Construct a FormData object, which fires the formdata event.
         new FormData(loopForm);
       });
-      loopForm.addEventListener("formdata", (e) => {
+      loopForm.addEventListener('formdata', (e) => {
         const payload = {
-          aptitudes: [],
+          aptitudes: []
         };
 
         for (let entry of e.formData.entries()) {
           const key = entry[0];
           const value = entry[1];
-          if (key === "aptitudes") {
-            payload["aptitudes"].push(value);
+          if (key === 'aptitudes') {
+            payload['aptitudes'].push(value);
           } else {
             payload[key] = value;
           }
         }
 
         vscode.postMessage({
-          command: "createLoop",
-          payload: payload,
+          command: 'createLoop',
+          payload: payload
         });
       });
     </script>
