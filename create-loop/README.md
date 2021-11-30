@@ -20,4 +20,4 @@ the tool will provide you with working examples.
 
 ## More information
 
-Check out [our docs](https://docs.oliveai.dev/) for more information!
+Check out [our docs](https://docs.oliveai.dev/ldk/your-first-loop/creating-a-loop) for more information!
