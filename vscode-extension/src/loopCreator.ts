@@ -67,7 +67,7 @@ export class LoopCreator {
         // AND if it's not a 'nonzero' aptitude while we have aptitudes in our project
         const nonzero = projectAptitudes.length && aptitude === 'nonzero';
         if (aptitude !== 'any' && !projectAptitudes.includes(aptitude) && !nonzero) {
-          return;
+          continue;
         }
 
         // If it's a string, it's a template. Otherwise, it's a directory/object.
