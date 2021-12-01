@@ -63,7 +63,7 @@ const createProject = async () => {
         // AND if it's not a template for an aptitude we're using
         // AND if it's not a 'nonzero' aptitude while we have aptitudes in our project
         const nonzero = projectAptitudes.length && aptitude === 'nonzero';
-        if (aptitude !== 'any' && !projectAptitudes.includes(aptitude) && !nonzero) return;
+        if (aptitude !== 'any' && !projectAptitudes.includes(aptitude) && !nonzero) continue;
 
         // If it's a string, it's a template. Otherwise, it's a directory/object.
         if (typeof templatesObject[key] === 'string') {
