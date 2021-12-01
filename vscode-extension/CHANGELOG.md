@@ -9,7 +9,21 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
-- ...
+## [0.3.2]
+
+- Fixing bug where aptitudes do not generate unless you select all aptitudes
+
+## [0.3.1]
+
+- Adding new repository link to extension's package.json
+
+## [0.3.0]
+
+- Refactored extension to remove templates being bundled with the extension and instead using a central template location at https://www.npmjs.com/package/@oliveai/loop-templates
+
+## [0.2.0]
+
+- Added openHandler
 
 ## [0.1.13]
 
