@@ -1,7 +1,5 @@
 name: 'Check for version update'
-# on: pull-request
-on:
-  push: true
+on: pull_request
 
 jobs:
   check-version:
