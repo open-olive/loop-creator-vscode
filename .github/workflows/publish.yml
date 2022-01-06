@@ -65,7 +65,7 @@ jobs:
         run: echo 'No changes detected in loop-templates'
 
       # Publishing vscode-extension to VSCode Extension Marketplace
-      - if: steps.changes.outputs.vscode-extension == 'false'
+      - if: steps.changes.outputs.vscode-extension == 'true'
         name: 'Publishing vscode-extension'
         working-directory: ./vscode-extension
         run: |
