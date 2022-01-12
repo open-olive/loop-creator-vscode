@@ -109,6 +109,8 @@
           }
         ]
       },
+{{ #elif (aptitude === 'process') }}
+     "process": {},
 {{ #elif (aptitude === 'window') }}
       "window": {},
 {{ /if }}
