@@ -5,11 +5,12 @@ import clipboardListener, { handler } from './clipboardListener';
 jest.mock('@oliveai/ldk');
 
 const mockClipboardShow = jest.fn();
+
 jest.mock('../../whispers', () => {
   return {
-    ClipboardWhisper: jest.fn().mockImplementation(() => {
-      return { show: mockClipboardShow };
-    }),
+    ClipboardWhisper: {
+      show: jest.fn(() => mockClipboardShow()),
+    },
   };
 });
 
@@ -24,10 +25,10 @@ describe('Clipboard Listener', () => {
     expect(clipboard.listen).toBeCalledWith(false, handler);
   });
 
-  it('should create the whisper when handler is triggered', () => {
-    handler('test');
+  it('should create the whisper when handler is triggered', async () => {
+    await handler('test');
 
-    expect(ClipboardWhisper).toBeCalledWith('test');
+    expect(ClipboardWhisper.show).toBeCalledWith('test');
     expect(mockClipboardShow).toBeCalled();
   });
 });

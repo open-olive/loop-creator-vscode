@@ -1,6 +1,6 @@
 {
   "name": "@oliveai/loop-templates",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Loop templates used by Olive's loop generation tools.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

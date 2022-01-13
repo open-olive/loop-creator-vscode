@@ -1,5 +1,5 @@
 import { whisper } from '@oliveai/ldk';
-import { NetworkWhisper } from '.';
+import NetworkWhisper, { onClose, createComponents } from './NetworkWhisper';
 
 jest.mock('@oliveai/ldk');
 
@@ -30,9 +30,9 @@ describe('Network Whisper', () => {
     jest.resetAllMocks();
   });
 
-  it('creates components as expected with proper onClick logic', () => {
-    const newWhisper = new NetworkWhisper(TEST_PARAM);
-    const actualComponents = newWhisper.createComponents();
+  it('creates components as expected with proper onClick logic', async () => {
+    const newWhisper = await NetworkWhisper.show(TEST_PARAM);
+    const actualComponents = createComponents(TEST_PARAM);
 
     const expectedComponents = [
       expect.objectContaining({
@@ -47,7 +47,7 @@ describe('Network Whisper', () => {
 
     expect(actualComponents).toEqual(expectedComponents);
 
-    actualComponents[0].onClick();
+    actualComponents[0].onClick?.(undefined, newWhisper{{ it.isTypeScript ? ' as whisper.Whisper' : '' }});
 
     const expectedSubWhisper = {
       label: 'Recall for recalling_firm 1',
@@ -63,15 +63,14 @@ describe('Network Whisper', () => {
   });
 
   it('creates a whisper and closes it gracefully', async () => {
-    const newWhisper = new NetworkWhisper(TEST_PARAM);
-    newWhisper.show();
+    const newWhisper = await NetworkWhisper.show(TEST_PARAM);
     await Promise.resolve();
-    newWhisper.close();
+    newWhisper.close(() => null);
 
     expect(whisper.create).toBeCalledWith(
       expect.objectContaining({
         label: 'Example for Network Aptitude (FDA Recalls)',
-        onClose: NetworkWhisper.onClose,
+        onClose,
       })
     );
     expect(mockWhisperClose).toBeCalled();
@@ -82,7 +81,7 @@ describe('Network Whisper', () => {
     ${'without an error'} | ${undefined}
     ${'with an error'}    | ${new Error('error')}
   `('should close properly $scenario', ({ error }) => {
-    NetworkWhisper.onClose(error);
+    onClose(error);
 
     if (error) {
       expect(console.error).toBeCalledWith('There was an error closing Network whisper', error);

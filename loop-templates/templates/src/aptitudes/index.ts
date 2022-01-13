@@ -12,7 +12,7 @@ const fileMap: FileMap = {
   filesystem: { fileName: 'filesystem', aptitude: 'filesystem' },
   keyboard: { fileName: 'keyboard', aptitude: 'keyboard' },
   network: { fileName: 'network', aptitude: 'network' },
-  ui: { fileName: 'ui', aptitude: 'nonzero' },
+  ui: { fileName: 'ui', aptitude: 'any' },
   window: { fileName: 'window', aptitude: 'window' },
   index: { fileName: 'index.ts', aptitude: 'any' }
 };

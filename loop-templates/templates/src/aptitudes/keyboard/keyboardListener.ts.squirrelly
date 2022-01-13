@@ -2,9 +2,8 @@ import { keyboard } from '@oliveai/ldk';
 
 import { KeyboardWhisper } from '../../whispers';
 
-const handler = (text{{it.isTypeScript ? ': string' : ''}}) => {
-  const whisper = new KeyboardWhisper(text);
-  whisper.show();
+const handler = async (text{{ it.isTypeScript ? ': string' : '' }}) => {
+  await KeyboardWhisper.show(text);
 };
 const listen = () => {
   keyboard.listenText(handler);

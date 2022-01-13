@@ -21,8 +21,7 @@ const run = async () => {
   const encodedFileContents = await filesystem.readFile(filePath);
   const fileContents = await network.decode(encodedFileContents);
 
-  const whisper = new FilesystemWhisper(fileContents);
-  whisper.show();
+  await FilesystemWhisper.show(fileContents);
 
   await filesystem.remove(dirPath);
 };
