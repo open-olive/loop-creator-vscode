@@ -120,7 +120,7 @@ const aptitudesPrompt = () => {
       { title: 'Filesystem', value: 'filesystem' },
       { title: 'Keyboard', value: 'keyboard' },
       { title: 'Network', value: 'network' },
-      { title: 'Search', value: 'ui' },
+      { title: 'UI', value: 'ui' },
       { title: 'Window', value: 'window' }
     ],
     hint: 'Use your spacebar to select. You can select multiple!'
