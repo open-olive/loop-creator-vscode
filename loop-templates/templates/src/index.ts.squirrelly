@@ -13,6 +13,9 @@ import {
 {{ @if (it.aptitudes.includes('network')) }}
   networkExample,
 {{ /if }}
+{{ @if (it.aptitudes.includes('process')) }}
+  processExample,
+{{ /if }}
 {{ @if (it.aptitudes.includes('ui')) }}
   searchListener,
 {{ /if }}
@@ -35,6 +38,9 @@ import {
 {{ /if }}
 {{ @if (it.aptitudes.includes('network')) }}
   networkExample.run();
+{{ /if }}
+{{ @if (it.aptitudes.includes('process')) }}
+  processExample.run();
 {{ /if }}
 {{ @if (it.aptitudes.includes('ui')) }}
   searchListener.listen();

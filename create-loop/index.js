@@ -120,6 +120,7 @@ const aptitudesPrompt = () => {
       { title: 'Filesystem', value: 'filesystem' },
       { title: 'Keyboard', value: 'keyboard' },
       { title: 'Network', value: 'network' },
+      { title: 'Process', value: 'process' },
       { title: 'Search', value: 'ui' },
       { title: 'Window', value: 'window' }
     ],
