@@ -1,0 +1,25 @@
+import { user } from '@oliveai/ldk';
+import { UserWhisper } from '../../whispers';
+import userExample from './userListener';
+
+jest.mock('@oliveai/ldk');
+
+const mockUserShow = jest.fn();
+jest.mock('../../whispers', () => {
+  return {
+    UserWhisper: jest.fn().mockImplementation(() => {
+      return { show: mockUserShow };
+    }),
+  };
+});
+
+describe('User Listener', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('should create the whisper when the JWT is retrieved', () => {
+    userExample.run();
+    expect(mockUserShow).toBeCalled();
+  });
+});

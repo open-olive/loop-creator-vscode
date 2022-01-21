@@ -42,6 +42,7 @@
     "@babel/runtime-corejs2": "^7.13.10",
     "@oliveai/ldk": "*",
     "babel-loader": "^8.2.2",
+    "buffer": "^6.0.3",
     "common-tags": "^1.8.0",
     "core-js": "^3.12.1",
 {{ @if (it.aptitudes.includes('network')) }}
@@ -106,6 +107,14 @@
         "urlDomains": [
           {
             "value": "*.fda.gov"
+          }
+        ]
+      },
+{{ #elif (aptitude === 'user') }}
+      "user": {
+        "optionalClaims": [
+          {
+            "value": "email"
           }
         ]
       },
