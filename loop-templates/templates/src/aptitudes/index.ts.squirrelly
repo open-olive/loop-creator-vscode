@@ -13,6 +13,9 @@ import networkExample from './network/networkExample';
 {{ @if (it.aptitudes.includes('ui')) }}
 import searchListener from './ui/searchListener';
 {{ /if }}
+{{ @if (it.aptitudes.includes('user')) }}
+import userExample from './user/userExample';
+{{ /if }}
 {{ @if (it.aptitudes.includes('window')) }}
 import activeWindowListener from './window/activeWindowListener';
 {{ /if }}
@@ -33,6 +36,9 @@ export {
 {{ /if }}
 {{ @if (it.aptitudes.includes('ui')) }}
   searchListener,
+{{ /if }}
+{{ @if (it.aptitudes.includes('user')) }}
+  userExample,
 {{ /if }}
 {{ @if (it.aptitudes.includes('window')) }}
   activeWindowListener,

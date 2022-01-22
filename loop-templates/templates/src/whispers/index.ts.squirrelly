@@ -14,6 +14,9 @@ import NetworkWhisper from './NetworkWhisper';
 {{ @if (it.aptitudes.includes('ui')) }}
 import UiWhisper from './UiWhisper';
 {{ /if }}
+{{ @if (it.aptitudes.includes('user')) }}
+import UserWhisper from './UserWhisper;
+{{ /if }}
 {{ @if (it.aptitudes.includes('window')) }}
 import WindowWhisper from './WindowWhisper';
 {{ /if }}
@@ -35,6 +38,9 @@ export {
 {{ /if }}
 {{ @if (it.aptitudes.includes('ui')) }}
   UiWhisper,
+{{ /if }}
+{{ @if (it.aptitudes.includes('user')) }}
+  UserWhisper,
 {{ /if }}
 {{ @if (it.aptitudes.includes('window')) }}
   WindowWhisper,

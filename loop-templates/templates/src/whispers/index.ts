@@ -46,7 +46,7 @@ const fileMap: FileMap = {
   networkWhisper: { fileName: "NetworkWhisper.ts", aptitude: "network" },
   uiWhisperTest: { fileName: "UiWhisper.test.ts", aptitude: "ui" },
   uiWhisper: { fileName: "UiWhisper.ts", aptitude: "ui" },
-  userWhisperTest: { fileName: "UserWhisper.testts", aptitude: "user" },
+  userWhisperTest: { fileName: "UserWhisper.test.ts", aptitude: "user" },
   userWhisper: { fileName: "UserWhisper.ts", aptitude: "user" },
   windowWhisperTest: { fileName: "WindowWhisper.test.ts", aptitude: "window" },
   windowWhisper: { fileName: "WindowWhisper.ts", aptitude: "window" },
