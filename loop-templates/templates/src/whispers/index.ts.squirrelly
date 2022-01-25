@@ -15,7 +15,7 @@ import NetworkWhisper from './NetworkWhisper';
 import UiWhisper from './UiWhisper';
 {{ /if }}
 {{ @if (it.aptitudes.includes('user')) }}
-import UserWhisper from './UserWhisper;
+import UserWhisper from './UserWhisper';
 {{ /if }}
 {{ @if (it.aptitudes.includes('window')) }}
 import WindowWhisper from './WindowWhisper';

@@ -66,6 +66,7 @@ export default {
   networkWhisper,
   uiWhisperTest,
   uiWhisper,
+  userWhisperTest,
   userWhisper,
   windowWhisperTest,
   windowWhisper,

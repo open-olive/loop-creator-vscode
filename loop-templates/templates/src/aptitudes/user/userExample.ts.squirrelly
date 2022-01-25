@@ -30,13 +30,13 @@ function decodeJwt(encodedJwt) {
 }
 
 
-const run = () => {
+const run = async () => {
     const config = { includeEmail: true };
-    user.jwt(config).then((token: string) => {
-        const decodedJwt = decodeJwt(token);
-        const { payload } = decodedJwt;
-        const whisper = new UserWhisper(token, payload.email);
-    });
+    const token = await user.jwt(config);
+    const decodedJwt = decodeJwt(token);
+    const { payload } = decodedJwt;
+    const whisper = new UserWhisper(token, payload.email);
+    whisper.show();
 }
 
 export default {run};

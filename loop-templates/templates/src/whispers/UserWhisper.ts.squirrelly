@@ -1,7 +1,9 @@
 import { whisper } from '@oliveai/ldk';
+import { MessageWhisperCopyMode } from '@oliveai/ldk/dist/whisper/types';
 
 {{ @if (it.isTypeScript) }}
 interface Props {
+  userEmail: string;
   userJwt: string;
 }
 {{ /if }}
@@ -34,12 +36,12 @@ export default class UserWhisper {
     };
     const markdown3{{it.isTypeScript ? ': whisper.Markdown' : ''}} = {
       type: whisper.WhisperComponentType.Markdown,
-      body: `Current JWT for user with email: ${props.userEmail}`,
+      body: `Current JWT for user with email: ${this.props.userEmail}`,
     };
     const message{{it.isTypeScript ? ': whisper.Message' : ''}} = {
       type: whisper.WhisperComponentType.Message,
-      body: `${userJwt}`,
-      copyable: true,
+      body: `${this.props.userJwt}`,
+      copyable: MessageWhisperCopyMode.Body,
     };
 
     return [markdown, markdown2, markdown3, message];
