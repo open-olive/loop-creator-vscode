@@ -2,6 +2,7 @@ import clipboard from "./clipboard";
 import filesystem from "./filesystem";
 import keyboard from "./keyboard";
 import network from "./network";
+import process from "./process";
 import ui from "./ui";
 import user from "./user";
 import window from "./window";
@@ -13,6 +14,7 @@ const fileMap: FileMap = {
   filesystem: { fileName: "filesystem", aptitude: "filesystem" },
   keyboard: { fileName: "keyboard", aptitude: "keyboard" },
   network: { fileName: "network", aptitude: "network" },
+  process: { fileName: "process", aptitude: "process" },
   ui: { fileName: "ui", aptitude: "nonzero" },
   user: { fileName: "user", aptitude: "user" },
   window: { fileName: "window", aptitude: "window" },
@@ -24,6 +26,7 @@ export default {
   filesystem,
   keyboard,
   network,
+  process,
   ui,
   user,
   window,

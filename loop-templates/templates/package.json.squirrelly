@@ -110,6 +110,8 @@
           }
         ]
       },
+{{ #elif (aptitude === 'process') }}
+     "process": {},
 {{ #elif (aptitude === 'user') }}
       "user": {
         "optionalClaims": [

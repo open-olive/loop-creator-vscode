@@ -10,6 +10,9 @@ import keyboardListener from './keyboard/keyboardListener';
 {{ @if (it.aptitudes.includes('network')) }}
 import networkExample from './network/networkExample';
 {{ /if }}
+{{ @if (it.aptitudes.includes('process')) }}
+import processExample from './process/processExample';
+{{ /if }}
 {{ @if (it.aptitudes.includes('ui')) }}
 import searchListener from './ui/searchListener';
 {{ /if }}
@@ -33,6 +36,9 @@ export {
 {{ /if }}
 {{ @if (it.aptitudes.includes('network')) }}
   networkExample,
+{{ /if }}
+{{ @if (it.aptitudes.includes('process')) }}
+  processExample,
 {{ /if }}
 {{ @if (it.aptitudes.includes('ui')) }}
   searchListener,
