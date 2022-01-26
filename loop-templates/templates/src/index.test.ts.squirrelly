@@ -12,6 +12,9 @@ import {
 {{ @if (it.aptitudes.includes('network')) }}
   networkExample,
 {{ /if }}
+{{ @if (it.aptitudes.includes('process')) }}
+  processExample,
+{{ /if }}
 {{ @if (it.aptitudes.includes('ui')) }}
   searchListener,
 {{ /if }}
@@ -56,6 +59,9 @@ describe('Project Startup', () => {
 {{ /if }}
 {{ @if (it.aptitudes.includes('network')) }}
     expect(networkExample.run).toBeCalled();
+{{ /if }}
+{{ @if (it.aptitudes.includes('process')) }}
+    expect(processExample.run).toBeCalled();
 {{ /if }}
 {{ @if (it.aptitudes.includes('ui')) }}
     expect(searchListener.listen).toBeCalled();
