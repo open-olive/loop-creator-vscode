@@ -5,8 +5,8 @@ import searchListener from './searchListener.ts.squirrelly';
 import { FileMap } from '@/types';
 
 const fileMap: FileMap = {
-  openHandlerTest: { fileName: 'openHandler.test.ts', aptitude: 'nonzero' },
-  openHandler: { fileName: 'openHandler.ts', aptitude: 'nonzero' },
+  openHandlerTest: { fileName: 'openHandler.test.ts', aptitude: 'any' },
+  openHandler: { fileName: 'openHandler.ts', aptitude: 'any' },
   searchListenerTest: { fileName: 'searchListener.test.ts', aptitude: 'ui' },
   searchListener: { fileName: 'searchListener.ts', aptitude: 'ui' }
 };

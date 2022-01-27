@@ -8,9 +8,18 @@ interface Props {
   label: string;
 }
 {{ /if }}
+/**
+ * Preferred method for updateable whispers
+ * + Class instances allow more control over updateable props
+ * + Updating whispers requires storing the created whisper object
+ * + Separation of concern for different methods
+ * + Testing makes more sense without explicit exports solely for testing
+ * - Considered overkill for any whispers that don't need updating
+ * @see IntroWhisperSimple for simple whispers
+ */
 export default class IntroWhisper {
 {{ @if (it.isTypeScript) }}
-  whisper: whisper.Whisper;
+  whisper: whisper.Whisper | undefined;
 
   label: string;
 
@@ -267,14 +276,14 @@ export default class IntroWhisper {
 
   update(props{{it.isTypeScript ? ': Partial<Props>' : '' | safe}}) {
     this.props = { ...this.props, ...props };
-    this.whisper.update({
+    this.whisper?.update({
       label: this.props.label || this.label,
       components: this.createComponents(),
     });
   }
 
   close() {
-    this.whisper.close(IntroWhisper.onClose);
+    this.whisper?.close(IntroWhisper.onClose);
   }
 
   static onClose(err{{it.isTypeScript ? '?: Error' : ''}}) {

@@ -6,11 +6,12 @@ import networkExample from './networkExample';
 jest.mock('@oliveai/ldk');
 
 const mockNetworkShow = jest.fn();
+
 jest.mock('../../whispers', () => {
   return {
-    NetworkWhisper: jest.fn().mockImplementation(() => {
-      return { show: mockNetworkShow };
-    }),
+    NetworkWhisper: {
+      show: jest.fn(() => mockNetworkShow()),
+    },
   };
 });
 
@@ -27,7 +28,7 @@ describe('Network Example', () => {
   });
 
   it('should make a network request and display the result with a whisper', async () => {
-    const responseStub{{it.isTypeScript ? ': network.HTTPResponse' : ''}} = {
+    const responseStub{{ it.isTypeScript ? ': network.HTTPResponse' : '' }} = {
       statusCode: 200,
       body: new Uint8Array(),
       headers: {},
@@ -49,7 +50,7 @@ describe('Network Example', () => {
       `,
     });
     expect(network.decode).toBeCalledWith(responseStub.body);
-    expect(NetworkWhisper).toBeCalledWith(responseBodyStub.results);
+    expect(NetworkWhisper.show).toBeCalledWith(responseBodyStub.results);
     expect(mockNetworkShow).toBeCalled();
   });
 });

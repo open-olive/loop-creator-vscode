@@ -7,7 +7,7 @@ import { NetworkWhisper } from '../../whispers';
 const run = async () => {
   const currentDate = new Date();
   const threeMonthsAgo = add(currentDate, { months: -3 });
-  const request{{it.isTypeScript ? ': network.HTTPRequest' : ''}} = {
+  const request{{ it.isTypeScript ? ': network.HTTPRequest' : '' }} = {
     method: 'GET',
     url: oneLine`
     https://api.fda.gov/food/enforcement.json?search=report_date:[
@@ -23,8 +23,7 @@ const run = async () => {
   const parsedObject = JSON.parse(decodedBody);
   const recalls = parsedObject.results;
 
-  const whisper = new NetworkWhisper(recalls);
-  whisper.show();
+  await NetworkWhisper.show(recalls);
 };
 
 export default { run };

@@ -5,6 +5,8 @@ import filesystemWhisper from './FilesystemWhisper.ts.squirrelly';
 import index from './index.ts.squirrelly';
 import introWhisperTest from './IntroWhisper.test.ts.squirrelly';
 import introWhisper from './IntroWhisper.ts.squirrelly';
+import introWhisperSimpleTest from './IntroWhisperSimple.test.ts.squirrelly';
+import introWhisperSimple from './IntroWhisperSimple.ts.squirrelly';
 import keyboardWhisperTest from './KeyboardWhisper.test.ts.squirrelly';
 import keyboardWhisper from './KeyboardWhisper.ts.squirrelly';
 import networkWhisperTest from './NetworkWhisper.test.ts.squirrelly';
@@ -25,6 +27,8 @@ const fileMap: FileMap = {
   index: { fileName: 'index.ts', aptitude: 'any' },
   introWhisperTest: { fileName: 'IntroWhisper.test.ts', aptitude: 'any' },
   introWhisper: { fileName: 'IntroWhisper.ts', aptitude: 'any' },
+  introWhisperSimpleTest: { fileName: 'IntroWhisperSimple.test.ts', aptitude: 'any'},
+  introWhisperSimple: { fileName: 'IntroWhisperSimple.ts', aptitude: 'any'},
   keyboardWhisperTest: { fileName: 'KeyboardWhisper.test.ts', aptitude: 'keyboard' },
   keyboardWhisper: { fileName: 'KeyboardWhisper.ts', aptitude: 'keyboard' },
   networkWhisperTest: { fileName: 'NetworkWhisper.test.ts', aptitude: 'network' },
@@ -45,6 +49,8 @@ export default {
   index,
   introWhisperTest,
   introWhisper,
+  introWhisperSimpleTest,
+  introWhisperSimple,
   keyboardWhisperTest,
   keyboardWhisper,
   networkWhisperTest,

@@ -1,5 +1,3 @@
-import { IntroWhisper } from './whispers';
-{{ @if (it.aptitudes.length > 0) }}
 import {
 {{ @if (it.aptitudes.includes('clipboard')) }}
   clipboardListener,
@@ -49,15 +47,4 @@ import {
   activeWindowListener.listen();
 {{ /if }}
   openHandler.start();
-  new IntroWhisper().show();
 })();
-{{ #else }}
-import { openHandler } from './aptitudes';
-
-(async function main(){{ @if (it.isTypeScript) }}{{it.promiseVoid | safe}}{{ /if }} {
-  console.log('Example Loop Started');
-  openHandler.start();
-  new IntroWhisper().show();
-})();
-
-{{ /if }}
