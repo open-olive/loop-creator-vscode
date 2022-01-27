@@ -11,6 +11,8 @@ import keyboardWhisperTest from './KeyboardWhisper.test.ts.squirrelly';
 import keyboardWhisper from './KeyboardWhisper.ts.squirrelly';
 import networkWhisperTest from './NetworkWhisper.test.ts.squirrelly';
 import networkWhisper from './NetworkWhisper.ts.squirrelly';
+import processWhisperTest from './ProcessWhisper.test.ts.squirrelly';
+import processWhisper from './ProcessWhisper.ts.squirrelly';
 import uiWhisperTest from './UiWhisper.test.ts.squirrelly';
 import uiWhisper from './UiWhisper.ts.squirrelly';
 import windowWhisperTest from './WindowWhisper.test.ts.squirrelly';
@@ -31,6 +33,8 @@ const fileMap: FileMap = {
   keyboardWhisper: { fileName: 'KeyboardWhisper.ts', aptitude: 'keyboard' },
   networkWhisperTest: { fileName: 'NetworkWhisper.test.ts', aptitude: 'network' },
   networkWhisper: { fileName: 'NetworkWhisper.ts', aptitude: 'network' },
+  processWhisperTest: { fileName: 'ProcessWhisper.test.ts', aptitude: 'process' },
+  processWhisper: { fileName: 'ProcessWhisper.ts', aptitude: 'process' },
   uiWhisperTest: { fileName: 'UiWhisper.test.ts', aptitude: 'ui' },
   uiWhisper: { fileName: 'UiWhisper.ts', aptitude: 'ui' },
   windowWhisperTest: { fileName: 'WindowWhisper.test.ts', aptitude: 'window' },
@@ -51,6 +55,8 @@ export default {
   keyboardWhisper,
   networkWhisperTest,
   networkWhisper,
+  processWhisperTest,
+  processWhisper,
   uiWhisperTest,
   uiWhisper,
   windowWhisperTest,

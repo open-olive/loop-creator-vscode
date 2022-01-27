@@ -12,6 +12,9 @@ import KeyboardWhisper from './KeyboardWhisper';
 {{ @if (it.aptitudes.includes('network')) }}
 import NetworkWhisper from './NetworkWhisper';
 {{ /if }}
+{{ @if (it.aptitudes.includes('process')) }}
+import ProcessWhisper from './ProcessWhisper';
+{{ /if }}
 {{ @if (it.aptitudes.includes('ui')) }}
 import UiWhisper from './UiWhisper';
 {{ /if }}
@@ -34,6 +37,9 @@ export {
 {{ /if }}
 {{ @if (it.aptitudes.includes('network')) }}
   NetworkWhisper,
+{{ /if }}
+{{ @if (it.aptitudes.includes('process')) }}
+  ProcessWhisper,
 {{ /if }}
 {{ @if (it.aptitudes.includes('ui')) }}
   UiWhisper,
