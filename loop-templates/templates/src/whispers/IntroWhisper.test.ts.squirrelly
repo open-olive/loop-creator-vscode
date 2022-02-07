@@ -109,6 +109,41 @@ describe('Intro Whisper', () => {
       expect.objectContaining({
         type: whisper.WhisperComponentType.Button,
       }),
+      expect.objectContaining({
+        type: whisper.WhisperComponentType.Autocomplete,
+      }),
+      expect.objectContaining({
+        type: whisper.WhisperComponentType.Autocomplete,
+      }),
+      expect.objectContaining({
+        type: whisper.WhisperComponentType.DateTimeInput,
+      }),
+      expect.objectContaining({
+        type: whisper.WhisperComponentType.DropZone,
+      }),
+      expect.objectContaining({
+        type: whisper.WhisperComponentType.Icon,
+      }),
+      expect.objectContaining({
+        type: whisper.WhisperComponentType.SectionTitle,
+      }),
+      expect.objectContaining({
+        type: whisper.WhisperComponentType.Breadcrumbs,
+        children: [
+          expect.objectContaining({
+            type: whisper.WhisperComponentType.Link,
+          }),
+          expect.objectContaining({
+            type: whisper.WhisperComponentType.Link,
+          }),
+          expect.objectContaining({
+            type: whisper.WhisperComponentType.Link,
+          }),
+        ],
+      }),
+      expect.objectContaining({
+        type: whisper.WhisperComponentType.Progress,
+      }),
     ];
 
     expect(actual).toEqual(expected);
@@ -210,6 +245,33 @@ describe('Intro Whisper', () => {
     expect(console.log).toBeCalledWith('Resetting number of clones: ', 1);
     expect(mockWhisperUpdate).toBeCalled();
     expect(newWhisper.props.numClones).toEqual(1);
+
+    // Check clicking on reset clones button
+    const resetClonesButton = components[24];
+    resetClonesButton.onClick(null, null);
+    expect(console.log).toBeCalledWith('Resetting number of clones: ', 1);
+    expect(mockWhisperUpdate).toBeCalled();
+    expect(newWhisper.props.numClones).toEqual(1);
+
+    // Check autoComplete's onChange
+    const autocompleteSingleSelect = components[25];
+    autocompleteSingleSelect.onChange(null, 4, null);
+    expect(console.log).toBeCalledWith('Autocomplete secection changed: ', 4);
+
+    // Check autocomplete's onSelect
+    const autocompleteMultipleSelect = components[26];
+    autocompleteMultipleSelect.onSelect(null, [4, 5], null);
+    expect(autocompleteMultipleSelect).toBeCalled();
+
+    // Check dateTimeInput's onSelect
+    const dateTimeInput = components[27];
+    dateTimeInput.onSelect(null, 0, null);
+    expect(console.log).toBeCalledWith('Time picker value received: ', 0);
+
+    // Check icon's onClick
+    const icon = components[29];
+    icon.onClick(null, null);
+    expect(console.log).toBeCalledWith('Emoji Emotions Clicked');
   });
 
   it('uses default values for updatable components', async () => {

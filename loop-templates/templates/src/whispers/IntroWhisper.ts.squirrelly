@@ -179,6 +179,85 @@ export default class IntroWhisper {
         console.log('Radio button option selected: ', val);
       },
     };
+        const autocompleteOptions = [
+      { label: 'Value 1', value: '1' },
+      { label: 'Value 2', value: '2' },
+      { label: 'Value 3', value: '3' },
+      { label: 'Value 4', value: '4' },
+      { label: 'Value 5', value: '5' },
+    ];
+    const autocompleteSingleSelect{{it.isTypeScript ? ': whisper.Autocomplete' : ''}} = {
+      type: whisper.WhisperComponentType.Autocomplete,
+      label: 'Single Select Autocomplete',
+      loading: false,
+      onChange: (_error, val) => {
+        console.log('Autocomplete secection changed: ', val);
+      },
+      onSelect: (error, value, onSelectWhisper) => {
+        console.log(`Received selected value: ${JSON.stringify(value)}`);
+      },
+      options: autocompleteOptions,
+    };
+    const autocompleteMultipleSelect{{it.isTypeScript ? ': whisper.Autocomplete' : ''}} = {
+      type: whisper.WhisperComponentType.Autocomplete,
+      label: 'Multi Select Autocomplete',
+      loading: true,
+      multiple: true,
+      onSelect: (error, value, onSelectWhisper) => {
+        console.log(`Received selected value: ${JSON.stringify(value)}`);
+      },
+      options: autocompleteOptions,
+      tooltip: 'tooltip',
+      value: '5',
+    };
+    const dateTimeInput{{it.isTypeScript ? ': whisper.DateTimeInput' : ''}}= {
+      type: whisper.WhisperComponentType.DateTimeInput,
+      dateTimeType: DateTimeType.Date,
+      tooltip: 'Date',
+      onChange: (_error{{it.isTypeScript ? ': Error | undefined' : ''}}, val{{it.isTypeScript ? ': string' : ''}}) => {
+        console.debug(`Time picker value received: `, val);
+      },
+    };
+    // dropzone example components.
+    const dropZone{{it.isTypeScript ? ': whisper.DropZone' : ''}} = {
+      type: whisper.WhisperComponentType.DropZone,
+      onDrop: () => {
+        console.log('file deropped')
+      },
+      label: 'File Components',
+    };
+    const icon{{it.isTypeScript ? ': whisper.Icon' : ''}} = {
+      type: whisper.WhisperComponentType.Icon,
+      name: 'emoji_emotions',
+      onClick: () => {
+        console.log('Emoji Emotions Clicked');
+      },
+    };
+    const sectionTitle{{it.isTypeScript ? ': whisper.SectionTitle' : ''}} = {
+      body: 'section Title in center',
+      type: whisper.WhisperComponentType.SectionTitle,
+    };
+    const breadcrumbs{{it.isTypeScript ? ': whisper.Breadcrumbs' : ''}} ={
+      type: whisper.WhisperComponentType.Breadcrumbs,
+      links: [
+        {
+          type: whisper.WhisperComponentType.Link,
+          text: 'Breadcrumb 1',
+        },
+        {
+          type: whisper.WhisperComponentType.Link,
+          text: 'Breadcrumb 2',
+        },
+        {
+          type: whisper.WhisperComponentType.Link,
+          text: 'Breadcrumb 3',
+        },
+      ],
+    };
+    const progress{{it.isTypeScript ? ': whisper.Progress' : ''}} = {        
+      type: whisper.WhisperComponentType.Progress,
+      determinate: 30,
+    };
 
     // Showing how to use whisper.update
     const updatableComponentsHeading{{it.isTypeScript ? ': whisper.Markdown' : ''}} = {
@@ -252,6 +331,14 @@ export default class IntroWhisper {
       numberInput,
       select,
       radioBtn,
+      autocompleteSingleSelect,
+      autocompleteMultipleSelect,
+      dateTimeInput,
+      dropZone,
+      icon,
+      sectionTitle,
+      breadcrumbs,
+      progress,
       divider,
       updatableComponentsHeading,
       updatableMessage,
