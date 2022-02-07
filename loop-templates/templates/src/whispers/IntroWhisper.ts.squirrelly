@@ -179,7 +179,7 @@ export default class IntroWhisper {
     ];
     const autocompleteSingleSelect{{it.isTypeScript ? ': whisper.Autocomplete' : ''}} = {
       type: whisper.WhisperComponentType.Autocomplete,
-      label: 'Select 4',
+      label: 'Single Select Autocomplete',
       loading: false,
       onChange: (_error, val) => {
         console.log('Autocomplete secection changed: ', val);
@@ -191,7 +191,7 @@ export default class IntroWhisper {
     };
     const autocompleteMultipleSelect{{it.isTypeScript ? ': whisper.Autocomplete' : ''}} = {
       type: whisper.WhisperComponentType.Autocomplete,
-      label: 'Select 4 and 5',
+      label: 'Multi Select Autocomplete',
       loading: true,
       multiple: true,
       onSelect: (error, value, onSelectWhisper) => {
