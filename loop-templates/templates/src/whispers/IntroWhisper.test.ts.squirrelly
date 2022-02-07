@@ -149,7 +149,7 @@ describe('Intro Whisper', () => {
     expect(actual).toEqual(expected);
   });
 
-  it('creates components with functional h0andlers', async () => {
+  it('creates components with functional handlers', async () => {
     const newWhisper = new IntroWhisper();
     newWhisper.show();
     await Promise.resolve();
