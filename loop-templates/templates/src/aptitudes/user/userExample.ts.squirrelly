@@ -8,14 +8,14 @@ import { UserWhisper } from '../../whispers';
 const dashRegExp = new RegExp('-', 'g');
 const underscoreRegExp = new RegExp('_', 'g');
 
-function atob(b64EncodedString) {
+function atob(b64EncodedString{{ it.isTypeScript ? ': string' : '' }}) {
   // RFC 4648 substitues - for + and _ for / to be url and filesystem safe
   const replaced = b64EncodedString.replace(dashRegExp, '+').replace(underscoreRegExp, '/');
   const decoded = Buffer.from(replaced, 'base64').toString();
   return decoded;
 }
 
-function decodeJwt(encodedJwt) {
+function decodeJwt(encodedJwt{{ it.isTypeScript ? ': string' : '' }}) {
   // A JWT is encoded in base-64 with .'s seperating each section
   // header.payload.signature
   const jwtParts = encodedJwt.split('.');
@@ -29,7 +29,6 @@ function decodeJwt(encodedJwt) {
   return decodedJwt;
 }
 
-
 const run = async () => {
   const config = { includeEmail: true };
   const token = await user.jwt(config);
@@ -37,7 +36,6 @@ const run = async () => {
   const { payload } = decodedJwt;
   const whisper = new UserWhisper(token, payload.email);
   whisper.show();
-}
+};
 
-export default {run};
-
+export default { run };

@@ -9,7 +9,7 @@ interface Props {
 {{ /if }}
 export default class UserWhisper {
 {{ @if (it.isTypeScript) }}
-  whisper: whisper.Whisper;
+  whisper: whisper.Whisper | undefined;
 
   label: string;
 
