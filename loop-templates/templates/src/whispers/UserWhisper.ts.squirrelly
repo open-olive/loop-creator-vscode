@@ -60,7 +60,7 @@ export default class UserWhisper {
   }
 
   close() {
-    this.whisper.close(UserWhisper.onClose);
+    this.whisper?.close(UserWhisper.onClose);
   }
 
   static onClose(err{{it.isTypeScript ? '?: Error' : ''}}) {
