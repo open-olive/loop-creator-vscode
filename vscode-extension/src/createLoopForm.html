@@ -48,8 +48,8 @@
         background-color: #cccccc;
         color: #666666;
       }
-      input[type="text"],
-      input[type="password"],
+      input[type='text'],
+      input[type='password'],
       select {
         background: #e0cfff;
       }
@@ -194,36 +194,36 @@
       window.vscode = acquireVsCodeApi();
 
       function openFolderBrowser() {
-        vscode.postMessage({ command: "openFolderDialog" });
+        vscode.postMessage({ command: 'openFolderDialog' });
       }
 
-      window.addEventListener("message", (event) => {
+      window.addEventListener('message', (event) => {
         const message = event.data;
 
-        if (message.command === "getProjectPath") {
-          document.getElementById("path").value = message.payload;
+        if (message.command === 'getProjectPath') {
+          document.getElementById('path').value = message.payload;
         } else {
           throw new Error(`Invalid command "${message.command}".`);
         }
       });
 
       function showNetwork(networkOptions) {
-        var networkchxbox = document.getElementById("aptitudesNetwork");
-        var visible = "none";
+        var networkchxbox = document.getElementById('aptitudesNetwork');
+        var visible = 'none';
         if (networkchxbox.checked) {
-          visible = "table-row";
+          visible = 'table-row';
         }
         document.getElementById(networkOptions).style.display = visible;
       }
 
-      const loopForm = document.getElementById("createLoopForm");
-      loopForm.addEventListener("submit", (e) => {
+      const loopForm = document.getElementById('createLoopForm');
+      loopForm.addEventListener('submit', (e) => {
         e.preventDefault();
 
         // Construct a FormData object, which fires the formdata event.
         new FormData(loopForm);
       });
-      loopForm.addEventListener("formdata", (e) => {
+      loopForm.addEventListener('formdata', (e) => {
         const payload = {
           aptitudes: [],
         };
@@ -231,15 +231,15 @@
         for (let entry of e.formData.entries()) {
           const key = entry[0];
           const value = entry[1];
-          if (key === "aptitudes") {
-            payload["aptitudes"].push(value);
+          if (key === 'aptitudes') {
+            payload['aptitudes'].push(value);
           } else {
             payload[key] = value;
           }
         }
 
         vscode.postMessage({
-          command: "createLoop",
+          command: 'createLoop',
           payload: payload,
         });
       });
