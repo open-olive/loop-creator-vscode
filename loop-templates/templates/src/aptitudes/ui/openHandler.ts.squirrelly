@@ -1,9 +1,10 @@
 import { ui } from '@oliveai/ldk';
 
-import { IntroWhisper } from '../../whispers';
+import { IntroWhisper, IntroWhisperSimple } from '../../whispers';
 
 export const handler = async () => {
   new IntroWhisper().show();
+  await IntroWhisperSimple.show();
 };
 
 export default {

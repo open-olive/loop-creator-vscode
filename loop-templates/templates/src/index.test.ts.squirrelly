@@ -24,20 +24,12 @@ import {
 {{ @if (it.aptitudes.includes('window')) }}
   activeWindowListener,
 {{ /if }}
-openHandler,
+  openHandler,
 } from './aptitudes';
 {{ #else }}
 import { openHandler } from './aptitudes';
 {{ /if }}
 jest.mock('./aptitudes');
-
-const mockIntroWhisperShow = jest.fn();
-
-jest.mock('./whispers', () => ({
-  IntroWhisper: jest.fn(() => ({
-    show: mockIntroWhisperShow,
-  })),
-}));
 
 describe('Project Startup', () => {
   afterEach(() => {
@@ -49,7 +41,6 @@ describe('Project Startup', () => {
     await require('.');
     expect(console.log).toBeCalledWith('Example Loop Started');
     expect(openHandler.start).toBeCalled();
-    expect(mockIntroWhisperShow).toBeCalled();
 {{ @if (it.aptitudes.length > 0) }}
 {{ @if (it.aptitudes.includes('clipboard')) }}
     expect(clipboardListener.listen).toBeCalled();

@@ -1,11 +1,11 @@
-import { whisper{{it.isTypeScript ? ', window' : ''}} } from '@oliveai/ldk';
-import { WindowWhisper } from '.';
+import { whisper{{ it.isTypeScript ? ', window' : '' }} } from '@oliveai/ldk';
+import WindowWhisper, { onClose, createComponents } from './WindowWhisper';
 
 jest.mock('@oliveai/ldk');
 
 const mockWhisperClose = jest.fn();
 
-const TEST_PARAM = { path: 'test', pid: 0 }{{it.isTypeScript ? ' as window.WindowInfo' : ''}};
+const TEST_PARAM = { path: 'test', pid: 0 }{{ it.isTypeScript ? ' as window.WindowInfo' : '' }};
 
 describe('Window Whisper', () => {
   beforeEach(() => {
@@ -16,8 +16,7 @@ describe('Window Whisper', () => {
   });
 
   it('creates components as expected', () => {
-    const newWhisper = new WindowWhisper(TEST_PARAM);
-    const actual = newWhisper.createComponents();
+    const actual = createComponents(TEST_PARAM);
 
     const expected = [
       expect.objectContaining({
@@ -36,16 +35,15 @@ describe('Window Whisper', () => {
   });
 
   it('creates a whisper and closes it gracefully', async () => {
-    const newWhisper = new WindowWhisper(TEST_PARAM);
-    newWhisper.show();
+    const newWhisper = await WindowWhisper.show(TEST_PARAM);
     await Promise.resolve();
-    newWhisper.close();
+    newWhisper.close(() => null);
 
     expect(whisper.create).toBeCalledWith(
       expect.objectContaining({
-        components: newWhisper.createComponents(),
+        components: createComponents(TEST_PARAM),
         label: 'Active Window Changed',
-        onClose: WindowWhisper.onClose,
+        onClose,
       })
     );
     expect(mockWhisperClose).toBeCalled();
@@ -56,7 +54,7 @@ describe('Window Whisper', () => {
     ${'without an error'} | ${undefined}
     ${'with an error'}    | ${new Error('error')}
   `('should close properly $scenario', ({ error }) => {
-    WindowWhisper.onClose(error);
+    onClose(error);
 
     if (error) {
       expect(console.error).toBeCalledWith('There was an error closing Window whisper', error);

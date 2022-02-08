@@ -5,11 +5,12 @@ import activeWindowListener, { handler } from './activeWindowListener';
 jest.mock('@oliveai/ldk');
 
 const mockWindowShow = jest.fn();
+
 jest.mock('../../whispers', () => {
   return {
-    WindowWhisper: jest.fn().mockImplementation(() => {
-      return { show: mockWindowShow };
-    }),
+    WindowWhisper: {
+      show: jest.fn(() => mockWindowShow()),
+    },
   };
 });
 
@@ -25,11 +26,11 @@ describe('Active Window Listener', () => {
   });
 
   it('should create the whisper when handler is triggered', () => {
-    const activeWindowStub = {}{{it.isTypeScript ? ' as window.WindowInfo' : ''}};
+    const activeWindowStub = {}{{ it.isTypeScript ? ' as window.WindowInfo' : ''}};
 
     handler(activeWindowStub);
 
-    expect(WindowWhisper).toBeCalledWith(activeWindowStub);
+    expect(WindowWhisper.show).toBeCalledWith(activeWindowStub);
     expect(mockWindowShow).toBeCalled();
   });
 });

@@ -5,11 +5,12 @@ import filesystemExample from './filesystemExample';
 jest.mock('@oliveai/ldk');
 
 const mockFilesystemShow = jest.fn();
+
 jest.mock('../../whispers', () => {
   return {
-    FilesystemWhisper: jest.fn().mockImplementation(() => {
-      return { show: mockFilesystemShow };
-    }),
+    FilesystemWhisper: {
+      show: jest.fn(() => mockFilesystemShow()),
+    },
   };
 });
 
@@ -37,7 +38,7 @@ describe('Filesystem Example', () => {
       writeMode: WRITE_MODE,
     });
 
-    expect(FilesystemWhisper).toBeCalledWith(fileContentsStub);
+    expect(FilesystemWhisper.show).toBeCalledWith(fileContentsStub);
     expect(mockFilesystemShow).toBeCalled();
 
     expect(filesystem.remove).toBeCalledWith(TEST_DIR);

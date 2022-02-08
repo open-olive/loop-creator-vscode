@@ -1,13 +1,11 @@
 import { whisper } from '@oliveai/ldk';
-import UiWhisper, { onClose } from './UiWhisper';
+import IntroWhisperSimple, { onClose } from './IntroWhisperSimple';
 
 jest.mock('@oliveai/ldk');
 
 const mockWhisperClose = jest.fn();
 
-const TEST_PARAM = 'test';
-
-describe('UI Search Whisper', () => {
+describe('Export Default Whisper', () => {
   beforeEach(() => {
     whisper.create = jest.fn().mockResolvedValueOnce({ close: mockWhisperClose });
   });
@@ -16,19 +14,14 @@ describe('UI Search Whisper', () => {
   });
 
   it('creates a whisper and closes it gracefully', async () => {
-    const newWhisper = await UiWhisper.show(TEST_PARAM);
+    const newWhisper = await IntroWhisperSimple.show();
     newWhisper.close(() => null);
 
     expect(whisper.create).toBeCalledWith(
       expect.objectContaining({
-        components: [
-          {
-            type: whisper.WhisperComponentType.Message,
-            body: TEST_PARAM,
-          },
-        ],
-        label: 'UI Aptitude Fired',
-        onClose,
+        label: 'Export Default Whisper',
+        components: [expect.objectContaining({ type: whisper.WhisperComponentType.Markdown })],
+        onClose: expect.any(Function),
       })
     );
     expect(mockWhisperClose).toBeCalled();
@@ -38,12 +31,15 @@ describe('UI Search Whisper', () => {
     scenario              | error
     ${'without an error'} | ${undefined}
     ${'with an error'}    | ${new Error('error')}
-  `('should close properly $scenario', ({ error }) => {
+  `('should close properly $scenario', async ({ error }) => {
     onClose(error);
 
     if (error) {
-      expect(console.error).toBeCalledWith('There was an error closing UI Search whisper', error);
+      expect(console.error).toBeCalledWith(
+        'There was an error closing Export Default whisper',
+        error
+      );
     }
-    expect(console.log).toBeCalledWith('UI Search whisper closed');
+    expect(console.log).toBeCalledWith('Export Default whisper closed');
   });
 });

@@ -130,7 +130,7 @@ const aptitudesPrompt = () => {
       { title: 'Keyboard', value: 'keyboard' },
       { title: 'Network', value: 'network' },
       { title: 'Process', value: 'process' },
-      { title: 'Search', value: 'ui' },
+      { title: 'UI', value: 'ui' },
       { title: 'User', value: 'user' },
       { title: 'Window', value: 'window' },
     ],

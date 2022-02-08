@@ -2,10 +2,10 @@ import { ui } from '@oliveai/ldk';
 
 import { UiWhisper } from '../../whispers';
 
-const handler = (text{{it.isTypeScript ? ': string' : ''}}) => {
-  const whisper = new UiWhisper(text);
-  whisper.show();
+const handler = async (text{{ it.isTypeScript ? ': string' : '' }}) => {
+  await UiWhisper.show(text);
 };
+
 const listen = () => {
   ui.listenGlobalSearch(handler);
   ui.listenSearchbar(handler);

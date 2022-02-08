@@ -15,7 +15,7 @@ const fileMap: FileMap = {
   keyboard: { fileName: 'keyboard', aptitude: 'keyboard' },
   network: { fileName: 'network', aptitude: 'network' },
   process: { fileName: 'process', aptitude: 'process' },
-  ui: { fileName: 'ui', aptitude: 'nonzero' },
+  ui: { fileName: 'ui', aptitude: 'any' },
   user: { fileName: 'user', aptitude: 'user' },
   window: { fileName: 'window', aptitude: 'window' },
   index: { fileName: 'index.ts', aptitude: 'any' },

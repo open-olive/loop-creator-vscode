@@ -5,11 +5,12 @@ import keyboardListener, { handler } from './keyboardListener';
 jest.mock('@oliveai/ldk');
 
 const mockKeyboardShow = jest.fn();
+
 jest.mock('../../whispers', () => {
   return {
-    KeyboardWhisper: jest.fn().mockImplementation(() => {
-      return { show: mockKeyboardShow };
-    }),
+    KeyboardWhisper: {
+      show: jest.fn(() => mockKeyboardShow()),
+    },
   };
 });
 
@@ -24,10 +25,10 @@ describe('Keyboard Listener', () => {
     expect(keyboard.listenText).toBeCalledWith(handler);
   });
 
-  it('should create the whisper when handler is triggered', () => {
-    handler('test');
+  it('should create the whisper when handler is triggered', async () => {
+    await handler('test');
 
-    expect(KeyboardWhisper).toBeCalledWith('test');
+    expect(KeyboardWhisper.show).toBeCalledWith('test');
     expect(mockKeyboardShow).toBeCalled();
   });
 });
