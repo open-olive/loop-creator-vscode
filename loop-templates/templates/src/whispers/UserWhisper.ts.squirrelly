@@ -21,7 +21,7 @@ export default class UserWhisper {
     this.label = 'Example for User Aptitude';
     this.props = {
       userJwt,
-      userEmail
+      userEmail,
     };
   }
 

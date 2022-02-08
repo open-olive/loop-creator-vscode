@@ -5,8 +5,8 @@ jest.mock('@oliveai/ldk');
 
 const mockWhisperClose = jest.fn();
 
-const TEST_JWT = "abcdefg"
-const TEST_EMAIL = "a@a.com"
+const TEST_JWT = 'abcdefg';
+const TEST_EMAIL = 'a@a.com';
 
 describe('User Whisper', () => {
   beforeEach(() => {
@@ -29,11 +29,11 @@ describe('User Whisper', () => {
       }),
     expect.objectContaining({
         type: whisper.WhisperComponentType.Markdown,
-        body: "Current JWT for user with email: a@a.com"
+        body: 'Current JWT for user with email: a@a.com'
       }),
     expect.objectContaining({
         type: whisper.WhisperComponentType.Message,
-        body: "abcdefg"
+        body: 'abcdefg'
       }),
     ];
 

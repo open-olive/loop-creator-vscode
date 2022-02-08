@@ -29,6 +29,7 @@ import {
 {{ #else }}
 import { openHandler } from './aptitudes';
 {{ /if }}
+
 jest.mock('./aptitudes');
 
 describe('Project Startup', () => {
@@ -69,4 +70,3 @@ describe('Project Startup', () => {
 {{ /if }}
   });
 });
-
