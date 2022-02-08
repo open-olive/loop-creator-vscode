@@ -191,7 +191,7 @@ export default class IntroWhisper {
       label: 'Single Select Autocomplete',
       loading: false,
       onChange: (_error, val) => {
-        console.log('Autocomplete secection changed: ', val);
+        console.log('Autocomplete section changed: ', val);
       },
       onSelect: (error, value, onSelectWhisper) => {
         console.log(`Received selected value: ${JSON.stringify(value)}`);
@@ -212,10 +212,10 @@ export default class IntroWhisper {
     };
     const dateTimeInput{{it.isTypeScript ? ': whisper.DateTimeInput' : ''}}= {
       type: whisper.WhisperComponentType.DateTimeInput,
-      dateTimeType: DateTimeType.Date,
+      dateTimeType: whisper.DateTimeType.Date,
       tooltip: 'Date',
       onChange: (_error{{it.isTypeScript ? ': Error | undefined' : ''}}, val{{it.isTypeScript ? ': string' : ''}}) => {
-        console.debug(`Time picker value received: `, val);
+        console.log(`Time picker value received: `, val);
       },
     };
     // dropzone example components.
@@ -312,40 +312,40 @@ export default class IntroWhisper {
     }
 
     return [
-      introMessage,
-      divider,
-      collapseBox,
-      divider,
-      boxHeader,
-      box,
-      divider,
-      exampleComponentsHeading,
-      textInput,
-      email,
-      password,
-      telephone,
-      button,
-      link,
-      checkbox,
-      pair,
-      numberInput,
-      select,
-      radioBtn,
-      autocompleteSingleSelect,
-      autocompleteMultipleSelect,
-      dateTimeInput,
-      dropZone,
-      icon,
-      sectionTitle,
-      breadcrumbs,
-      progress,
-      divider,
-      updatableComponentsHeading,
-      updatableMessage,
-      updatableMessageInput,
-      updatableLabelInput,
-      resetButton,
-      ...clonedComponents,
+      introMessage, // 0
+      divider, // 1
+      collapseBox, // 2
+      divider, // 3
+      boxHeader, // 4
+      box, // 5
+      divider, // 6
+      exampleComponentsHeading, // 7
+      textInput, // 8
+      email, // 9
+      password, // 10
+      telephone, // 11
+      button, // 12
+      link, // 13
+      checkbox, // 14
+      pair, // 15
+      numberInput, // 16
+      select, // 17
+      radioBtn, // 18
+      autocompleteSingleSelect, // 19
+      autocompleteMultipleSelect, // 20
+      dateTimeInput, // 21
+      dropZone, // 22
+      icon, // 23
+      sectionTitle, // 24
+      breadcrumbs, // 25
+      progress, // 26
+      divider, // 27
+      updatableComponentsHeading, // 28
+      updatableMessage, // 29
+      updatableMessageInput, // 30
+      updatableLabelInput, // 31
+      resetButton, // 32
+      ...clonedComponents, // 33+
     ];
   }
 
