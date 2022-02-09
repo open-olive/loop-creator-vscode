@@ -18,6 +18,9 @@ import {
 {{ @if (it.aptitudes.includes('ui')) }}
   searchListener,
 {{ /if }}
+{{ @if (it.aptitudes.includes('user')) }}
+  userExample,
+{{ /if }}
 {{ @if (it.aptitudes.includes('window')) }}
   activeWindowListener,
 {{ /if }}
@@ -26,6 +29,7 @@ import {
 {{ #else }}
 import { openHandler } from './aptitudes';
 {{ /if }}
+
 jest.mock('./aptitudes');
 
 describe('Project Startup', () => {
@@ -57,10 +61,12 @@ describe('Project Startup', () => {
 {{ @if (it.aptitudes.includes('ui')) }}
     expect(searchListener.listen).toBeCalled();
 {{ /if }}
+{{ @if (it.aptitudes.includes('user')) }}
+    expect(userExample.run).toBeCalled();
+{{ /if }}
 {{ @if (it.aptitudes.includes('window')) }}
     expect(activeWindowListener.listen).toBeCalled();
 {{ /if }}
 {{ /if }}
   });
 });
-

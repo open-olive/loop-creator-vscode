@@ -17,6 +17,9 @@ import {
 {{ @if (it.aptitudes.includes('ui')) }}
   searchListener,
 {{ /if }}
+{{ @if (it.aptitudes.includes('user')) }}
+  userExample,
+{{ /if }}
 {{ @if (it.aptitudes.includes('window')) }}
   activeWindowListener,
 {{ /if }}
@@ -42,6 +45,9 @@ import {
 {{ /if }}
 {{ @if (it.aptitudes.includes('ui')) }}
   searchListener.listen();
+{{ /if }}
+{{ @if (it.aptitudes.includes('user')) }}
+  userExample.run();
 {{ /if }}
 {{ @if (it.aptitudes.includes('window')) }}
   activeWindowListener.listen();
