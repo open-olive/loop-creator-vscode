@@ -19,8 +19,10 @@ describe('User Listener', () => {
   });
 
   it('should create the whisper when the JWT is retrieved', async () => {
-    const jwt = 'abcdef';
+    const jwt = 'abcdef.abcdef.abcdef';
+    const parsed = { email: 'email' };
     user.jwt = jest.fn().mockResolvedValueOnce(jwt);
+    JSON.parse = jest.fn().mockResolvedValue(parsed);
     await userExample.run();
     expect(mockUserShow).toBeCalled();
   });
