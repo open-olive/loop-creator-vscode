@@ -5,7 +5,7 @@ import { ProcessInfo } from '@oliveai/ldk/dist/process';
 
 export default class ProcessWhisper {
 {{ @if (it.isTypeScript) }}
-  whisper: whisper.Whisper;
+  whisper: whisper.Whisper | undefined;
 
   label: string;
 
@@ -19,7 +19,7 @@ export default class ProcessWhisper {
   }
 
   createComponents() {
-    const components = [];
+    const components{{ it.isTypeScript ? ': whisper.Component[]' : ''}} = [];
     this.processes.forEach((process) => {
       components.push({
         type: whisper.WhisperComponentType.Markdown,
@@ -43,7 +43,7 @@ export default class ProcessWhisper {
   }
 
   close() {
-    this.whisper.close(ProcessWhisper.onClose);
+    this.whisper?.close(ProcessWhisper.onClose);
   }
 
   static onClose(err{{it.isTypeScript ? '?: Error' : ''}}) {
