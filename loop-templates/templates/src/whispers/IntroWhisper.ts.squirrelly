@@ -100,6 +100,14 @@ export default class IntroWhisper {
         console.log('Text changed: ', val);
       },
     };
+    const disabledTextInput{{it.isTypeScript ? ': whisper.TextInput' : ''}} = {
+      type: whisper.WhisperComponentType.TextInput,
+      disabled: true,
+      label: 'Disabled Input',
+      onChange: (_error{{it.isTypeScript ? ': Error | undefined' : ''}}, val{{it.isTypeScript ? ': string' : ''}}) => {
+        console.log('Text changed: ', val);
+      },
+    };
     const email{{it.isTypeScript ? ': whisper.Email' : ''}} = {
       type: whisper.WhisperComponentType.Email,
       label: 'Email',
@@ -139,6 +147,15 @@ export default class IntroWhisper {
       type: whisper.WhisperComponentType.Checkbox,
       label: 'Checkbox',
       tooltip: "Here's a tooltip.",
+      value: false,
+      onChange: (_error{{it.isTypeScript ? ': Error | undefined' : ''}}, val{{it.isTypeScript ? ': boolean' : ''}}) => {
+        console.log('Checkbox clicked: ', val);
+      },
+    };
+    const disabledCheckbox{{it.isTypeScript ? ': whisper.Checkbox' : ''}} = {
+      type: whisper.WhisperComponentType.Checkbox,
+      disabled: true,
+      label: 'Disabled Checkbox',
       value: false,
       onChange: (_error{{it.isTypeScript ? ': Error | undefined' : ''}}, val{{it.isTypeScript ? ': boolean' : ''}}) => {
         console.log('Checkbox clicked: ', val);
@@ -321,31 +338,33 @@ export default class IntroWhisper {
       divider, // 6
       exampleComponentsHeading, // 7
       textInput, // 8
-      email, // 9
-      password, // 10
-      telephone, // 11
-      button, // 12
-      link, // 13
-      checkbox, // 14
-      pair, // 15
-      numberInput, // 16
-      select, // 17
-      radioBtn, // 18
-      autocompleteSingleSelect, // 19
-      autocompleteMultipleSelect, // 20
-      dateTimeInput, // 21
-      dropZone, // 22
-      icon, // 23
-      sectionTitle, // 24
-      breadcrumbs, // 25
-      progress, // 26
-      divider, // 27
-      updatableComponentsHeading, // 28
-      updatableMessage, // 29
-      updatableMessageInput, // 30
-      updatableLabelInput, // 31
-      resetButton, // 32
-      ...clonedComponents, // 33+
+      disabledTextInput, // 9
+      email, // 10
+      password, // 11
+      telephone, // 12
+      button, // 13
+      link, // 14
+      checkbox, // 15
+      disabledCheckbox, // 16
+      pair, // 17
+      numberInput, // 18
+      select, // 19
+      radioBtn, // 20
+      autocompleteSingleSelect, // 21
+      autocompleteMultipleSelect, // 22
+      dateTimeInput, // 23
+      dropZone, // 24
+      icon, // 25
+      sectionTitle, // 26
+      breadcrumbs, // 27
+      progress, // 28
+      divider, // 29
+      updatableComponentsHeading, // 30
+      updatableMessage, // 31
+      updatableMessageInput, // 32
+      updatableLabelInput, // 33
+      resetButton, // 34
+      ...clonedComponents, // 35+
     ];
   }
 
