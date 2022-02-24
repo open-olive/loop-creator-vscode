@@ -11,7 +11,7 @@ const { default: templates } = require('@oliveai/loop-templates');
 const projectOptions = {
   name: '',
   language: '',
-  aptitudes: []
+  aptitudes: [],
 };
 
 const installNodeModules = () => {
@@ -26,7 +26,11 @@ const installNodeModules = () => {
 
 const createProject = async () => {
   try {
-    const { name: projectName, aptitudes: projectAptitudes, language } = projectOptions;
+    const {
+      name: projectName,
+      aptitudes: projectAptitudes,
+      language,
+    } = projectOptions;
     const isTypeScript = language === 'typescript';
 
     // Render a given template file to a given target file path
@@ -35,7 +39,7 @@ const createProject = async () => {
         isTypeScript,
         projectName,
         aptitudes: projectAptitudes,
-        promiseVoid: ': Promise<void>'
+        promiseVoid: ': Promise<void>',
       });
 
       await fs.writeFile(filePath, fileContents);
@@ -63,7 +67,12 @@ const createProject = async () => {
         // AND if it's not a template for an aptitude we're using
         // AND if it's not a 'nonzero' aptitude while we have aptitudes in our project
         const nonzero = projectAptitudes.length && aptitude === 'nonzero';
-        if (aptitude !== 'any' && !projectAptitudes.includes(aptitude) && !nonzero) continue;
+        if (
+          aptitude !== 'any' &&
+          !projectAptitudes.includes(aptitude) &&
+          !nonzero
+        )
+          continue;
 
         // If it's a string, it's a template. Otherwise, it's a directory/object.
         if (typeof templatesObject[key] === 'string') {
@@ -100,8 +109,8 @@ const languagePrompt = () => {
     message: 'Which language do you want to use?',
     choices: [
       { title: 'TypeScript', value: 'typescript' },
-      { title: 'JavaScript', value: 'javascript' }
-    ]
+      { title: 'JavaScript', value: 'javascript' },
+    ],
   }).then((response) => {
     const { language } = response;
     projectOptions.language = language;
@@ -121,10 +130,11 @@ const aptitudesPrompt = () => {
       { title: 'Keyboard', value: 'keyboard' },
       { title: 'Network', value: 'network' },
       { title: 'Process', value: 'process' },
-      { title: 'Search', value: 'ui' },
-      { title: 'Window', value: 'window' }
+      { title: 'UI', value: 'ui' },
+      { title: 'User', value: 'user' },
+      { title: 'Window', value: 'window' },
     ],
-    hint: 'Use your spacebar to select. You can select multiple!'
+    hint: 'Use your spacebar to select. You can select multiple!',
   }).then((response) => {
     const { aptitudes } = response;
     projectOptions.aptitudes = aptitudes;
@@ -138,15 +148,18 @@ const projectNamePrompt = () =>
     type: 'text',
     name: 'projectName',
     message: 'What is your project name? (a-z A-Z 0-9 . - _ ~)',
-    format: (projectNameInput) => projectNameInput.replace(/ /g, '-').toLowerCase(),
+    format: (projectNameInput) =>
+      projectNameInput.replace(/ /g, '-').toLowerCase(),
     validate: (projectNameInput) => {
       // The regex pattern NPM uses for project names in package.json http://json.schemastore.org/package
       const NPM_PROJECT_NAME_PATTERN =
         /^(?:@[a-z0-9-*~][a-z0-9-*._~]*\/)?[a-z0-9-~][a-z0-9-._~]*$/g;
-      const projectNameFormatted = projectNameInput.replace(/ /g, '-').toLowerCase();
+      const projectNameFormatted = projectNameInput
+        .replace(/ /g, '-')
+        .toLowerCase();
 
       return projectNameFormatted.match(NPM_PROJECT_NAME_PATTERN);
-    }
+    },
   }).then((response) => {
     try {
       const { projectName } = response;

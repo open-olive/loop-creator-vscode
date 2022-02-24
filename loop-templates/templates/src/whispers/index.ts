@@ -5,6 +5,8 @@ import filesystemWhisper from './FilesystemWhisper.ts.squirrelly';
 import index from './index.ts.squirrelly';
 import introWhisperTest from './IntroWhisper.test.ts.squirrelly';
 import introWhisper from './IntroWhisper.ts.squirrelly';
+import introWhisperSimpleTest from './IntroWhisperSimple.test.ts.squirrelly';
+import introWhisperSimple from './IntroWhisperSimple.ts.squirrelly';
 import keyboardWhisperTest from './KeyboardWhisper.test.ts.squirrelly';
 import keyboardWhisper from './KeyboardWhisper.ts.squirrelly';
 import networkWhisperTest from './NetworkWhisper.test.ts.squirrelly';
@@ -13,28 +15,55 @@ import processWhisperTest from './ProcessWhisper.test.ts.squirrelly';
 import processWhisper from './ProcessWhisper.ts.squirrelly';
 import uiWhisperTest from './UiWhisper.test.ts.squirrelly';
 import uiWhisper from './UiWhisper.ts.squirrelly';
+import userWhisperTest from './UserWhisper.test.ts.squirrelly';
+import userWhisper from './UserWhisper.ts.squirrelly';
 import windowWhisperTest from './WindowWhisper.test.ts.squirrelly';
 import windowWhisper from './WindowWhisper.ts.squirrelly';
 import { FileMap } from '@/types';
 
 const fileMap: FileMap = {
-  clipboardWhisperTest: { fileName: 'ClipboardWhisper.test.ts', aptitude: 'clipboard' },
+  clipboardWhisperTest: {
+    fileName: 'ClipboardWhisper.test.ts',
+    aptitude: 'clipboard',
+  },
   clipboardWhisper: { fileName: 'ClipboardWhisper.ts', aptitude: 'clipboard' },
-  filesystemWhisperTest: { fileName: 'FilesystemWhisper.test.ts', aptitude: 'filesystem' },
-  filesystemWhisper: { fileName: 'FilesystemWhisper.ts', aptitude: 'filesystem' },
+  filesystemWhisperTest: {
+    fileName: 'FilesystemWhisper.test.ts',
+    aptitude: 'filesystem',
+  },
+  filesystemWhisper: {
+    fileName: 'FilesystemWhisper.ts',
+    aptitude: 'filesystem',
+  },
   index: { fileName: 'index.ts', aptitude: 'any' },
   introWhisperTest: { fileName: 'IntroWhisper.test.ts', aptitude: 'any' },
   introWhisper: { fileName: 'IntroWhisper.ts', aptitude: 'any' },
-  keyboardWhisperTest: { fileName: 'KeyboardWhisper.test.ts', aptitude: 'keyboard' },
+  introWhisperSimpleTest: {
+    fileName: 'IntroWhisperSimple.test.ts',
+    aptitude: 'any',
+  },
+  introWhisperSimple: { fileName: 'IntroWhisperSimple.ts', aptitude: 'any' },
+  keyboardWhisperTest: {
+    fileName: 'KeyboardWhisper.test.ts',
+    aptitude: 'keyboard',
+  },
   keyboardWhisper: { fileName: 'KeyboardWhisper.ts', aptitude: 'keyboard' },
-  networkWhisperTest: { fileName: 'NetworkWhisper.test.ts', aptitude: 'network' },
+  networkWhisperTest: {
+    fileName: 'NetworkWhisper.test.ts',
+    aptitude: 'network',
+  },
   networkWhisper: { fileName: 'NetworkWhisper.ts', aptitude: 'network' },
-  processWhisperTest: { fileName: 'ProcessWhisper.test.ts', aptitude: 'process' },
+  processWhisperTest: {
+    fileName: 'ProcessWhisper.test.ts',
+    aptitude: 'process',
+  },
   processWhisper: { fileName: 'ProcessWhisper.ts', aptitude: 'process' },
   uiWhisperTest: { fileName: 'UiWhisper.test.ts', aptitude: 'ui' },
   uiWhisper: { fileName: 'UiWhisper.ts', aptitude: 'ui' },
+  userWhisperTest: { fileName: 'UserWhisper.test.ts', aptitude: 'user' },
+  userWhisper: { fileName: 'UserWhisper.ts', aptitude: 'user' },
   windowWhisperTest: { fileName: 'WindowWhisper.test.ts', aptitude: 'window' },
-  windowWhisper: { fileName: 'WindowWhisper.ts', aptitude: 'window' }
+  windowWhisper: { fileName: 'WindowWhisper.ts', aptitude: 'window' },
 };
 
 export default {
@@ -45,6 +74,8 @@ export default {
   index,
   introWhisperTest,
   introWhisper,
+  introWhisperSimpleTest,
+  introWhisperSimple,
   keyboardWhisperTest,
   keyboardWhisper,
   networkWhisperTest,
@@ -53,7 +84,9 @@ export default {
   processWhisper,
   uiWhisperTest,
   uiWhisper,
+  userWhisperTest,
+  userWhisper,
   windowWhisperTest,
   windowWhisper,
-  fileMap
+  fileMap,
 };

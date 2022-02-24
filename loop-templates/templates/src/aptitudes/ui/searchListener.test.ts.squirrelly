@@ -5,11 +5,12 @@ import searchListener, { handler } from './searchListener';
 jest.mock('@oliveai/ldk');
 
 const mockUiShow = jest.fn();
+
 jest.mock('../../whispers', () => {
   return {
-    UiWhisper: jest.fn().mockImplementation(() => {
-      return { show: mockUiShow };
-    }),
+    UiWhisper: {
+      show: jest.fn(() => mockUiShow()),
+    },
   };
 });
 
@@ -28,7 +29,7 @@ describe('UI Search Listener', () => {
   it('should create the whisper when handler is triggered', () => {
     handler('test');
 
-    expect(UiWhisper).toBeCalledWith('test');
+    expect(UiWhisper.show).toBeCalledWith('test');
     expect(mockUiShow).toBeCalled();
   });
 });

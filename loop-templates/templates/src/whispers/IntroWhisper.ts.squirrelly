@@ -8,9 +8,18 @@ interface Props {
   label: string;
 }
 {{ /if }}
+/**
+ * Preferred method for updateable whispers
+ * + Class instances allow more control over updateable props
+ * + Updating whispers requires storing the created whisper object
+ * + Separation of concern for different methods
+ * + Testing makes more sense without explicit exports solely for testing
+ * - Considered overkill for any whispers that don't need updating
+ * @see IntroWhisperSimple for simple whispers
+ */
 export default class IntroWhisper {
 {{ @if (it.isTypeScript) }}
-  whisper: whisper.Whisper;
+  whisper: whisper.Whisper | undefined;
 
   label: string;
 
@@ -170,6 +179,85 @@ export default class IntroWhisper {
         console.log('Radio button option selected: ', val);
       },
     };
+        const autocompleteOptions = [
+      { label: 'Value 1', value: '1' },
+      { label: 'Value 2', value: '2' },
+      { label: 'Value 3', value: '3' },
+      { label: 'Value 4', value: '4' },
+      { label: 'Value 5', value: '5' },
+    ];
+    const autocompleteSingleSelect{{it.isTypeScript ? ': whisper.Autocomplete' : ''}} = {
+      type: whisper.WhisperComponentType.Autocomplete,
+      label: 'Single Select Autocomplete',
+      loading: false,
+      onChange: (_error, val) => {
+        console.log('Autocomplete section changed: ', val);
+      },
+      onSelect: (error, value, onSelectWhisper) => {
+        console.log(`Received selected value: ${JSON.stringify(value)}`);
+      },
+      options: autocompleteOptions,
+    };
+    const autocompleteMultipleSelect{{it.isTypeScript ? ': whisper.Autocomplete' : ''}} = {
+      type: whisper.WhisperComponentType.Autocomplete,
+      label: 'Multi Select Autocomplete',
+      loading: true,
+      multiple: true,
+      onSelect: (error, value, onSelectWhisper) => {
+        console.log(`Received selected value: ${JSON.stringify(value)}`);
+      },
+      options: autocompleteOptions,
+      tooltip: 'tooltip',
+      value: '5',
+    };
+    const dateTimeInput{{it.isTypeScript ? ': whisper.DateTimeInput' : ''}}= {
+      type: whisper.WhisperComponentType.DateTimeInput,
+      dateTimeType: whisper.DateTimeType.Date,
+      tooltip: 'Date',
+      onChange: (_error{{it.isTypeScript ? ': Error | undefined' : ''}}, val{{it.isTypeScript ? ': string' : ''}}) => {
+        console.log(`Time picker value received: `, val);
+      },
+    };
+    // dropzone example components.
+    const dropZone{{it.isTypeScript ? ': whisper.DropZone' : ''}} = {
+      type: whisper.WhisperComponentType.DropZone,
+      onDrop: () => {
+        console.log('file deropped')
+      },
+      label: 'File Components',
+    };
+    const icon{{it.isTypeScript ? ': whisper.Icon' : ''}} = {
+      type: whisper.WhisperComponentType.Icon,
+      name: 'emoji_emotions',
+      onClick: () => {
+        console.log('Emoji Emotions Clicked');
+      },
+    };
+    const sectionTitle{{it.isTypeScript ? ': whisper.SectionTitle' : ''}} = {
+      body: 'section Title in center',
+      type: whisper.WhisperComponentType.SectionTitle,
+    };
+    const breadcrumbs{{it.isTypeScript ? ': whisper.Breadcrumbs' : ''}} ={
+      type: whisper.WhisperComponentType.Breadcrumbs,
+      links: [
+        {
+          type: whisper.WhisperComponentType.Link,
+          text: 'Breadcrumb 1',
+        },
+        {
+          type: whisper.WhisperComponentType.Link,
+          text: 'Breadcrumb 2',
+        },
+        {
+          type: whisper.WhisperComponentType.Link,
+          text: 'Breadcrumb 3',
+        },
+      ],
+    };
+    const progress{{it.isTypeScript ? ': whisper.Progress' : ''}} = {        
+      type: whisper.WhisperComponentType.Progress,
+      determinate: 30,
+    };
 
     // Showing how to use whisper.update
     const updatableComponentsHeading{{it.isTypeScript ? ': whisper.Markdown' : ''}} = {
@@ -224,32 +312,40 @@ export default class IntroWhisper {
     }
 
     return [
-      introMessage,
-      divider,
-      collapseBox,
-      divider,
-      boxHeader,
-      box,
-      divider,
-      exampleComponentsHeading,
-      textInput,
-      email,
-      password,
-      telephone,
-      button,
-      link,
-      checkbox,
-      pair,
-      numberInput,
-      select,
-      radioBtn,
-      divider,
-      updatableComponentsHeading,
-      updatableMessage,
-      updatableMessageInput,
-      updatableLabelInput,
-      resetButton,
-      ...clonedComponents,
+      introMessage, // 0
+      divider, // 1
+      collapseBox, // 2
+      divider, // 3
+      boxHeader, // 4
+      box, // 5
+      divider, // 6
+      exampleComponentsHeading, // 7
+      textInput, // 8
+      email, // 9
+      password, // 10
+      telephone, // 11
+      button, // 12
+      link, // 13
+      checkbox, // 14
+      pair, // 15
+      numberInput, // 16
+      select, // 17
+      radioBtn, // 18
+      autocompleteSingleSelect, // 19
+      autocompleteMultipleSelect, // 20
+      dateTimeInput, // 21
+      dropZone, // 22
+      icon, // 23
+      sectionTitle, // 24
+      breadcrumbs, // 25
+      progress, // 26
+      divider, // 27
+      updatableComponentsHeading, // 28
+      updatableMessage, // 29
+      updatableMessageInput, // 30
+      updatableLabelInput, // 31
+      resetButton, // 32
+      ...clonedComponents, // 33+
     ];
   }
 
@@ -267,14 +363,14 @@ export default class IntroWhisper {
 
   update(props{{it.isTypeScript ? ': Partial<Props>' : '' | safe}}) {
     this.props = { ...this.props, ...props };
-    this.whisper.update({
+    this.whisper?.update({
       label: this.props.label || this.label,
       components: this.createComponents(),
     });
   }
 
   close() {
-    this.whisper.close(IntroWhisper.onClose);
+    this.whisper?.close(IntroWhisper.onClose);
   }
 
   static onClose(err{{it.isTypeScript ? '?: Error' : ''}}) {

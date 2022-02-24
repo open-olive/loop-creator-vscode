@@ -16,6 +16,7 @@ export type TemplateFile = {
     | 'network'
     | 'process'
     | 'ui'
+    | 'user'
     | 'window';
 };
 

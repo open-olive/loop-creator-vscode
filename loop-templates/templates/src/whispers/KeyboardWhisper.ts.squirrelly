@@ -1,56 +1,23 @@
 import { whisper } from '@oliveai/ldk';
 
-{{ @if (it.isTypeScript) }}
-interface Props {
-  keyboardText: string;
-}
-{{ /if }}
-export default class KeyboardWhisper {
-{{ @if (it.isTypeScript) }}
-  whisper: whisper.Whisper;
-
-  label: string;
-
-  props: Props;
-
-{{ /if }}
-  constructor(keyboardText{{it.isTypeScript ? ': string' : ''}}) {
-    this.whisper = undefined;
-    this.label = 'Keyboard Aptitude Fired';
-    this.props = {
-      keyboardText,
-    };
+export const onClose = (err{{it.isTypeScript ? '?: Error' : ''}}) => {
+  if (err) {
+    console.error('There was an error closing Keyboard whisper', err);
   }
+  console.log('Keyboard whisper closed');
+};
 
-  createComponents() {
+export default {
+  show: async (keyboardText{{it.isTypeScript ? ': string' : ''}}) => {
     const message{{it.isTypeScript ? ': whisper.Message' : ''}} = {
       type: whisper.WhisperComponentType.Message,
-      body: this.props.keyboardText,
+      body: keyboardText,
     };
 
-    return [message];
-  }
-
-  show() {
-    whisper
-      .create({
-        components: this.createComponents(),
-        label: this.label,
-        onClose: KeyboardWhisper.onClose,
-      })
-      .then((newWhisper) => {
-        this.whisper = newWhisper;
-      });
-  }
-
-  close() {
-    this.whisper.close(KeyboardWhisper.onClose);
-  }
-
-  static onClose(err{{it.isTypeScript ? '?: Error' : ''}}) {
-    if (err) {
-      console.error('There was an error closing Keyboard whisper', err);
-    }
-    console.log('Keyboard whisper closed');
-  }
-}
+    return whisper.create({
+      components: [message],
+      label: 'Keyboard Aptitude Fired',
+      onClose,
+    });
+  },
+};

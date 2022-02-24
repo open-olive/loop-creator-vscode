@@ -1,56 +1,23 @@
 import { whisper } from '@oliveai/ldk';
 
-{{ @if (it.isTypeScript) }}
-interface Props {
-  searchText: string;
-}
-{{ /if }}
-export default class UiWhisper {
-{{ @if (it.isTypeScript) }}
-  whisper: whisper.Whisper;
-
-  label: string;
-
-  props: Props;
-
-{{ /if }}
-  constructor(searchText{{it.isTypeScript ? ': string' : ''}}) {
-    this.whisper = undefined;
-    this.label = 'UI Search Aptitude Fired';
-    this.props = {
-      searchText,
-    };
+export const onClose = (err{{ it.isTypeScript ? '?: Error' : '' }}) => {
+  if (err) {
+    console.error('There was an error closing UI Search whisper', err);
   }
+  console.log('UI Search whisper closed');
+};
 
-  createComponents() {
-    const message{{it.isTypeScript ? ': whisper.Message' : ''}} = {
+export default {
+  show: async (searchText{{ it.isTypeScript ? ': string' : '' }}) => {
+    const message{{ it.isTypeScript ? ': whisper.Message' : '' }} = {
       type: whisper.WhisperComponentType.Message,
-      body: this.props.searchText,
+      body: searchText,
     };
 
-    return [message];
-  }
-
-  show() {
-    whisper
-      .create({
-        components: this.createComponents(),
-        label: this.label,
-        onClose: UiWhisper.onClose,
-      })
-      .then((newWhisper) => {
-        this.whisper = newWhisper;
-      });
-  }
-
-  close() {
-    this.whisper.close(UiWhisper.onClose);
-  }
-
-  static onClose(err{{it.isTypeScript ? '?: Error' : ''}}) {
-    if (err) {
-      console.error('There was an error closing Ui whisper', err);
-    }
-    console.log('Ui whisper closed');
-  }
-}
+    return whisper.create({
+      components: [message],
+      label: 'UI Aptitude Fired',
+      onClose,
+    });
+  },
+};

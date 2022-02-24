@@ -5,10 +5,15 @@ import { handler } from './openHandler';
 jest.mock('@oliveai/ldk');
 
 const mockIntroWhisperShow = jest.fn();
+const mockIntroWhisperSimpleShow = jest.fn();
+
 jest.mock('../../whispers', () => ({
   IntroWhisper: jest.fn(() => ({
     show: mockIntroWhisperShow,
   })),
+  IntroWhisperSimple: {
+    show: jest.fn(() => mockIntroWhisperSimpleShow()),
+  }
 }));
 
 describe('Open Handler', () => {
@@ -20,5 +25,6 @@ describe('Open Handler', () => {
     await handler();
 
     expect(mockIntroWhisperShow).toBeCalled();
+    expect(mockIntroWhisperSimpleShow).toBeCalled();
   });
 });

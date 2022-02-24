@@ -1,4 +1,5 @@
 import IntroWhisper from './IntroWhisper';
+import IntroWhisperSimple from './IntroWhisperSimple';
 {{ @if (it.aptitudes.includes('clipboard')) }}
 import ClipboardWhisper from './ClipboardWhisper';
 {{ /if }}
@@ -17,6 +18,9 @@ import ProcessWhisper from './ProcessWhisper';
 {{ @if (it.aptitudes.includes('ui')) }}
 import UiWhisper from './UiWhisper';
 {{ /if }}
+{{ @if (it.aptitudes.includes('user')) }}
+import UserWhisper from './UserWhisper';
+{{ /if }}
 {{ @if (it.aptitudes.includes('window')) }}
 import WindowWhisper from './WindowWhisper';
 {{ /if }}
@@ -24,6 +28,7 @@ import WindowWhisper from './WindowWhisper';
 {{ @if (it.aptitudes.length) }}
 export {
   IntroWhisper,
+  IntroWhisperSimple,
 {{ @if (it.aptitudes.includes('clipboard')) }}
   ClipboardWhisper,
 {{ /if }}
@@ -42,10 +47,13 @@ export {
 {{ @if (it.aptitudes.includes('ui')) }}
   UiWhisper,
 {{ /if }}
+{{ @if (it.aptitudes.includes('user')) }}
+  UserWhisper,
+{{ /if }}
 {{ @if (it.aptitudes.includes('window')) }}
   WindowWhisper,
 {{ /if }}
 };
 {{ #else }}
-export { IntroWhisper };
+export { IntroWhisper, IntroWhisperSimple };
 {{ /if }}
