@@ -10,23 +10,23 @@
 			"type": "extensionHost",
 			"request": "launch",
 			"args": [
-				"--extensionDevelopmentPath=${workspaceFolder}"
+				"--extensionDevelopmentPath=${workspaceRoot}/vscode-extension"
 			],
 			"outFiles": [
-				"${workspaceFolder}/dist/**/*.js"
+				"${workspaceFolder}/vscode-extension/dist/**/*.js"
 			],
-			"preLaunchTask": "${defaultBuildTask}"
+			"preLaunchTask": "npm: compile - vscode-extension"
 		},
 		{
 			"name": "Extension Tests",
 			"type": "extensionHost",
 			"request": "launch",
 			"args": [
-				"--extensionDevelopmentPath=${workspaceFolder}",
-				"--extensionTestsPath=${workspaceFolder}/out/test/suite/index"
+				"--extensionDevelopmentPath=${workspaceRoot}/vscode-extension",
+				"--extensionTestsPath=${workspaceRoot}/vscode-extension/out/test/suite/index"
 			],
 			"outFiles": [
-				"${workspaceFolder}/out/test/**/*.js"
+				"${workspaceFolder}/vscode-extension/out/test/**/*.js"
 			],
 			"preLaunchTask": "npm: test-watch"
 		}
