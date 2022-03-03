@@ -10,7 +10,7 @@
 			"type": "extensionHost",
 			"request": "launch",
 			"args": [
-				"--extensionDevelopmentPath=${workspaceRoot}/vscode-extension"
+				"--extensionDevelopmentPath=${workspaceFolder}/vscode-extension"
 			],
 			"outFiles": [
 				"${workspaceFolder}/vscode-extension/dist/**/*.js"
@@ -22,8 +22,8 @@
 			"type": "extensionHost",
 			"request": "launch",
 			"args": [
-				"--extensionDevelopmentPath=${workspaceRoot}/vscode-extension",
-				"--extensionTestsPath=${workspaceRoot}/vscode-extension/out/test/suite/index"
+				"--extensionDevelopmentPath=${workspaceFolder}/vscode-extension",
+				"--extensionTestsPath=${workspaceFolder}/vscode-extension/out/test/suite/index"
 			],
 			"outFiles": [
 				"${workspaceFolder}/vscode-extension/out/test/**/*.js"
