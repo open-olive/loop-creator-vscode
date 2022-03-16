@@ -1,10 +1,12 @@
-import * as vscode from 'vscode';
+import templates from '@oliveai/loop-templates';
+import { TemplatesObject, TemplateFile } from '@oliveai/loop-templates/dist/types';
 import * as fs from 'fs-extra';
 import * as path from 'path';
-import { Uri } from 'vscode';
+import { platform } from 'process';
 import * as Sqrl from 'squirrelly';
-import templates from '@oliveai/loop-templates';
-import { TemplatesObject } from '@oliveai/loop-templates/dist/types';
+import { Uri } from 'vscode';
+import * as vscode from 'vscode';
+import * as ua from 'universal-analytics';
 import { openDialogForFolder } from './utils';
 import createLoopFormHtml from './createLoopForm.html';
 
@@ -20,11 +22,31 @@ interface LoopFormData {
   aptitudes: string[];
 }
 
+const osName = platform === 'win32' ? 'windows' : platform;
+
 export class LoopCreator {
   private context: vscode.ExtensionContext;
+  private analytics: ua.Visitor | {
+    event: () => {
+      send: () => undefined;
+    };
+    set: () => undefined;
+  };
 
   constructor(context: vscode.ExtensionContext) {
     this.context = context;
+    this.analytics = __GOOGLE_ANALYTICS_ID__ ? 
+      ua(__GOOGLE_ANALYTICS_ID__) : 
+      // For development
+      {
+        event: () => ({
+            send: () => undefined
+          }),
+        set: () => undefined,
+      };
+
+    this.analytics.set('cd1', __ENVIRONMENT__);
+    this.analytics.set('cd4', osName);
   }
 
   async createFiles(
@@ -97,6 +119,30 @@ export class LoopCreator {
 
   async createLoop({ language, path: basePath, projectName, aptitudes }: LoopFormData) {
     await this.createFiles(language === 'TypeScript', basePath, projectName, aptitudes);
+    
+    // Try/catch to ensure any errors with sending analytics 
+    // doesn't prevent the extension from working
+    try {
+      this.analytics.event({
+        eventCategory: 'Loop Authors',
+        eventAction: 'Loop Source Code Generated: VSCode',
+        eventLabel: 'Loop Created',
+      }).send();
+
+      this.analytics.event({
+        eventCategory: 'Loop Authors',
+        eventAction: 'Loop Source Code Generated: VSCode',
+        eventLabel: `Language Selected: ${language.toLowerCase()}`,
+      }).send();
+      
+      aptitudes.forEach((aptitude) => {
+        this.analytics.event({
+          eventCategory: 'Loop Authors',
+          eventAction: 'Loop Source Code Generated: VSCode',
+          eventLabel: `Aptitude Selected: ${aptitude}`,
+        }).send();
+      });
+    } catch (error) {}
 
     let uri = Uri.file(basePath);
     await vscode.commands.executeCommand('vscode.openFolder', uri, {
