@@ -57,13 +57,6 @@ packages use to generate a Loop.
 
 ![Flowchart](./loop_generator_flowchart.jpg)
 
-### Why is loop-templates an npm package
-
-To use a single source for the template files between the NPX command and VSCode
-extension, we publish the `loop-templates` package to the npm registry so that both tools
-can use it and share the same templates. This idea is similar to Meta publishing
-`cra-template` as an npm package for `create-react-app` and their other tools to use.
-
 ## Developing for loop-templates
 
 ### Overview
@@ -105,36 +98,25 @@ syntax highlighting.
 
 1. Make changes/additions to the template files and any relevant `fileMap` objects
 2. Run `npm run build` to compile the templates into importable code
-3. In `create-loop` change the `@oliveai/loop-templates` dependency version to the local version, like so:
-```json
-"dependencies": {
-  "@oliveai/loop-templates": "file:../loop-templates",
-  ... // other dependencies here
-}
-```
-4. Run `npm install` in the `create-loop` directory
+3. Move to the `create-loop` directory
+4. Run `npm install`
 5. Run `npm run dev` -- this is effectively the same as running `npx @oliveai/create-loop`
 but it's just using your local script instead of the script in the npm registry
 
 This will generate a Loop with the changes you made in the templates.
 
-### Publishing changes
-
-If you make changes to `loop-templates` and are bumping the version number, make sure the
-new version is used in the dependencies of `create-loop` and `vscode-extension` as well
-
 ## Developing for create-loop
 
 ### Overview
 
-* The `create-loop` script is very simple: it's just a Node.js script file `index.js`
+* The `create-loop` script is in `src/index.ts` which builds into `dist/index.js`
 * Running `npm run dev` is effectively the same as running `npx @oliveai/create-loop`
 * The script renders templates provided by the `loop-templates` package
 
 ### Development steps
 
-1. Make changes to the script in the `index.js` file
-2. Run `npm run dev` to run the script locally
+1. Make changes to the script in the `src/index.ts` file
+2. Run `npm run dev` to build & run the script locally
 
 ## Developing for vscode-extension
 
