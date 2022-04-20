@@ -1,38 +1,30 @@
 import { whisper } from '@oliveai/ldk';
-import { stripIndent } from 'common-tags';
 
-{{ @if (it.isTypeScript) }}
-type Recall = {
-  [key: string]: string;
-};
+interface Props {
+  workbookText{{ it.isTypeScript ? '?: string' : '' }};
+}
 
-{{ /if }}
-export const onClose = (err{{ it.isTypeScript ? '?: Error' : '' }}) => {
+export const onClose = (err?{{ it.isTypeScript ? ': Error' : '' }}) => {
   if (err) {
-    console.error('There was an error closing Document whisper', err);
+    console.error('Error closing Document Whisper', err)
   }
-  console.log('Document whisper closed');
-};
-
-export const createComponents = (workbook{{ it.isTypeScript ? ': string' : '' }}) => {
-  const components{{ it.isTypeScript ? ': whisper.Component[]' : '' }} = [];
-
-    components.push({
-      type: whisper.WhisperComponentType.Message,
-      body: 'Document Example Here - Not Passing Data Yet',
-    });
-
-  return components;
-};
+}
 
 export default {
-  show: async (recalls{{ it.isTypeScript ? ': Recall[]' : ''}}) => {
-    const components = createComponents();
+  show: (workbookText{{ it.isTypeScript ? '?: string' : '' }}) => {
+    const components{{ it.isTypeScript ? ': whisper.Component[]' : '' }} = [];
+
+    const message{{ it.isTypeScript ? ': whisper.Message' : '' }} = {
+      type{{ it.isTypeScript ? ': whisper.WhisperComponentType.Message' : '' }},
+      body: `${workbookText ? workbookText : 'Here'}`,
+    };
+
+    components.push(message);
 
     return whisper.create({
       components,
-      label: 'Example for Document Aptitude',
+      label: 'TYesting',
       onClose,
-    });
-  },
-};
+    })
+  }
+}

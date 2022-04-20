@@ -1,12 +1,12 @@
-import { document } from "@oliveai/ldk";
+import { document, filesystem } from "@oliveai/ldk";
 import { DocumentWhisper } from "../../whispers/";
 
 const run = async () => {
-  const filepath = '/Users/aleciberg/Downloads/Untitled spreadsheet.xlsx'
+  const filePath = '/Users/aleciberg/Downloads/Untitled spreadsheet.xlsx'
   const bytes = await filesystem.readFile(filePath);
   const workbook = await document.xlsxDecode(bytes);
 
-  new DocumentWhisper(JSON.stringify(workbook))
+  await DocumentWhisper.show(JSON.stringify(workbook));
 };
 
 export default { run };
