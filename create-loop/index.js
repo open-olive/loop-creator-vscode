@@ -58,7 +58,6 @@ const createProject = async () => {
 
     const renderFileMap = async (templatesObject, targetFilePath) => {
       const { fileMap } = templatesObject;
-      console.log(filemap);
       if (!fileMap) {
         return console.error("There is no file map on this object");
       }
