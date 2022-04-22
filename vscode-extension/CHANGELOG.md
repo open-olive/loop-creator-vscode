@@ -9,6 +9,10 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
+## [0.4.0]
+
+- Added Document aptitude to templates and VSCode/NPX tools.
+
 ## [0.3.2]
 
 - Fixing bug where aptitudes do not generate unless you select all aptitudes
