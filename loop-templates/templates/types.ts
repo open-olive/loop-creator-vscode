@@ -8,17 +8,17 @@
 export type TemplateFile = {
   fileName: string;
   aptitude:
-    | "any"
-    | "nonzero"
-    | "clipboard"
-    | "document"
-    | "filesystem"
-    | "keyboard"
-    | "network"
-    | "process"
-    | "ui"
-    | "user"
-    | "window";
+    | 'any'
+    | 'nonzero'
+    | 'clipboard'
+    | 'document'
+    | 'filesystem'
+    | 'keyboard'
+    | 'network'
+    | 'process'
+    | 'ui'
+    | 'user'
+    | 'window';
 };
 
 export type FileMap = {
