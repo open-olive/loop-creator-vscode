@@ -1,4 +1,5 @@
 import clipboard from './clipboard';
+import document from './document';
 import filesystem from './filesystem';
 import keyboard from './keyboard';
 import network from './network';
@@ -11,6 +12,7 @@ import { FileMap } from '@/types';
 
 const fileMap: FileMap = {
   clipboard: { fileName: 'clipboard', aptitude: 'clipboard' },
+  document: { fileName: 'document', aptitude: 'document' },
   filesystem: { fileName: 'filesystem', aptitude: 'filesystem' },
   keyboard: { fileName: 'keyboard', aptitude: 'keyboard' },
   network: { fileName: 'network', aptitude: 'network' },
@@ -23,6 +25,7 @@ const fileMap: FileMap = {
 
 export default {
   clipboard,
+  document,
   filesystem,
   keyboard,
   network,
