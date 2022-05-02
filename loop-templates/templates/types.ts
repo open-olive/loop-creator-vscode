@@ -16,6 +16,7 @@ export type TemplateFile = {
     | 'keyboard'
     | 'network'
     | 'process'
+    | 'search'
     | 'ui'
     | 'user'
     | 'window';

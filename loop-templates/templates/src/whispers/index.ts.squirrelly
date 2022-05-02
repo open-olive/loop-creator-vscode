@@ -18,6 +18,9 @@ import NetworkWhisper from './NetworkWhisper';
 {{ @if (it.aptitudes.includes('process')) }}
 import ProcessWhisper from './ProcessWhisper';
 {{ /if }}
+{{ @if (it.aptitudes.includes('search')) }}
+import SearchWhisper from './SearchWhisper';
+{{ /if }}
 {{ @if (it.aptitudes.includes('ui')) }}
 import UiWhisper from './UiWhisper';
 {{ /if }}
@@ -49,6 +52,9 @@ export {
 {{ /if }}
 {{ @if (it.aptitudes.includes('process')) }}
   ProcessWhisper,
+{{ /if }}
+{{ @if (it.aptitudes.includes('search')) }}
+  SearchWhisper,
 {{ /if }}
 {{ @if (it.aptitudes.includes('ui')) }}
   UiWhisper,

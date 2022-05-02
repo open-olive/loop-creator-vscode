@@ -61,7 +61,7 @@
     "webpack-cli": "^4.9.2"
   },
   "dependencies": {
-    "@oliveai/loop-templates": "^1.0.5",
+    "@oliveai/loop-templates": "^1.0.6",
     "@types/squirrelly": "^7.1.2",
     "fs-extra": "^9.1.0",
     "squirrelly": "^8.0.8"
