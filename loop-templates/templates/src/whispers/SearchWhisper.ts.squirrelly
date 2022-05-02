@@ -8,10 +8,10 @@ export const onClose = (err{{it.isTypeScript ? '?: Error' : ''}}) => {
 
 export default {
   show: (searchText{{it.isTypeScript ? ': string' : ''}}) => {
-    const components: whisper.Component[] = [];
+    const components{{it.isTypeScript ? ': whisper.WhisperComponent[]' : ''}} = [];
 
     const message{{it.isTypeScript ? ': whisper.Message' : ''}} = {
-      type{{it.isTypeScript ? ': whisper.WhisperComponentType.Message' : ''}},
+      type: whisper.WhisperComponentType.Message'
       body: searchText,
     };
 
