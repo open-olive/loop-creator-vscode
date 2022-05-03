@@ -1,9 +1,5 @@
 import templates from '@oliveai/loop-templates';
-import {
-  TemplatesObject,
-  TemplateFile,
-} from '@oliveai/loop-templates/dist/types';
-import * as fs from 'fs-extra';
+import { TemplatesObject } from '@oliveai/loop-templates/dist/types';
 import * as path from 'path';
 import { platform } from 'process';
 import * as Sqrl from 'squirrelly';
