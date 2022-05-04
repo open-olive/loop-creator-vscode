@@ -69,10 +69,9 @@ export class LoopCreator {
         if (aptitude !== 'any' && !projectAptitudes.includes(aptitude) && !nonzero) {
           continue;
         }
-        
+
         // If it's a string, it's a template. Otherwise, it's a directory/object.
         if (typeof templatesObject[key] === 'string') {
-          console.log("::Reach", key, JSON.stringify(templatesObject['system']));
           await renderTemplate(
             templatesObject[key],
             path.join(targetFilePath, filenameWithExtension(fileName))
