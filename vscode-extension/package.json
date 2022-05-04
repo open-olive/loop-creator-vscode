@@ -32,12 +32,13 @@
   "scripts": {
     "vscode:prepublish": "npm run package",
     "build-templates": "cd ../loop-templates && npm ci && npm run build",
-    "compile": "webpack",
-    "compile-web": "webpack",
+    "compile": "webpack --config ./webpack/webpack.config.js",
+    "compile:main": "webpack --config ./webpack/webpack.main.config.js",
+    "compile:web": "webpack --config ./webpack/webpack.web.config.js",
     "deploy": "vsce publish",
-    "watch": "webpack --watch",
-    "watch-web": "webpack --config --watch",
-    "package": "webpack --mode production --devtool hidden-source-map",
+    "watch:main": "webpack --config ./webpack/webpack.main.config.js --watch",
+    "watch:web": "webpack --config ./webpack/webpack.web.config.js --watch",
+    "package": "webpack --config ./webpack/webpack.config.js --mode production --devtool hidden-source-map",
     "test-compile": "tsc -p ./",
     "test-watch": "tsc -watch -p ./",
     "pretest": "npm run test-compile && npm run lint",
@@ -66,7 +67,7 @@
     "webpack-cli": "^4.4.0"
   },
   "dependencies": {
-    "@oliveai/loop-templates": "1.0.4",
+    "@oliveai/loop-templates": "file:../loop-templates",
     "@types/squirrelly": "^7.1.2",
     "buffer": "^6.0.3",
     "http-browserify": "^1.7.0",
