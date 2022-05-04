@@ -11,7 +11,6 @@ import {
   window,
   workspace,
 } from 'vscode';
-import * as vscode from 'vscode';
 import * as ua from 'universal-analytics';
 import { openDialogForFolder } from './utils';
 import createLoopFormHtml from './createLoopForm.html';
@@ -74,14 +73,17 @@ export class LoopCreator {
       return filename;
     };
 
-    const renderTemplate = (template: any, filePath: string) => {
+    const renderTemplate = async (template: any, filePath: string) => {
       const fileContents = Sqrl.render(template, {
         isTypeScript,
         projectName,
         aptitudes,
         promiseVoid: ': Promise<void>',
       });
-      workspace.fs.writeFile(Uri.file(filePath), Uint8Array.from(fileContents));
+      await workspace.fs.writeFile(
+        Uri.file(filePath),
+        Uint8Array.from(fileContents)
+      );
     };
 
     const renderFileMap = async (
