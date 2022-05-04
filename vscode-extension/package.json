@@ -45,7 +45,6 @@
     "test": "node ./out/test/runTest.js"
   },
   "devDependencies": {
-    "@oliveai/loop-templates": "file:../loop-templates",
     "@types/fs-extra": "^9.0.8",
     "@types/glob": "^7.1.3",
     "@types/mocha": "^8.0.4",
