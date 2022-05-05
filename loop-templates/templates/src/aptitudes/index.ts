@@ -1,4 +1,5 @@
 import clipboard from './clipboard';
+import cursor from './cursor';
 import document from './document';
 import filesystem from './filesystem';
 import keyboard from './keyboard';
@@ -12,6 +13,7 @@ import { FileMap } from '@/types';
 
 const fileMap: FileMap = {
   clipboard: { fileName: 'clipboard', aptitude: 'clipboard' },
+  cursor: { fileName: 'cursor', aptitude: 'cursor' },
   document: { fileName: 'document', aptitude: 'document' },
   filesystem: { fileName: 'filesystem', aptitude: 'filesystem' },
   keyboard: { fileName: 'keyboard', aptitude: 'keyboard' },
@@ -25,6 +27,7 @@ const fileMap: FileMap = {
 
 export default {
   clipboard,
+  cursor,
   document,
   filesystem,
   keyboard,

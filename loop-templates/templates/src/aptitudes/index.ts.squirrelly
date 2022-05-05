@@ -1,6 +1,9 @@
 {{ @if (it.aptitudes.includes('clipboard')) }}
 import clipboardListener from './clipboard/clipboardListener';
 {{ /if }}
+{{ @if (it.aptitudes.includes('cursor')) }}
+import cursorListener from './cursor/cursorListener';
+{{ /if }}
 {{ @if (it.aptitudes.includes('document')) }}
 import documentExample from './document/documentExample';
 {{ /if }}
@@ -30,6 +33,9 @@ import openHandler from './ui/openHandler';
 export {
 {{ @if (it.aptitudes.includes('clipboard')) }}
   clipboardListener,
+{{ /if }}
+{{ @if (it.aptitudes.includes('cursor')) }}
+  cursorListener,
 {{ /if }}
 {{ @if (it.aptitudes.includes('document')) }}
   documentExample,

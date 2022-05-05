@@ -11,6 +11,7 @@ export type TemplateFile = {
     | 'any'
     | 'nonzero'
     | 'clipboard'
+    | 'cursor'
     | 'document'
     | 'filesystem'
     | 'keyboard'
