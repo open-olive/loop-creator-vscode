@@ -21,6 +21,9 @@ import {
 {{ @if (it.aptitudes.includes('user')) }}
   userExample,
 {{ /if }}
+{{ @if (it.aptitudes.includes('vault')) }}
+  vaultExample,
+{{ /if }}
 {{ @if (it.aptitudes.includes('window')) }}
   activeWindowListener,
 {{ /if }}
@@ -63,6 +66,9 @@ describe('Project Startup', () => {
 {{ /if }}
 {{ @if (it.aptitudes.includes('user')) }}
     expect(userExample.run).toBeCalled();
+{{ /if }}
+{{ @if (it.aptitudes.includes('vault')) }}
+    expect(vaultExample.run).toBeCalled();
 {{ /if }}
 {{ @if (it.aptitudes.includes('window')) }}
     expect(activeWindowListener.listen).toBeCalled();

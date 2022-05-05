@@ -24,6 +24,9 @@ import UiWhisper from './UiWhisper';
 {{ @if (it.aptitudes.includes('user')) }}
 import UserWhisper from './UserWhisper';
 {{ /if }}
+{{ @if (it.aptitudes.includes('vault')) }}
+import VaultWhisper from './VaultWhisper';
+{{ /if }}
 {{ @if (it.aptitudes.includes('window')) }}
 import WindowWhisper from './WindowWhisper';
 {{ /if }}
@@ -55,6 +58,9 @@ export {
 {{ /if }}
 {{ @if (it.aptitudes.includes('user')) }}
   UserWhisper,
+{{ /if }}
+{{ @if (it.aptitudes.includes('vault')) }}
+  VaultWhisper,
 {{ /if }}
 {{ @if (it.aptitudes.includes('window')) }}
   WindowWhisper,

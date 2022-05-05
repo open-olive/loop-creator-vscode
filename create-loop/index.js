@@ -133,6 +133,7 @@ const aptitudesPrompt = () => {
       { title: 'Process', value: 'process' },
       { title: 'UI', value: 'ui' },
       { title: 'User', value: 'user' },
+      { title: 'Vault', value: 'vault' },
       { title: 'Window', value: 'window' },
     ],
     hint: 'Use your spacebar to select. You can select multiple!',

@@ -22,6 +22,9 @@ import searchListener from './ui/searchListener';
 {{ @if (it.aptitudes.includes('user')) }}
 import userExample from './user/userExample';
 {{ /if }}
+{{ @if (it.aptitudes.includes('vault')) }}
+import vaultExample from './vault/vaultExample';
+{{ /if }}
 {{ @if (it.aptitudes.includes('window')) }}
 import activeWindowListener from './window/activeWindowListener';
 {{ /if }}
@@ -51,6 +54,9 @@ export {
 {{ /if }}
 {{ @if (it.aptitudes.includes('user')) }}
   userExample,
+{{ /if }}
+{{ @if (it.aptitudes.includes('vault')) }}
+  vaultExample,
 {{ /if }}
 {{ @if (it.aptitudes.includes('window')) }}
   activeWindowListener,

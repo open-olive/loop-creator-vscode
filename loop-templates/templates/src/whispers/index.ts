@@ -19,6 +19,8 @@ import uiWhisperTest from './UiWhisper.test.ts.squirrelly';
 import uiWhisper from './UiWhisper.ts.squirrelly';
 import userWhisperTest from './UserWhisper.test.ts.squirrelly';
 import userWhisper from './UserWhisper.ts.squirrelly';
+import vaultWhisperTest from './VaultWhisper.test.ts.squirrelly';
+import vaultWhisper from './VaultWhisper.ts.squirrelly';
 import windowWhisperTest from './WindowWhisper.test.ts.squirrelly';
 import windowWhisper from './WindowWhisper.ts.squirrelly';
 import { FileMap } from '@/types';
@@ -69,6 +71,8 @@ const fileMap: FileMap = {
   uiWhisper: { fileName: 'UiWhisper.ts', aptitude: 'ui' },
   userWhisperTest: { fileName: 'UserWhisper.test.ts', aptitude: 'user' },
   userWhisper: { fileName: 'UserWhisper.ts', aptitude: 'user' },
+  vaultWhisperTest: { fileName: 'VaultWhisper.test.ts', aptitude: 'vault' },
+  vaultWhisper: { fileName: 'VaultWhisper.ts', aptitude: 'vault' },
   windowWhisperTest: { fileName: 'WindowWhisper.test.ts', aptitude: 'window' },
   windowWhisper: { fileName: 'WindowWhisper.ts', aptitude: 'window' },
 };
@@ -95,6 +99,8 @@ export default {
   uiWhisper,
   userWhisperTest,
   userWhisper,
+  vaultWhisperTest,
+  vaultWhisper,
   windowWhisperTest,
   windowWhisper,
   fileMap,
