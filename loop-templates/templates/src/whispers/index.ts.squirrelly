@@ -4,7 +4,7 @@ import IntroWhisperSimple from './IntroWhisperSimple';
 import ClipboardWhisper from './ClipboardWhisper';
 {{ /if }}
 {{ @if (it.aptitudes.includes('cursor')) }}
-import CursorWhisper from './CursorWhisper;
+import CursorWhisper from './CursorWhisper';
 {{ /if }}
 {{ @if (it.aptitudes.includes('document')) }}
 import DocumentWhisper from './DocumentWhisper';

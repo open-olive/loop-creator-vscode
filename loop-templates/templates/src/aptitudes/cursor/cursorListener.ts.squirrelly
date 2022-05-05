@@ -1,7 +1,7 @@
 import { cursor, keyboard, whisper } from '@oliveai/ldk';
 import CursorWhisper from '../../whispers/CursorWhisper';
 
-export async function hotkeyCheck(char) {
+export async function hotkeyCheck(char{{ it.isTypeScript ? ': string' : ''}} ) {
   let topParam{{ it.isTypeScript ? ': number' : '' }};
   let leftParam{{ it.isTypeScript ? ': number' : '' }};
   console.debug('Hotkey pressed', 'response', char);
@@ -44,7 +44,6 @@ export const writeWhisperCursorTest = (label{{ it.isTypeScript ? ': string' : ''
 export default async () => {
   try {
     await writeWhisperCursorTest(`OCR`, `Starting OCR app`);
-    setTimeout(undefined, 10000);
   } catch (e) {
     console.error(e);
   }

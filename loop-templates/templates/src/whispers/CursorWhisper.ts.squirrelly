@@ -1,8 +1,10 @@
 import { whisper } from '@oliveai/ldk';
 
+{{ @if (it.isTypeScript) }}
 interface Props {
   cursorText{{ it.isTypeScript ? '?: string' : '' }};
 }
+{{ /if }}
 
 export const onClose = (err{{ it.isTypeScript ? '?: Error' : '' }}) => {
   if (err) {

@@ -126,6 +126,7 @@ const aptitudesPrompt = () => {
     message: 'Which Aptitudes do you want to include?',
     choices: [
       { title: 'Clipboard', value: 'clipboard' },
+      { title: 'Cursor', value: 'cursor' },
       { title: 'Document', value: 'document' },
       { title: 'Filesystem', value: 'filesystem' },
       { title: 'Keyboard', value: 'keyboard' },

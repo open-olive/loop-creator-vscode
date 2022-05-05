@@ -3,6 +3,9 @@ import {
 {{ @if (it.aptitudes.includes('clipboard')) }}
   clipboardListener,
 {{ /if }}
+{{ @if (it.aptitudes.includes('cursor')) }}
+  cursorListener,
+{{ /if }}
 {{ @if (it.aptitudes.includes('filesystem')) }}
   filesystemExample,
 {{ /if }}
@@ -45,6 +48,9 @@ describe('Project Startup', () => {
 {{ @if (it.aptitudes.length > 0) }}
 {{ @if (it.aptitudes.includes('clipboard')) }}
     expect(clipboardListener.listen).toBeCalled();
+{{ /if }}
+{{ @if (it.aptitudes.includes('cursor')) }}
+    expect(cursorListener).toBeCalled();
 {{ /if }}
 {{ @if (it.aptitudes.includes('filesystem')) }}
     expect(filesystemExample.run).toBeCalled();
