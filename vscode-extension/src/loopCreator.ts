@@ -1,5 +1,5 @@
 import templates from '@oliveai/loop-templates';
-import { TemplatesObject } from '@oliveai/loop-templates/dist/types';
+import { TemplatesObject } from '@oliveai/loop-templates/templates/types';
 import * as path from 'path';
 import { platform } from 'process';
 import * as Sqrl from 'squirrelly';
@@ -82,7 +82,7 @@ export class LoopCreator {
       });
       await workspace.fs.writeFile(
         Uri.file(filePath),
-        Uint8Array.from(fileContents)
+        Buffer.from(fileContents, 'utf-8')
       );
     };
 
