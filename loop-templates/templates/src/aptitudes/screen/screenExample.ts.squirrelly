@@ -1,0 +1,117 @@
+this is not complete, just copied in my progress from my test 
+
+/* eslint-disable camelcase */
+/* eslint-disable @typescript-eslint/no-use-before-define */
+/* eslint-disable no-restricted-syntax */
+import { screen, whisper, window } from '@oliveai/ldk';
+import ScreenWhisper from '../../whispers/ScreenWhisper';
+
+// Create a whisper
+const writeWhisper = (label, body) =>
+  whisper.create({
+    label,
+    onClose: () => {
+      console.log(`Closed Whisper`);
+    },
+    components: [
+      {
+        body,
+        type: whisper.WhisperComponentType.Markdown,
+      },
+      {
+        type: whisper.WhisperComponentType.Button,
+        label: 'Perform OCR',
+        // after clicking this button, performOcr() will be called
+        onClick: (error, incomingWhisper) => {
+          incomingWhisper.close((e) => console.error(e));
+          performOcr();
+        },
+      },
+    ],
+  });
+
+// This function reconstructs ocrResults into a string
+const rebuildImage = (ocrResults) => {
+  const lines = [];
+  for (const box of ocrResults) {
+    if (box.level === undefined) {
+      // eslint-disable-next-line no-continue
+      continue;
+    }
+    const { text } = box;
+    const curLine = box.line_num;
+    const curWord = box.word_num;
+    const { par_num } = box;
+
+    while (lines.length <= par_num) {
+      lines.push([]);
+    }
+    while (lines[par_num].length <= curLine) {
+      lines[par_num].push([]);
+    }
+    while (lines[par_num][curLine].length <= curWord) {
+      lines[par_num][curLine].push('');
+    }
+    lines[par_num][curLine][curWord] = text;
+  }
+
+  const fullText = [];
+  for (const para of lines) {
+    const paraTemp = [];
+    for (const listOfWords of para) {
+      paraTemp.push(listOfWords.join(' '));
+    }
+    fullText.push(paraTemp.join('\n'));
+  }
+
+  return fullText.join('\n\n');
+};
+
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function performOcr() {
+  await sleep(3000); // sleeping for 3s to give the user time to switch tabs
+  window.activeWindow().then((windowInfo) => {
+    const ocrCoordinates = {
+      top: windowInfo.y,
+      left: windowInfo.x,
+      width: windowInfo.width,
+      height: windowInfo.height,
+    };
+
+    console.log('performing ocr with coordinates...');
+
+    screen
+      .ocr(ocrCoordinates)
+      .then((ocrResults) => {
+        console.log('OCR Results: ');
+        console.log(JSON.stringify(ocrResults));
+
+        // ocrResults is an OCRResult Object
+        // This function reconstructs ocrResults to a string
+        console.log(rebuildImage(ocrResults));
+
+        // filter out values with lower confidence value
+        // LDK type is set as conf but actual result in the json is
+        const resFilter = ocrResults.filter((res) => res.confidence > 75);
+        const newFilter = resFilter.map((res) => `${res.text}`);
+        // writeWhisper(`ocrResults`, `${resFilter.join(' ')}`);
+        ScreenWhisper.show(newFilter.join(' '));
+      })
+      .catch((error) => {
+        console.log('error: ');
+        console.log(error);
+      });
+  });
+}
+
+// call writeWhisper function to create an ocr whisper
+export async function OcrLoop() {
+  writeWhisper('ocr', 'starting ocr app');
+}
+
+// call OcrLoop()
+// OcrLoop();
+console.log('starting app');
