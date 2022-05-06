@@ -3,6 +3,9 @@ import IntroWhisperSimple from './IntroWhisperSimple';
 {{ @if (it.aptitudes.includes('clipboard')) }}
 import ClipboardWhisper from './ClipboardWhisper';
 {{ /if }}
+{{ @if (it.aptitudes.includes('document')) }}
+import DocumentWhisper from './DocumentWhisper';
+{{ /if }}
 {{ @if (it.aptitudes.includes('filesystem')) }}
 import FilesystemWhisper from './FilesystemWhisper';
 {{ /if }}
@@ -31,6 +34,9 @@ export {
   IntroWhisperSimple,
 {{ @if (it.aptitudes.includes('clipboard')) }}
   ClipboardWhisper,
+{{ /if }}
+{{ @if (it.aptitudes.includes('document')) }}
+  DocumentWhisper,
 {{ /if }}
 {{ @if (it.aptitudes.includes('filesystem')) }}
   FilesystemWhisper,

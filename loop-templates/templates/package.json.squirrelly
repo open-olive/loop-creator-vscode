@@ -95,6 +95,8 @@
 {{ @each(it.aptitudes) => aptitude }}
 {{ @if (aptitude === 'clipboard') }}
       "clipboard": {},
+{{ #elif (aptitude === 'document') }}
+      "document": {},
 {{ #elif (aptitude === 'filesystem') }}
       "filesystem": {},
 {{ #elif (aptitude === 'keyboard') }}
