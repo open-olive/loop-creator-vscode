@@ -6,6 +6,7 @@ import network from './network';
 import process from './process';
 import ui from './ui';
 import user from './user';
+import screen from './screen';
 import window from './window';
 import index from './index.ts.squirrelly';
 import { FileMap } from '@/types';
@@ -17,6 +18,7 @@ const fileMap: FileMap = {
   keyboard: { fileName: 'keyboard', aptitude: 'keyboard' },
   network: { fileName: 'network', aptitude: 'network' },
   process: { fileName: 'process', aptitude: 'process' },
+  screen: { fileName: 'screen', aptitude: 'screen' },
   ui: { fileName: 'ui', aptitude: 'any' },
   user: { fileName: 'user', aptitude: 'user' },
   window: { fileName: 'window', aptitude: 'window' },
@@ -30,6 +32,7 @@ export default {
   keyboard,
   network,
   process,
+  screen,
   ui,
   user,
   window,

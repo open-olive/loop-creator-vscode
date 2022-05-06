@@ -1,17 +1,17 @@
-import documentExample from './documentExample.ts.squirrelly';
-import documentExampleTest from './documentExample.test.ts.squirrelly';
+import screenExample from './screenExample.ts.squirrelly';
+import screenExampleTest from './screenExample.test.ts.squirrelly';
 import { FileMap } from '@/types';
 
 const fileMap: FileMap = {
-  documentExampleTest: {
-    fileName: 'documentExample.test.ts',
-    aptitude: 'document',
+  screenExampleTest: {
+    fileName: 'screenExample.test.ts',
+    aptitude: 'screen',
   },
-  documentExample: { fileName: 'documentExample.ts', aptitude: 'document' },
+  screenExample: { fileName: 'screenExample.ts', aptitude: 'screen' },
 };
 
 export default {
-  documentExample,
-  documentExampleTest,
+  screenExample,
+  screenExampleTest,
   fileMap,
 };

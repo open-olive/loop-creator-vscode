@@ -1,0 +1,30 @@
+import { whisper } from '@oliveai/ldk';
+
+interface Props {
+  screenText?: string;
+}
+
+export const onClose = (err?: Error) => {
+  if (err) {
+    console.error('Error closing Screen Whisper', err);
+  }
+};
+
+export default {
+  show: (screenText?: string) => {
+    const components: whisper.Component[] = [];
+
+    const message: whisper.Message = {
+      type: whisper.WhisperComponentType.Message,
+      body: screenText,
+    };
+
+    components.push(message);
+
+    return whisper.create({
+      components,
+      label: 'Screen Aptitude Fired',
+      onClose,
+    });
+  },
+};

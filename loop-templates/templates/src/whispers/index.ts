@@ -15,6 +15,8 @@ import networkWhisperTest from './NetworkWhisper.test.ts.squirrelly';
 import networkWhisper from './NetworkWhisper.ts.squirrelly';
 import processWhisperTest from './ProcessWhisper.test.ts.squirrelly';
 import processWhisper from './ProcessWhisper.ts.squirrelly';
+import screenWhisper from './ScreenWhisper.ts.squirrelly';
+import screenWhisperTest from './ScreenWhisper.test.ts.squirrelly';
 import uiWhisperTest from './UiWhisper.test.ts.squirrelly';
 import uiWhisper from './UiWhisper.ts.squirrelly';
 import userWhisperTest from './UserWhisper.test.ts.squirrelly';
@@ -65,6 +67,8 @@ const fileMap: FileMap = {
     aptitude: 'process',
   },
   processWhisper: { fileName: 'ProcessWhisper.ts', aptitude: 'process' },
+  screenWhisperTest: { fileName: 'ScreenWhisper.test.ts', aptitude: 'screen' },
+  screenWhisper: { fileName: 'ScreenWhisper.ts', aptitude: 'screen' },
   uiWhisperTest: { fileName: 'UiWhisper.test.ts', aptitude: 'ui' },
   uiWhisper: { fileName: 'UiWhisper.ts', aptitude: 'ui' },
   userWhisperTest: { fileName: 'UserWhisper.test.ts', aptitude: 'user' },
@@ -91,6 +95,8 @@ export default {
   networkWhisper,
   processWhisperTest,
   processWhisper,
+  screenWhisperTest,
+  screenWhisper,
   uiWhisperTest,
   uiWhisper,
   userWhisperTest,
