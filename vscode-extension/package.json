@@ -32,7 +32,7 @@
   "scripts": {
     "vscode:prepublish": "npm run package",
     "build-templates": "cd ../loop-templates && npm ci && npm run build",
-    "pack-templates": "cd ../loop-templates && npm pack",
+    "pack-templates": "cd ../loop-templates && npm ci && npm pack",
     "compile": "webpack --config ./webpack/webpack.config.js",
     "compile:main": "webpack --config ./webpack/webpack.main.config.js",
     "compile:web": "webpack --config ./webpack/webpack.web.config.js",
