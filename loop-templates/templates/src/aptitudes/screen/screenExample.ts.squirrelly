@@ -1,5 +1,3 @@
-this is not complete, just copied in my progress from my test 
-
 /* eslint-disable camelcase */
 /* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable no-restricted-syntax */
@@ -7,7 +5,7 @@ import { screen, whisper, window } from '@oliveai/ldk';
 import ScreenWhisper from '../../whispers/ScreenWhisper';
 
 // Create a whisper
-const writeWhisper = (label, body) =>
+export const writeWhisper = (label, body) =>
   whisper.create({
     label,
     onClose: () => {
@@ -31,7 +29,7 @@ const writeWhisper = (label, body) =>
   });
 
 // This function reconstructs ocrResults into a string
-const rebuildImage = (ocrResults) => {
+export const rebuildImage = (ocrResults) => {
   const lines = [];
   for (const box of ocrResults) {
     if (box.level === undefined) {
@@ -71,7 +69,7 @@ function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-async function performOcr() {
+export async function performOcr() {
   await sleep(3000); // sleeping for 3s to give the user time to switch tabs
   window.activeWindow().then((windowInfo) => {
     const ocrCoordinates = {
@@ -94,8 +92,8 @@ async function performOcr() {
         console.log(rebuildImage(ocrResults));
 
         // filter out values with lower confidence value
-        // LDK type is set as conf but actual result in the json is
-        const resFilter = ocrResults.filter((res) => res.confidence > 75);
+        // TODO: we are waiting for the types to be fixed, this is now a blocker
+        const resFilter = ocrResults.filter((res) => res.conf > 75);
         const newFilter = resFilter.map((res) => `${res.text}`);
         // writeWhisper(`ocrResults`, `${resFilter.join(' ')}`);
         ScreenWhisper.show(newFilter.join(' '));
@@ -111,3 +109,7 @@ async function performOcr() {
 export default async function screenExample() {
   writeWhisper('ocr', 'starting ocr app');
 }
+
+// call OcrLoop()
+// OcrLoop();
+console.log('starting app');
