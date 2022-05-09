@@ -95,14 +95,14 @@
 {{ @each(it.aptitudes) => aptitude }}
 {{ @if (aptitude === 'clipboard') }}
       "clipboard": {},
-{{ #elif (aptitude === 'cursor' && !it.aptitudes.includes('keyboard')) }}
+{{ #elif (aptitude === 'cursor') }}
       "cursor": {},
       "keyboard": {},
 {{ #elif (aptitude === 'document') }}
       "document": {},
 {{ #elif (aptitude === 'filesystem') }}
       "filesystem": {},
-{{ #elif (aptitude === 'keyboard') }}
+{{ #elif (aptitude === 'keyboard' || aptitude === 'cursor) }}
       "keyboard": {},
 {{ #elif (aptitude === 'network') }}
       "network": {
