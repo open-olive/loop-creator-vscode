@@ -1,17 +1,10 @@
-import templates from '@oliveai/loop-templates';
-import { TemplatesObject } from '@oliveai/loop-templates/templates/types';
+import * as vscode from 'vscode';
+import * as fs from 'fs-extra';
 import * as path from 'path';
-import { platform } from 'process';
+import { Uri } from 'vscode';
 import * as Sqrl from 'squirrelly';
-import {
-  commands,
-  ExtensionContext,
-  Uri,
-  ViewColumn,
-  window,
-  workspace,
-} from 'vscode';
-import * as ua from 'universal-analytics';
+import templates from '@oliveai/loop-templates';
+import { TemplatesObject } from '@oliveai/loop-templates/dist/types';
 import { openDialogForFolder } from './utils';
 import createLoopFormHtml from './createLoopForm.html';
 
@@ -27,33 +20,11 @@ interface LoopFormData {
   aptitudes: string[];
 }
 
-const osName = platform === 'win32' ? 'windows' : platform;
-
 export class LoopCreator {
-  private context: ExtensionContext;
-  private analytics:
-    | ua.Visitor
-    | {
-        event: () => {
-          send: () => undefined;
-        };
-        set: () => undefined;
-      };
+  private context: vscode.ExtensionContext;
 
-  constructor(context: ExtensionContext) {
+  constructor(context: vscode.ExtensionContext) {
     this.context = context;
-    this.analytics = __GOOGLE_ANALYTICS_ID__
-      ? ua(__GOOGLE_ANALYTICS_ID__)
-      : // For development
-        {
-          event: () => ({
-            send: () => undefined,
-          }),
-          set: () => undefined,
-        };
-
-    this.analytics.set('cd1', __ENVIRONMENT__);
-    this.analytics.set('cd4', osName);
   }
 
   async createFiles(
@@ -73,23 +44,17 @@ export class LoopCreator {
       return filename;
     };
 
-    const renderTemplate = async (template: any, filePath: string) => {
+    const renderTemplate = (template: any, filePath: string) => {
       const fileContents = Sqrl.render(template, {
         isTypeScript,
         projectName,
         aptitudes,
-        promiseVoid: ': Promise<void>',
+        promiseVoid: ': Promise<void>'
       });
-      await workspace.fs.writeFile(
-        Uri.file(filePath),
-        Buffer.from(fileContents, 'utf-8')
-      );
+      fs.writeFile(filePath, fileContents);
     };
 
-    const renderFileMap = async (
-      templatesObject: TemplatesObject,
-      targetFilePath: string
-    ) => {
+    const renderFileMap = async (templatesObject: TemplatesObject, targetFilePath: string) => {
       const projectAptitudes = aptitudes;
       const { fileMap } = templatesObject;
       if (!fileMap) {
@@ -101,11 +66,7 @@ export class LoopCreator {
         // AND if it's not a template for an aptitude we're using
         // AND if it's not a 'nonzero' aptitude while we have aptitudes in our project
         const nonzero = projectAptitudes.length && aptitude === 'nonzero';
-        if (
-          aptitude !== 'any' &&
-          !projectAptitudes.includes(aptitude) &&
-          !nonzero
-        ) {
+        if (aptitude !== 'any' && !projectAptitudes.includes(aptitude) && !nonzero) {
           continue;
         }
 
@@ -118,18 +79,15 @@ export class LoopCreator {
         } else if (typeof templatesObject[key] === 'object') {
           // Create directory for this set of templates
           const newTargetFilePath = path.join(targetFilePath, key);
-          await workspace.fs.createDirectory(Uri.file(newTargetFilePath));
+          await fs.mkdir(newTargetFilePath);
 
-          await renderFileMap(
-            templatesObject[key] as TemplatesObject,
-            newTargetFilePath
-          );
+          await renderFileMap(templatesObject[key] as TemplatesObject, newTargetFilePath);
         }
       }
     };
 
     // #region /
-    await workspace.fs.createDirectory(Uri.file(basePath));
+    await fs.ensureDir(basePath);
 
     await renderFileMap(templates, basePath);
     // #endregion /src/whispers/
@@ -137,87 +95,45 @@ export class LoopCreator {
     // #endregion /
   }
 
-  async createLoop({
-    language,
-    path: basePath,
-    projectName,
-    aptitudes,
-  }: LoopFormData) {
-    await this.createFiles(
-      language === 'TypeScript',
-      basePath,
-      projectName,
-      aptitudes
-    );
-
-    // Try/catch to ensure any errors with sending analytics
-    // doesn't prevent the extension from working
-    try {
-      this.analytics
-        .event({
-          eventCategory: 'Loop Authors',
-          eventAction: 'Loop Source Code Generated: VSCode',
-          eventLabel: 'Loop Created',
-        })
-        .send();
-
-      this.analytics
-        .event({
-          eventCategory: 'Loop Authors',
-          eventAction: 'Loop Source Code Generated: VSCode',
-          eventLabel: `Language Selected: ${language.toLowerCase()}`,
-        })
-        .send();
-
-      aptitudes.forEach((aptitude) => {
-        this.analytics
-          .event({
-            eventCategory: 'Loop Authors',
-            eventAction: 'Loop Source Code Generated: VSCode',
-            eventLabel: `Aptitude Selected: ${aptitude}`,
-          })
-          .send();
-      });
-    } catch (error) {}
+  async createLoop({ language, path: basePath, projectName, aptitudes }: LoopFormData) {
+    await this.createFiles(language === 'TypeScript', basePath, projectName, aptitudes);
 
     let uri = Uri.file(basePath);
-    await commands.executeCommand('vscode.openFolder', uri, {
-      forceNewWindow: true,
+    await vscode.commands.executeCommand('vscode.openFolder', uri, {
+      forceNewWindow: true
     });
   }
 
   async openCreateLoopWebview() {
-    const panel = window.createWebviewPanel(
+    const panel = vscode.window.createWebviewPanel(
       'loopInfo', // Identifies the type of the webview. Used internally
       'Create Loop', // Title of the panel displayed to the user
-      ViewColumn.One,
+      vscode.ViewColumn.One,
       {
-        enableScripts: true,
+        enableScripts: true
       }
     );
 
     panel.webview.html = createLoopFormHtml;
 
-    panel.webview.onDidReceiveMessage(
-      async (message: IWebviewMessage<LoopFormData>) => {
-        try {
-          if (message.command === 'openFolderDialog') {
-            const uri = await openDialogForFolder();
-            panel.webview.postMessage({
-              command: 'getProjectPath',
-              payload: uri.fsPath,
-            });
-          } else if (message.command === 'createLoop') {
-            await this.createLoop(message.payload);
-            panel.dispose();
-          } else {
-            throw new Error(`Invalid command "${message.command}".`);
-          }
-        } catch (err: any) {
-          console.error(err);
-          window.showErrorMessage(`Error creating loop: ${err.message}`);
+    panel.webview.onDidReceiveMessage(async (message: IWebviewMessage<LoopFormData>) => {
+      try {
+        if (message.command === 'openFolderDialog') {
+          const uri = await openDialogForFolder();
+          panel.webview.postMessage({
+            command: 'getProjectPath',
+            payload: uri.fsPath
+          });
+        } else if (message.command === 'createLoop') {
+          await this.createLoop(message.payload);
+          panel.dispose();
+        } else {
+          throw new Error(`Invalid command "${message.command}".`);
         }
+      } catch (err: any) {
+        console.error(err);
+        vscode.window.showErrorMessage(`Error creating loop: ${err.message}`);
       }
-    );
+    });
   }
 }

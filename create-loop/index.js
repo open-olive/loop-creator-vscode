@@ -1,38 +1,14 @@
 #!/usr/bin/env node
 
 /* eslint-disable @typescript-eslint/no-var-requires */
-import * as fs from 'fs/promises';
-import { execSync } from 'child_process';
-import * as path from 'path';
-import { platform } from 'process';
-import * as prompts from 'prompts';
-import * as Sqrl from 'squirrelly';
-import * as ua from 'universal-analytics';
-import { default as templates } from '@oliveai/loop-templates';
-import { TemplatesObject, TemplateFile } from '@oliveai/loop-templates/dist/types';
+const fs = require('fs/promises');
+const path = require('path');
+const { execSync } = require('child_process');
+const prompts = require('prompts');
+const Sqrl = require('squirrelly');
+const { default: templates } = require('@oliveai/loop-templates');
 
-const analytics = __GOOGLE_ANALYTICS_ID__ ? 
-  ua(__GOOGLE_ANALYTICS_ID__) : 
-  // For development
-  {
-    event: () => ({
-        send: () => undefined
-      }),
-    set: () => undefined,
-  };
-
-const osName = platform === 'win32' ? 'windows' : platform;
-
-analytics.set('cd1', __ENVIRONMENT__);
-analytics.set('cd4', osName);
-
-type ProjectOptions = {
-  name: string,
-  language: string,
-  aptitudes: TemplateFile['aptitude'][]
-};
-
-const projectOptions: ProjectOptions = {
+const projectOptions = {
   name: '',
   language: '',
   aptitudes: [],
@@ -58,7 +34,7 @@ const createProject = async () => {
     const isTypeScript = language === 'typescript';
 
     // Render a given template file to a given target file path
-    const renderTemplate = async (template: string, filePath: string) => {
+    const renderTemplate = async (template, filePath) => {
       const fileContents = await Sqrl.render(template, {
         isTypeScript,
         projectName,
@@ -70,7 +46,7 @@ const createProject = async () => {
     };
 
     // Replace TS file extension with the right one
-    const filenameWithExtension = (filename: string) => {
+    const filenameWithExtension = (filename) => {
       const fileExtension = isTypeScript ? '.ts' : '.js';
 
       if (filename.endsWith('.ts')) {
@@ -80,7 +56,7 @@ const createProject = async () => {
       return filename;
     };
 
-    const renderFileMap = async (templatesObject: TemplatesObject, targetFilePath: string) => {
+    const renderFileMap = async (templatesObject, targetFilePath) => {
       const { fileMap } = templatesObject;
       if (!fileMap) {
         return console.error('There is no file map on this object');
@@ -96,12 +72,12 @@ const createProject = async () => {
           !projectAptitudes.includes(aptitude) &&
           !nonzero
         )
-          {continue;}
+          continue;
 
         // If it's a string, it's a template. Otherwise, it's a directory/object.
         if (typeof templatesObject[key] === 'string') {
           await renderTemplate(
-            templatesObject[key] as string,
+            templatesObject[key],
             path.join(targetFilePath, filenameWithExtension(fileName))
           );
         } else if (typeof templatesObject[key] === 'object') {
@@ -109,7 +85,7 @@ const createProject = async () => {
           const newTargetFilePath = path.join(targetFilePath, key);
           await fs.mkdir(newTargetFilePath);
 
-          await renderFileMap(templatesObject[key] as TemplatesObject, newTargetFilePath);
+          await renderFileMap(templatesObject[key], newTargetFilePath);
         }
       }
     };
@@ -119,14 +95,6 @@ const createProject = async () => {
     await fs.mkdir(targetBasePath);
 
     await renderFileMap(templates, targetBasePath);
-    
-    try {
-      analytics.event({
-        eventCategory: 'Loop Authors',
-        eventAction: 'Loop Source Code Generated: NPX',
-        eventLabel: 'Loop Created',
-      }).send();
-    } catch (error) {};
 
     installNodeModules();
   } catch (error) {
@@ -147,14 +115,6 @@ const languagePrompt = () => {
     const { language } = response;
     projectOptions.language = language;
 
-    try {
-      analytics.event({
-        eventCategory: 'Loop Authors',
-        eventAction: 'Loop Source Code Generated: NPX',
-        eventLabel: `Language Selected: ${language}`,
-      }).send();
-    } catch (error) {}
-
     return createProject();
   });
 };
@@ -174,22 +134,11 @@ const aptitudesPrompt = () => {
       { title: 'UI', value: 'ui' },
       { title: 'User', value: 'user' },
       { title: 'Window', value: 'window' },
-      { title: 'Browser', value: 'browser' },
     ],
     hint: 'Use your spacebar to select. You can select multiple!',
   }).then((response) => {
-    const { aptitudes }: { aptitudes: ProjectOptions['aptitudes'] } = response;
+    const { aptitudes } = response;
     projectOptions.aptitudes = aptitudes;
-
-    aptitudes.forEach((aptitude) => {
-      try {
-        analytics.event({
-          eventCategory: 'Loop Authors',
-          eventAction: 'Loop Source Code Generated: NPX',
-          eventLabel: `Aptitude Selected: ${aptitude}`,
-        }).send();
-      } catch (error) {}
-    });
 
     return languagePrompt();
   });

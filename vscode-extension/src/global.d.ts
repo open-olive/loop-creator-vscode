@@ -2,5 +2,3 @@
 // https://github.com/webpack-contrib/raw-loader/issues/56#issuecomment-423640398
 declare module '*.html';
 declare module '*.squirrelly';
-declare const __GOOGLE_ANALYTICS_ID__: string;
-declare const __ENVIRONMENT__: string;
