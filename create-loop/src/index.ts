@@ -174,6 +174,7 @@ const aptitudesPrompt = () => {
       { title: 'UI', value: 'ui' },
       { title: 'User', value: 'user' },
       { title: 'Window', value: 'window' },
+      { title: 'Browser', value: 'browser' },
     ],
     hint: 'Use your spacebar to select. You can select multiple!',
   }).then((response) => {
