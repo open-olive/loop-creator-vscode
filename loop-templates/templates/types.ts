@@ -18,6 +18,7 @@ export type TemplateFile = {
     | 'process'
     | 'ui'
     | 'user'
+    | 'browser'
     | 'window';
 };
 

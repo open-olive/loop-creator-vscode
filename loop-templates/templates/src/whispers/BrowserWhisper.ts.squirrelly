@@ -1,0 +1,23 @@
+import { whisper } from '@oliveai/ldk';
+
+export const onClose = (err{{it.isTypeScript ? '?: Error' : ''}}) => {
+  if (err) {
+    console.error('There was an error closing Browser whisper', err);
+  }
+  console.log('Browser whisper closed');
+};
+
+export default {
+  show: async (browserText{{it.isTypeScript ? ': string' : ''}}) => {
+    const message{{it.isTypeScript ? ': whisper.Message' : ''}} = {
+      type: whisper.WhisperComponentType.Message,
+      body: browserText,
+    };
+
+    return whisper.create({
+      components: [message],
+      label: 'Browser Aptitude Fired',
+      onClose,
+    });
+  },
+};

@@ -7,6 +7,7 @@ import process from './process';
 import ui from './ui';
 import user from './user';
 import window from './window';
+import browser from './browser';
 import index from './index.ts.squirrelly';
 import { FileMap } from '@/types';
 
@@ -19,6 +20,7 @@ const fileMap: FileMap = {
   process: { fileName: 'process', aptitude: 'process' },
   ui: { fileName: 'ui', aptitude: 'any' },
   user: { fileName: 'user', aptitude: 'user' },
+  browser: { fileName: 'browser', aptitude: 'browser' },
   window: { fileName: 'window', aptitude: 'window' },
   index: { fileName: 'index.ts', aptitude: 'any' },
 };
@@ -32,6 +34,7 @@ export default {
   process,
   ui,
   user,
+  browser,
   window,
   index,
   fileMap,

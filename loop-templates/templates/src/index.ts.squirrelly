@@ -23,6 +23,9 @@ import {
 {{ @if (it.aptitudes.includes('user')) }}
   userExample,
 {{ /if }}
+{{ @if (it.aptitudes.includes('browser')) }}
+  browserExample,
+{{ /if }}
 {{ @if (it.aptitudes.includes('window')) }}
   activeWindowListener,
 {{ /if }}

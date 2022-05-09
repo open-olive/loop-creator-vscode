@@ -21,6 +21,8 @@ import userWhisperTest from './UserWhisper.test.ts.squirrelly';
 import userWhisper from './UserWhisper.ts.squirrelly';
 import windowWhisperTest from './WindowWhisper.test.ts.squirrelly';
 import windowWhisper from './WindowWhisper.ts.squirrelly';
+import browserWhisperTest from './BrowserWhisper.test.ts.squirrelly';
+import browserWhisper from './BrowserWhisper.ts.squirrelly';
 import { FileMap } from '@/types';
 
 const fileMap: FileMap = {
@@ -71,6 +73,8 @@ const fileMap: FileMap = {
   userWhisper: { fileName: 'UserWhisper.ts', aptitude: 'user' },
   windowWhisperTest: { fileName: 'WindowWhisper.test.ts', aptitude: 'window' },
   windowWhisper: { fileName: 'WindowWhisper.ts', aptitude: 'window' },
+  browserWhisperTest: { fileName: 'BrowserWhisper.test.ts', aptitude: 'browser' },
+  browserWhisper: { fileName: 'BrowserWhisper.ts', aptitude: 'browser' },
 };
 
 export default {
@@ -97,5 +101,7 @@ export default {
   userWhisper,
   windowWhisperTest,
   windowWhisper,
+  browserWhisperTest,
+  browserWhisper,
   fileMap,
 };

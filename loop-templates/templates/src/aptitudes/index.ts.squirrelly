@@ -16,6 +16,9 @@ import networkExample from './network/networkExample';
 {{ @if (it.aptitudes.includes('process')) }}
 import processExample from './process/processExample';
 {{ /if }}
+{{ @if (it.aptitudes.includes('browser')) }}
+import browserExample from './browser/browserExample';
+{{ /if }}
 {{ @if (it.aptitudes.includes('ui')) }}
 import searchListener from './ui/searchListener';
 {{ /if }}
