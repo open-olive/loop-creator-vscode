@@ -38,7 +38,7 @@ import {
   clipboardListener.listen();
 {{ /if }}
 {{ @if (it.aptitudes.includes('cursor')) }}
-  cursorListener();
+  cursorListener.run();
 {{ /if }}
 {{ @if (it.aptitudes.includes('document')) }}
   documentExample.run();

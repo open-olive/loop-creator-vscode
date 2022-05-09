@@ -42,10 +42,12 @@ export function writeWhisperCursorTest(label{{ it.isTypeScript ? ': string' : ''
   });
 }
 
-export default async () => {
+async function run() {
   try {
     await writeWhisperCursorTest(`OCR`, `Starting OCR app`);
   } catch (e) {
     console.error(e);
   }
 };
+
+export default { run };
