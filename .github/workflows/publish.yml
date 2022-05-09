@@ -8,6 +8,8 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     env:
+      ENVIRONMENT: prod
+      GOOGLE_ANALYTICS_ID: ${{ secrets.GOOGLE_ANALYTICS_ID }}
       # `secrets.NPM_TOKEN` references a GitHub Secret configured for this repo or organization,
       # and is used to authenticate for the NPM publish command.
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
@@ -42,6 +44,7 @@ jobs:
         working-directory: ./create-loop
         run: |
           echo 'create-loop changed!'
+          npm run build-templates
           npm ci
           npm run build --if-present
           printf '\n//registry.npmjs.org/:_authToken=${NPM_TOKEN}' >> .npmrc
@@ -70,6 +73,7 @@ jobs:
         working-directory: ./vscode-extension
         run: |
           echo 'vscode-extension changed!'
+          npm run build-templates
           npm ci
           npm run build --if-present
           npm run deploy
