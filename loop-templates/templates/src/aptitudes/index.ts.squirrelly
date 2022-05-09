@@ -17,7 +17,7 @@ import networkExample from './network/networkExample';
 import processExample from './process/processExample';
 {{ /if }}
 {{ @if (it.aptitudes.includes('search')) }}
-import runSearchExample from './search/searchExample';
+import searchExample from './search/searchExample';
 {{ /if }}
 {{ @if (it.aptitudes.includes('ui')) }}
 import searchListener from './ui/searchListener';
@@ -50,7 +50,7 @@ export {
   processExample,
 {{ /if }}
 {{ @if (it.aptitudes.includes('search')) }}
-  runSearchExample,
+  searchExample,
 {{ /if }}
 {{ @if (it.aptitudes.includes('ui')) }}
   searchListener,

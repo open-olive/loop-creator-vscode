@@ -18,7 +18,7 @@ import {
   processExample,
 {{ /if }}
 {{ @if (it.aptitudes.includes('search')) }}
-  runSearchExample,
+  searchExample,
 {{ /if }}
 {{ @if (it.aptitudes.includes('ui')) }}
   searchListener,
@@ -53,7 +53,7 @@ import {
   processExample.run();
 {{ /if }}
 {{ @if (it.aptitudes.includes('search')) }}
-  runSearchExample();
+  searchExample();
 {{ /if }}
 {{ @if (it.aptitudes.includes('ui')) }}
   searchListener.listen();
