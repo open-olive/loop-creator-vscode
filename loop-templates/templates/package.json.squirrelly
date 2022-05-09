@@ -111,6 +111,8 @@
       },
 {{ #elif (aptitude === 'process') }}
      "process": {},
+{{ #elif (aptitude === 'browser') }}
+     "browser": {},
 {{ #elif (aptitude === 'user') }}
       "user": {
         "optionalClaims": [
