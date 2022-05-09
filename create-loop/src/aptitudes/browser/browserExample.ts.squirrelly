@@ -1,0 +1,26 @@
+import { browser } from '@oliveai/ldk';
+
+const URL_TO_OPEN = 'https://www.oliveai.dev/';
+const newTabId = await browser.openTab(URL_TO_OPEN);
+
+const browserListener = await browser.listenNavigation((navDetails) => {
+    /*
+    navDetails will be:
+    {
+        frameId: number,
+        navigationType: string (real | history)
+        parentFrameId: number,
+        tabId: number,
+        timestamp: number,
+        url: string
+    }
+    */
+
+    // navDetails.url === URL_TO_OPEN: true
+    // navDetails.tabId === newTabId: true
+
+    // Cancel the listener when a specific URL is opened by the user
+    if (navDetails.url === URL_TO_OPEN) {
+        browserListener.cancel();
+    }
+})
