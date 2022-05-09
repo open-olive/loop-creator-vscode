@@ -7,7 +7,7 @@ const mockWhisperClose = jest.fn();
 
 const TEST_PARAM = 'test';
 
-describe('Clipboard Whisper', () => {
+describe('Search Whisper', () => {
   beforeEach(() => {
     whisper.create = jest.fn().mockResolvedValueOnce({ close: mockWhisperClose });
   });
