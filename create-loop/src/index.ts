@@ -61,6 +61,7 @@ const createProject = async () => {
     const renderTemplate = async (template: string, filePath: string) => {
       const fileContents = await Sqrl.render(template, {
         isTypeScript,
+        hasConfigAptitude: projectAptitudes.includes("config"),
         projectName,
         aptitudes: projectAptitudes,
         promiseVoid: ': Promise<void>',
@@ -166,6 +167,7 @@ const aptitudesPrompt = () => {
     message: 'Which Aptitudes do you want to include?',
     choices: [
       { title: 'Clipboard', value: 'clipboard' },
+      { title: 'Config', value: 'config' },
       { title: 'Document', value: 'document' },
       { title: 'Filesystem', value: 'filesystem' },
       { title: 'Keyboard', value: 'keyboard' },

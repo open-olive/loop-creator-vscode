@@ -2,6 +2,9 @@ import {
 {{ @if (it.aptitudes.includes('clipboard')) }}
   clipboardListener,
 {{ /if }}
+{{ @if (it.aptitudes.includes('config')) }}
+  configExample,
+{{ /if }}
 {{ @if (it.aptitudes.includes('document')) }}
   documentExample,
 {{ /if }}
@@ -33,6 +36,9 @@ import {
   console.log('Example Loop Started');
 {{ @if (it.aptitudes.includes('clipboard')) }}
   clipboardListener.listen();
+{{ /if }}
+{{ @if (it.aptitudes.includes('config')) }}
+  configExample.run();
 {{ /if }}
 {{ @if (it.aptitudes.includes('document')) }}
   documentExample.run();
