@@ -1,5 +1,5 @@
 import templates from '@oliveai/loop-templates';
-import { TemplatesObject } from '@oliveai/loop-templates/templates/types';
+import { TemplatesObject } from '@oliveai/loop-templates/dist/types';
 import * as path from 'path';
 import { platform } from 'process';
 import * as Sqrl from 'squirrelly';
