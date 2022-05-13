@@ -2,10 +2,11 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable no-restricted-syntax */
 import { screen, whisper, window } from '@oliveai/ldk';
+import { OCRResult } from '@oliveai/ldk/dist/screen';
 import ScreenWhisper from '../../whispers/ScreenWhisper';
 
 // Create a whisper
-export const writeWhisper = (label, body) =>
+export const writeWhisper = (label{{it.isTypeScript ? ': string' : ''}}, body{{it.isTypeScript ? ': string' : ''}}) =>
   whisper.create({
     label,
     onClose: () => {
@@ -29,8 +30,8 @@ export const writeWhisper = (label, body) =>
   });
 
 // This function reconstructs ocrResults into a string
-export const rebuildImage = (ocrResults) => {
-  const lines = [];
+export const rebuildImage = (ocrResults{{it.isTypeScript ? ': OCRResult[]' : ''}}) => {
+  const lines{{it.isTypeScript ? ': any[]' : ''}} = [];
   for (const box of ocrResults) {
     if (box.level === undefined) {
       // eslint-disable-next-line no-continue
@@ -65,7 +66,7 @@ export const rebuildImage = (ocrResults) => {
   return fullText.join('\n\n');
 };
 
-function sleep(ms) {
+function sleep(ms{{it.isTypeScript ? ': number' : ''}}) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
@@ -92,10 +93,8 @@ export async function performOcr() {
         console.log(rebuildImage(ocrResults));
 
         // filter out values with lower confidence value
-        // TODO: we are waiting for the types to be fixed, this is now a blocker
-        const resFilter = ocrResults.filter((res) => res.conf > 75);
+        const resFilter = ocrResults.filter((res) => res.confidence > 75);
         const newFilter = resFilter.map((res) => `${res.text}`);
-        // writeWhisper(`ocrResults`, `${resFilter.join(' ')}`);
         ScreenWhisper.show(newFilter.join(' '));
       })
       .catch((error) => {
@@ -106,10 +105,10 @@ export async function performOcr() {
 }
 
 // call writeWhisper function to create an ocr whisper
-export default async function screenExample() {
+export async function run() {
   writeWhisper('ocr', 'starting ocr app');
 }
 
-// call OcrLoop()
-// OcrLoop();
 console.log('starting app');
+
+export default { run }

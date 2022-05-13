@@ -121,7 +121,7 @@
           }
         ]
       },
-{{ #elif (aptitude === 'window') }}
+{{ #elif (aptitude === 'window' || aptitude === 'screen') }}
       "window": {},
 {{ /if }}
 {{/each}}

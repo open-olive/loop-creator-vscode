@@ -1,19 +1,22 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { whisper } from '@oliveai/ldk';
 import { write } from '@oliveai/ldk/dist/clipboard';
-import { OcrLoop, writeWhisper, performOcr } from './screenExample';
+import { OCRResult } from '@oliveai/ldk/dist/screen';
+import { runtime } from 'webpack';
+import screenExample, { writeWhisper, performOcr, rebuildImage } from './screenExample';
 
 jest.mock('@oliveai/ldk');
 
 const writeWhisperSpy = jest.fn().mockImplementation(() => {});
 
 jest.mock('./screenExample', () => ({
+  ...jest.requireActual('./screenExample'),
   writeWhisper: () => {
     writeWhisperSpy();
   },
 }));
 
-describe('Cursor Listener', () => {
+describe('Screen Aptitude', () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
@@ -24,11 +27,24 @@ describe('Cursor Listener', () => {
     expect(writeWhisperSpy).toBeCalled();
   });
 
-  // TODO: will handle once type is fixed
+  it('should return correct value', () => {
+    const test: OCRResult = {
+      level: 1,
+      page_num: 1,
+      block_num: 1,
+      par_num: 1,
+      line_num: 1,
+      word_num: 1,
+      left: 1,
+      top: 1,
+      width: 1,
+      height: 1,
+      confidence: 99,
+      text: 'test',
+    };
 
-  it('should call performOCR', () => {
-    performOcr();
+    const result = rebuildImage([test]);
 
-    expect(screen.ocr).toBeCalled();
-  })
+    expect(result).toContain('\n test');
+  });
 });
