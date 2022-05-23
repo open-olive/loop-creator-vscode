@@ -2,6 +2,9 @@ import {
 {{ @if (it.aptitudes.includes('clipboard')) }}
   clipboardListener,
 {{ /if }}
+{{ @if (it.aptitudes.includes('config')) }}
+  configExample,
+{{ /if }}
 {{ @if (it.aptitudes.includes('document')) }}
   documentExample,
 {{ /if }}
@@ -17,14 +20,22 @@ import {
 {{ @if (it.aptitudes.includes('process')) }}
   processExample,
 {{ /if }}
+
 {{ @if (it.aptitudes.includes('search')) }}
   searchExample,
+
+{{ @if (it.aptitudes.includes('system')) }}
+  systemExample,
+
 {{ /if }}
 {{ @if (it.aptitudes.includes('ui')) }}
   searchListener,
 {{ /if }}
 {{ @if (it.aptitudes.includes('user')) }}
   userExample,
+{{ /if }}
+{{ @if (it.aptitudes.includes('vault')) }}
+  vaultExample,
 {{ /if }}
 {{ @if (it.aptitudes.includes('window')) }}
   activeWindowListener,
@@ -36,6 +47,9 @@ import {
   console.log('Example Loop Started');
 {{ @if (it.aptitudes.includes('clipboard')) }}
   clipboardListener.listen();
+{{ /if }}
+{{ @if (it.aptitudes.includes('config')) }}
+  configExample.run();
 {{ /if }}
 {{ @if (it.aptitudes.includes('document')) }}
   documentExample.run();
@@ -58,8 +72,14 @@ import {
 {{ @if (it.aptitudes.includes('ui')) }}
   searchListener.listen();
 {{ /if }}
+{{ @if (it.aptitudes.includes('system')) }}
+  systemExample.run();
+{{ /if }}
 {{ @if (it.aptitudes.includes('user')) }}
   userExample.run();
+{{ /if }}
+{{ @if (it.aptitudes.includes('vault')) }}
+  vaultExample.run();
 {{ /if }}
 {{ @if (it.aptitudes.includes('window')) }}
   activeWindowListener.listen();

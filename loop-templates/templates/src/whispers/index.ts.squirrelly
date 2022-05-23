@@ -3,6 +3,9 @@ import IntroWhisperSimple from './IntroWhisperSimple';
 {{ @if (it.aptitudes.includes('clipboard')) }}
 import ClipboardWhisper from './ClipboardWhisper';
 {{ /if }}
+{{ @if (it.aptitudes.includes('config')) }}
+import ConfigWhisper from './ConfigWhisper';
+{{ /if }}
 {{ @if (it.aptitudes.includes('document')) }}
 import DocumentWhisper from './DocumentWhisper';
 {{ /if }}
@@ -20,12 +23,17 @@ import ProcessWhisper from './ProcessWhisper';
 {{ /if }}
 {{ @if (it.aptitudes.includes('search')) }}
 import SearchWhisper from './SearchWhisper';
+{{ @if (it.aptitudes.includes('system')) }}
+import SystemWhisper from './SystemWhisper';
 {{ /if }}
 {{ @if (it.aptitudes.includes('ui')) }}
 import UiWhisper from './UiWhisper';
 {{ /if }}
 {{ @if (it.aptitudes.includes('user')) }}
 import UserWhisper from './UserWhisper';
+{{ /if }}
+{{ @if (it.aptitudes.includes('vault')) }}
+import VaultWhisper from './VaultWhisper';
 {{ /if }}
 {{ @if (it.aptitudes.includes('window')) }}
 import WindowWhisper from './WindowWhisper';
@@ -37,6 +45,9 @@ export {
   IntroWhisperSimple,
 {{ @if (it.aptitudes.includes('clipboard')) }}
   ClipboardWhisper,
+{{ /if }}
+{{ @if (it.aptitudes.includes('config')) }}
+  ConfigWhisper,
 {{ /if }}
 {{ @if (it.aptitudes.includes('document')) }}
   DocumentWhisper,
@@ -55,12 +66,17 @@ export {
 {{ /if }}
 {{ @if (it.aptitudes.includes('search')) }}
   SearchWhisper,
+{{ @if (it.aptitudes.includes('system')) }}
+  SystemWhisper,
 {{ /if }}
 {{ @if (it.aptitudes.includes('ui')) }}
   UiWhisper,
 {{ /if }}
 {{ @if (it.aptitudes.includes('user')) }}
   UserWhisper,
+{{ /if }}
+{{ @if (it.aptitudes.includes('vault')) }}
+  VaultWhisper,
 {{ /if }}
 {{ @if (it.aptitudes.includes('window')) }}
   WindowWhisper,

@@ -11,14 +11,17 @@ export type TemplateFile = {
     | 'any'
     | 'nonzero'
     | 'clipboard'
+    | 'config'
     | 'document'
     | 'filesystem'
     | 'keyboard'
     | 'network'
     | 'process'
     | 'search'
+    | 'system'
     | 'ui'
     | 'user'
+    | 'vault'
     | 'window';
 };
 

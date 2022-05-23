@@ -1,5 +1,5 @@
 import templates from '@oliveai/loop-templates';
-import { TemplatesObject } from '@oliveai/loop-templates/templates/types';
+import { TemplatesObject } from '@oliveai/loop-templates/dist/types';
 import * as path from 'path';
 import { platform } from 'process';
 import * as Sqrl from 'squirrelly';
@@ -76,6 +76,7 @@ export class LoopCreator {
     const renderTemplate = async (template: any, filePath: string) => {
       const fileContents = Sqrl.render(template, {
         isTypeScript,
+        hasConfigAptitude: aptitudes.includes("config"),
         projectName,
         aptitudes,
         promiseVoid: ': Promise<void>',
