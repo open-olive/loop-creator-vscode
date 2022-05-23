@@ -61,6 +61,7 @@ const createProject = async () => {
     const renderTemplate = async (template: string, filePath: string) => {
       const fileContents = await Sqrl.render(template, {
         isTypeScript,
+        hasConfigAptitude: projectAptitudes.includes("config"),
         projectName,
         aptitudes: projectAptitudes,
         promiseVoid: ': Promise<void>',
@@ -167,13 +168,17 @@ const aptitudesPrompt = () => {
     choices: [
       { title: 'Clipboard', value: 'clipboard' },
       { title: 'Cursor', value: 'cursor' },
+      { title: 'Config', value: 'config' },
       { title: 'Document', value: 'document' },
       { title: 'Filesystem', value: 'filesystem' },
       { title: 'Keyboard', value: 'keyboard' },
       { title: 'Network', value: 'network' },
       { title: 'Process', value: 'process' },
+      { title: 'Search', value: 'search' },
+      { title: 'System', value: 'system'},
       { title: 'UI', value: 'ui' },
       { title: 'User', value: 'user' },
+      { title: 'Vault', value: 'vault' },
       { title: 'Window', value: 'window' },
     ],
     hint: 'Use your spacebar to select. You can select multiple!',

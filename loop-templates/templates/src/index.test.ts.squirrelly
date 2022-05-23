@@ -5,6 +5,11 @@ import {
 {{ /if }}
 {{ @if (it.aptitudes.includes('cursor')) }}
   cursorListener,
+{{ @if (it.aptitudes.includes('config')) }}
+  configExample,
+{{ /if }}
+{{ @if (it.aptitudes.includes('document')) }}
+  documentExample,
 {{ /if }}
 {{ @if (it.aptitudes.includes('filesystem')) }}
   filesystemExample,
@@ -18,11 +23,20 @@ import {
 {{ @if (it.aptitudes.includes('process')) }}
   processExample,
 {{ /if }}
+{{ @if (it.aptitudes.includes('search')) }}
+  searchExample,
+{{ /if }}
 {{ @if (it.aptitudes.includes('ui')) }}
   searchListener,
 {{ /if }}
+{{ @if (it.aptitudes.includes('system')) }}
+  systemExample,
+{{ /if }}
 {{ @if (it.aptitudes.includes('user')) }}
   userExample,
+{{ /if }}
+{{ @if (it.aptitudes.includes('vault')) }}
+  vaultExample,
 {{ /if }}
 {{ @if (it.aptitudes.includes('window')) }}
   activeWindowListener,
@@ -51,6 +65,11 @@ describe('Project Startup', () => {
 {{ /if }}
 {{ @if (it.aptitudes.includes('cursor')) }}
     expect(cursorListener).toBeCalled();
+{{ @if (it.aptitudes.includes('config')) }}
+    expect(configExample.run).toBeCalled();
+{{ /if }}
+{{ @if (it.aptitudes.includes('document')) }}
+    expect(documentExample.run).toBeCalled();
 {{ /if }}
 {{ @if (it.aptitudes.includes('filesystem')) }}
     expect(filesystemExample.run).toBeCalled();
@@ -64,11 +83,20 @@ describe('Project Startup', () => {
 {{ @if (it.aptitudes.includes('process')) }}
     expect(processExample.run).toBeCalled();
 {{ /if }}
+{{ @if (it.aptitudes.includes('search')) }}
+    expect(searchExample).toBeCalled();
+{{ /if }}
 {{ @if (it.aptitudes.includes('ui')) }}
     expect(searchListener.listen).toBeCalled();
 {{ /if }}
+{{ @if (it.aptitudes.includes('system')) }}
+    expect(systemExample.run).toBeCalled();
+{{ /if }}
 {{ @if (it.aptitudes.includes('user')) }}
     expect(userExample.run).toBeCalled();
+{{ /if }}
+{{ @if (it.aptitudes.includes('vault')) }}
+    expect(vaultExample.run).toBeCalled();
 {{ /if }}
 {{ @if (it.aptitudes.includes('window')) }}
     expect(activeWindowListener.listen).toBeCalled();

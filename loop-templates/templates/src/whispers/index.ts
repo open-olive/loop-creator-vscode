@@ -2,6 +2,8 @@ import clipboardWhisperTest from './ClipboardWhisper.test.ts.squirrelly';
 import clipboardWhisper from './ClipboardWhisper.ts.squirrelly';
 import cursorWhisperTest from './CursorWhisper.test.ts.squirrelly';
 import cursorWhisper from './CursorWhisper.ts.squirrelly';
+import configWhisperTest from './ConfigWhisper.test.ts.squirrelly';
+import configWhisper from './ConfigWhisper.ts.squirrelly';
 import documentWhisper from './DocumentWhisper.ts.squirrelly';
 import documentWhisperTest from './DocumentWhisper.test.ts.squirrelly';
 import filesystemWhisperTest from './FilesystemWhisper.test.ts.squirrelly';
@@ -17,10 +19,16 @@ import networkWhisperTest from './NetworkWhisper.test.ts.squirrelly';
 import networkWhisper from './NetworkWhisper.ts.squirrelly';
 import processWhisperTest from './ProcessWhisper.test.ts.squirrelly';
 import processWhisper from './ProcessWhisper.ts.squirrelly';
+import searchWhisper from './SearchWhisper.ts.squirrelly';
+import searchWhisperTest from './SearchWhisper.test.ts.squirrelly';
+import systemWhisperTest from './SystemWhisper.test.ts.squirrelly';
+import systemWhisper from './SystemWhisper.ts.squirrelly';
 import uiWhisperTest from './UiWhisper.test.ts.squirrelly';
 import uiWhisper from './UiWhisper.ts.squirrelly';
 import userWhisperTest from './UserWhisper.test.ts.squirrelly';
 import userWhisper from './UserWhisper.ts.squirrelly';
+import vaultWhisperTest from './VaultWhisper.test.ts.squirrelly';
+import vaultWhisper from './VaultWhisper.ts.squirrelly';
 import windowWhisperTest from './WindowWhisper.test.ts.squirrelly';
 import windowWhisper from './WindowWhisper.ts.squirrelly';
 import { FileMap } from '@/types';
@@ -33,6 +41,8 @@ const fileMap: FileMap = {
   clipboardWhisper: { fileName: 'ClipboardWhisper.ts', aptitude: 'clipboard' },
   cursorWhisperTest: { fileName: 'CursorWhisper.test.ts', aptitude: 'cursor' },
   cursorWhisper: { fileName: 'CursorWhisper.ts', aptitude: 'cursor' },
+  configWhisperTest: { fileName: 'ConfigWhisper.test.ts', aptitude: 'config'},
+  configWhisper: { fileName: 'ConfigWhisper.ts', aptitude: 'config' },
   documentWhisperTest: {
     fileName: 'DocumentWhisper.test.ts',
     aptitude: 'document',
@@ -69,10 +79,22 @@ const fileMap: FileMap = {
     aptitude: 'process',
   },
   processWhisper: { fileName: 'ProcessWhisper.ts', aptitude: 'process' },
+  searchWhisper: { fileName: 'SearchWhisper.ts', aptitude: 'search' },
+  searchWhisperTest: {
+    fileName: 'SearchWhisper.test.ts',
+    aptitude: 'search',
+  },
+  systemWhisperTest: {
+    fileName: 'SystemWhisper.test.ts',
+    aptitude: 'system',
+  },
+  systemWhisper: { fileName: 'SystemWhisper.ts', aptitude: 'system'},
   uiWhisperTest: { fileName: 'UiWhisper.test.ts', aptitude: 'ui' },
   uiWhisper: { fileName: 'UiWhisper.ts', aptitude: 'ui' },
   userWhisperTest: { fileName: 'UserWhisper.test.ts', aptitude: 'user' },
   userWhisper: { fileName: 'UserWhisper.ts', aptitude: 'user' },
+  vaultWhisperTest: { fileName: 'VaultWhisper.test.ts', aptitude: 'vault' },
+  vaultWhisper: { fileName: 'VaultWhisper.ts', aptitude: 'vault' },
   windowWhisperTest: { fileName: 'WindowWhisper.test.ts', aptitude: 'window' },
   windowWhisper: { fileName: 'WindowWhisper.ts', aptitude: 'window' },
 };
@@ -82,6 +104,8 @@ export default {
   clipboardWhisper,
   cursorWhisperTest,
   cursorWhisper,
+  configWhisperTest,
+  configWhisper,
   documentWhisper,
   documentWhisperTest,
   filesystemWhisperTest,
@@ -97,10 +121,16 @@ export default {
   networkWhisper,
   processWhisperTest,
   processWhisper,
+  searchWhisper,
+  searchWhisperTest,
+  systemWhisperTest,
+  systemWhisper,
   uiWhisperTest,
   uiWhisper,
   userWhisperTest,
   userWhisper,
+  vaultWhisperTest,
+  vaultWhisper,
   windowWhisperTest,
   windowWhisper,
   fileMap,

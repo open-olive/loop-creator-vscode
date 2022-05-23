@@ -98,6 +98,8 @@
 {{ #elif (aptitude === 'cursor') }}
       "cursor": {},
       "keyboard": {},
+{{ #elif (aptitude === 'config') }}
+      "config": {},
 {{ #elif (aptitude === 'document') }}
       "document": {},
 {{ #elif (aptitude === 'filesystem') }}
@@ -112,8 +114,12 @@
           }
         ]
       },
+{{ #elif (aptitude === 'system') }}
+     "system": {},
 {{ #elif (aptitude === 'process') }}
      "process": {},
+{{ #elif (aptitude === 'search') }}
+     "search": {},
 {{ #elif (aptitude === 'user') }}
       "user": {
         "optionalClaims": [
@@ -122,12 +128,36 @@
           }
         ]
       },
+{{ #elif (aptitude === 'vault') }}
+      "vault": {},
 {{ #elif (aptitude === 'window') }}
       "window": {},
 {{ /if }}
-{{/each}}
+{{ /each }}
       "ui": {},      
       "whisper": {}
+    }{{it.hasConfigAptitude ? ',\n' : '\n'}}
+{{ @if (it.hasConfigAptitude) }}
+    "configSchema": {
+      "title": "Example Config Loop",
+      "description": "Set up a default configuration for your organization by adding item. To show example demo, label newkey as 'feature' and select button option.",
+      "type": "object",
+      "propertyNames": {
+        "maxLength": 50
+      },
+      "additionalProperties": {
+        "type": "object",
+        "description": "Example additional configuration object, shows button toggle feature.",
+        "properties": {
+          "button": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "object"
+        ]
+      }
     }
+{{ /if }} 
   }
 }
