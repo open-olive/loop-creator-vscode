@@ -16,9 +16,11 @@ export type TemplateFile = {
     | 'keyboard'
     | 'network'
     | 'process'
+    | 'system'
     | 'ui'
     | 'user'
     | 'browser'
+    | 'vault'
     | 'window';
 };
 

@@ -7,6 +7,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+- Added Vault aptitude to VSCode/npx tools.
+- Bringing in System aptitude to VSCode/NPX tools.
+
 ### Changed
 
 ## [0.4.0]

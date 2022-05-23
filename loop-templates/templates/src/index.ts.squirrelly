@@ -17,6 +17,9 @@ import {
 {{ @if (it.aptitudes.includes('process')) }}
   processExample,
 {{ /if }}
+{{ @if (it.aptitudes.includes('system')) }}
+  systemExample,
+{{ /if }}
 {{ @if (it.aptitudes.includes('ui')) }}
   searchListener,
 {{ /if }}
@@ -25,6 +28,8 @@ import {
 {{ /if }}
 {{ @if (it.aptitudes.includes('browser')) }}
   browserExample,
+{{ @if (it.aptitudes.includes('vault')) }}
+  vaultExample,
 {{ /if }}
 {{ @if (it.aptitudes.includes('window')) }}
   activeWindowListener,
@@ -55,8 +60,14 @@ import {
 {{ @if (it.aptitudes.includes('ui')) }}
   searchListener.listen();
 {{ /if }}
+{{ @if (it.aptitudes.includes('system')) }}
+  systemExample.run();
+{{ /if }}
 {{ @if (it.aptitudes.includes('user')) }}
   userExample.run();
+{{ /if }}
+{{ @if (it.aptitudes.includes('vault')) }}
+  vaultExample.run();
 {{ /if }}
 {{ @if (it.aptitudes.includes('window')) }}
   activeWindowListener.listen();
