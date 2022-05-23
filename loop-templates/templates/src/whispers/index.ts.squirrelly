@@ -3,6 +3,9 @@ import IntroWhisperSimple from './IntroWhisperSimple';
 {{ @if (it.aptitudes.includes('clipboard')) }}
 import ClipboardWhisper from './ClipboardWhisper';
 {{ /if }}
+{{ @if (it.aptitudes.includes('config')) }}
+import ConfigWhisper from './ConfigWhisper';
+{{ /if }}
 {{ @if (it.aptitudes.includes('document')) }}
 import DocumentWhisper from './DocumentWhisper';
 {{ /if }}
@@ -40,6 +43,9 @@ export {
   IntroWhisperSimple,
 {{ @if (it.aptitudes.includes('clipboard')) }}
   ClipboardWhisper,
+{{ /if }}
+{{ @if (it.aptitudes.includes('config')) }}
+  ConfigWhisper,
 {{ /if }}
 {{ @if (it.aptitudes.includes('document')) }}
   DocumentWhisper,
