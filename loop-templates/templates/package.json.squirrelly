@@ -115,6 +115,8 @@
      "system": {},
 {{ #elif (aptitude === 'process') }}
      "process": {},
+{{ #elif (aptitude === 'search') }}
+     "search": {},
 {{ #elif (aptitude === 'user') }}
       "user": {
         "optionalClaims": [

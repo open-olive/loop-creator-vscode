@@ -5,6 +5,7 @@ import filesystem from './filesystem';
 import keyboard from './keyboard';
 import network from './network';
 import process from './process';
+import search from './search';
 import system from './system';
 import ui from './ui';
 import user from './user';
@@ -21,6 +22,7 @@ const fileMap: FileMap = {
   keyboard: { fileName: 'keyboard', aptitude: 'keyboard' },
   network: { fileName: 'network', aptitude: 'network' },
   process: { fileName: 'process', aptitude: 'process' },
+  search: { fileName: 'search', aptitude: 'search' },
   system: { fileName: 'system', aptitude: 'system'},
   ui: { fileName: 'ui', aptitude: 'any' },
   user: { fileName: 'user', aptitude: 'user' },
@@ -37,6 +39,7 @@ export default {
   keyboard,
   network,
   process,
+  search,
   system,
   ui,
   user,
