@@ -111,6 +111,8 @@
           }
         ]
       },
+{{ #elif (aptitude === 'system') }}
+     "system": {},
 {{ #elif (aptitude === 'process') }}
      "process": {},
 {{ #elif (aptitude === 'user') }}
@@ -121,6 +123,8 @@
           }
         ]
       },
+{{ #elif (aptitude === 'vault') }}
+      "vault": {},
 {{ #elif (aptitude === 'window') }}
       "window": {},
 {{ /if }}

@@ -17,10 +17,14 @@ import networkWhisperTest from './NetworkWhisper.test.ts.squirrelly';
 import networkWhisper from './NetworkWhisper.ts.squirrelly';
 import processWhisperTest from './ProcessWhisper.test.ts.squirrelly';
 import processWhisper from './ProcessWhisper.ts.squirrelly';
+import systemWhisperTest from './SystemWhisper.test.ts.squirrelly';
+import systemWhisper from './SystemWhisper.ts.squirrelly';
 import uiWhisperTest from './UiWhisper.test.ts.squirrelly';
 import uiWhisper from './UiWhisper.ts.squirrelly';
 import userWhisperTest from './UserWhisper.test.ts.squirrelly';
 import userWhisper from './UserWhisper.ts.squirrelly';
+import vaultWhisperTest from './VaultWhisper.test.ts.squirrelly';
+import vaultWhisper from './VaultWhisper.ts.squirrelly';
 import windowWhisperTest from './WindowWhisper.test.ts.squirrelly';
 import windowWhisper from './WindowWhisper.ts.squirrelly';
 import { FileMap } from '@/types';
@@ -69,10 +73,17 @@ const fileMap: FileMap = {
     aptitude: 'process',
   },
   processWhisper: { fileName: 'ProcessWhisper.ts', aptitude: 'process' },
+  systemWhisperTest: {
+    fileName: 'SystemWhisper.test.ts',
+    aptitude: 'system',
+  },
+  systemWhisper: { fileName: 'SystemWhisper.ts', aptitude: 'system'},
   uiWhisperTest: { fileName: 'UiWhisper.test.ts', aptitude: 'ui' },
   uiWhisper: { fileName: 'UiWhisper.ts', aptitude: 'ui' },
   userWhisperTest: { fileName: 'UserWhisper.test.ts', aptitude: 'user' },
   userWhisper: { fileName: 'UserWhisper.ts', aptitude: 'user' },
+  vaultWhisperTest: { fileName: 'VaultWhisper.test.ts', aptitude: 'vault' },
+  vaultWhisper: { fileName: 'VaultWhisper.ts', aptitude: 'vault' },
   windowWhisperTest: { fileName: 'WindowWhisper.test.ts', aptitude: 'window' },
   windowWhisper: { fileName: 'WindowWhisper.ts', aptitude: 'window' },
 };
@@ -97,10 +108,14 @@ export default {
   networkWhisper,
   processWhisperTest,
   processWhisper,
+  systemWhisperTest,
+  systemWhisper,
   uiWhisperTest,
   uiWhisper,
   userWhisperTest,
   userWhisper,
+  vaultWhisperTest,
+  vaultWhisper,
   windowWhisperTest,
   windowWhisper,
   fileMap,

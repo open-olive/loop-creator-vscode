@@ -22,8 +22,14 @@ import processExample from './process/processExample';
 {{ @if (it.aptitudes.includes('ui')) }}
 import searchListener from './ui/searchListener';
 {{ /if }}
+{{ @if (it.aptitudes.includes('system')) }}
+import systemExample from './system/systemExample';
+{{ /if }}
 {{ @if (it.aptitudes.includes('user')) }}
 import userExample from './user/userExample';
+{{ /if }}
+{{ @if (it.aptitudes.includes('vault')) }}
+import vaultExample from './vault/vaultExample';
 {{ /if }}
 {{ @if (it.aptitudes.includes('window')) }}
 import activeWindowListener from './window/activeWindowListener';
@@ -55,8 +61,14 @@ export {
 {{ @if (it.aptitudes.includes('ui')) }}
   searchListener,
 {{ /if }}
+{{ @if (it.aptitudes.includes('system')) }}
+  systemExample,
+{{ /if }}
 {{ @if (it.aptitudes.includes('user')) }}
   userExample,
+{{ /if }}
+{{ @if (it.aptitudes.includes('vault')) }}
+  vaultExample,
 {{ /if }}
 {{ @if (it.aptitudes.includes('window')) }}
   activeWindowListener,
