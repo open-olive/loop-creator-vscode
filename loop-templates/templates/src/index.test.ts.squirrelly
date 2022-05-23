@@ -3,6 +3,9 @@ import {
 {{ @if (it.aptitudes.includes('clipboard')) }}
   clipboardListener,
 {{ /if }}
+{{ @if (it.aptitudes.includes('document')) }}
+  documentExample,
+{{ /if }}
 {{ @if (it.aptitudes.includes('filesystem')) }}
   filesystemExample,
 {{ /if }}
@@ -17,6 +20,9 @@ import {
 {{ /if }}
 {{ @if (it.aptitudes.includes('ui')) }}
   searchListener,
+{{ /if }}
+{{ @if (it.aptitudes.includes('system')) }}
+  systemExample,
 {{ /if }}
 {{ @if (it.aptitudes.includes('user')) }}
   userExample,
@@ -46,6 +52,9 @@ describe('Project Startup', () => {
 {{ @if (it.aptitudes.includes('clipboard')) }}
     expect(clipboardListener.listen).toBeCalled();
 {{ /if }}
+{{ @if (it.aptitudes.includes('document')) }}
+    expect(documentExample.run).toBeCalled();
+{{ /if }}
 {{ @if (it.aptitudes.includes('filesystem')) }}
     expect(filesystemExample.run).toBeCalled();
 {{ /if }}
@@ -60,6 +69,9 @@ describe('Project Startup', () => {
 {{ /if }}
 {{ @if (it.aptitudes.includes('ui')) }}
     expect(searchListener.listen).toBeCalled();
+{{ /if }}
+{{ @if (it.aptitudes.includes('system')) }}
+    expect(systemExample.run).toBeCalled();
 {{ /if }}
 {{ @if (it.aptitudes.includes('user')) }}
     expect(userExample.run).toBeCalled();
