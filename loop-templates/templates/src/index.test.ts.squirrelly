@@ -3,6 +3,8 @@ import {
 {{ @if (it.aptitudes.includes('clipboard')) }}
   clipboardListener,
 {{ /if }}
+{{ @if (it.aptitudes.includes('cursor')) }}
+  cursorListener,
 {{ @if (it.aptitudes.includes('config')) }}
   configExample,
 {{ /if }}
@@ -61,6 +63,8 @@ describe('Project Startup', () => {
 {{ @if (it.aptitudes.includes('clipboard')) }}
     expect(clipboardListener.listen).toBeCalled();
 {{ /if }}
+{{ @if (it.aptitudes.includes('cursor')) }}
+    expect(cursorListener).toBeCalled();
 {{ @if (it.aptitudes.includes('config')) }}
     expect(configExample.run).toBeCalled();
 {{ /if }}

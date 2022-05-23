@@ -1,5 +1,7 @@
 import clipboardWhisperTest from './ClipboardWhisper.test.ts.squirrelly';
 import clipboardWhisper from './ClipboardWhisper.ts.squirrelly';
+import cursorWhisperTest from './CursorWhisper.test.ts.squirrelly';
+import cursorWhisper from './CursorWhisper.ts.squirrelly';
 import configWhisperTest from './ConfigWhisper.test.ts.squirrelly';
 import configWhisper from './ConfigWhisper.ts.squirrelly';
 import documentWhisper from './DocumentWhisper.ts.squirrelly';
@@ -37,6 +39,8 @@ const fileMap: FileMap = {
     aptitude: 'clipboard',
   },
   clipboardWhisper: { fileName: 'ClipboardWhisper.ts', aptitude: 'clipboard' },
+  cursorWhisperTest: { fileName: 'CursorWhisper.test.ts', aptitude: 'cursor' },
+  cursorWhisper: { fileName: 'CursorWhisper.ts', aptitude: 'cursor' },
   configWhisperTest: { fileName: 'ConfigWhisper.test.ts', aptitude: 'config'},
   configWhisper: { fileName: 'ConfigWhisper.ts', aptitude: 'config' },
   documentWhisperTest: {
@@ -98,6 +102,8 @@ const fileMap: FileMap = {
 export default {
   clipboardWhisperTest,
   clipboardWhisper,
+  cursorWhisperTest,
+  cursorWhisper,
   configWhisperTest,
   configWhisper,
   documentWhisper,

@@ -2,6 +2,8 @@ import {
 {{ @if (it.aptitudes.includes('clipboard')) }}
   clipboardListener,
 {{ /if }}
+{{ @if (it.aptitudes.includes('cursor')) }}
+  cursorListener,
 {{ @if (it.aptitudes.includes('config')) }}
   configExample,
 {{ /if }}
@@ -48,6 +50,8 @@ import {
 {{ @if (it.aptitudes.includes('clipboard')) }}
   clipboardListener.listen();
 {{ /if }}
+{{ @if (it.aptitudes.includes('cursor')) }}
+  cursorListener.run();
 {{ @if (it.aptitudes.includes('config')) }}
   configExample.run();
 {{ /if }}
