@@ -19,6 +19,7 @@ export type TemplateFile = {
     | 'system'
     | 'ui'
     | 'user'
+    | 'vault'
     | 'window';
 };
 

@@ -121,6 +121,8 @@
           }
         ]
       },
+{{ #elif (aptitude === 'vault') }}
+      "vault": {},
 {{ #elif (aptitude === 'window') }}
       "window": {},
 {{ /if }}
