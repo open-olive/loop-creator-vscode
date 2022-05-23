@@ -17,6 +17,9 @@ import {
 {{ @if (it.aptitudes.includes('process')) }}
   processExample,
 {{ /if }}
+{{ @if (it.aptitudes.includes('system')) }}
+  systemExample,
+{{ /if }}
 {{ @if (it.aptitudes.includes('ui')) }}
   searchListener,
 {{ /if }}
@@ -54,6 +57,9 @@ import {
 {{ /if }}
 {{ @if (it.aptitudes.includes('ui')) }}
   searchListener.listen();
+{{ /if }}
+{{ @if (it.aptitudes.includes('system')) }}
+  systemExample.run();
 {{ /if }}
 {{ @if (it.aptitudes.includes('user')) }}
   userExample.run();
