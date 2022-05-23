@@ -21,6 +21,9 @@ import {
 {{ @if (it.aptitudes.includes('process')) }}
   processExample,
 {{ /if }}
+{{ @if (it.aptitudes.includes('search')) }}
+  searchExample,
+{{ /if }}
 {{ @if (it.aptitudes.includes('ui')) }}
   searchListener,
 {{ /if }}
@@ -75,6 +78,9 @@ describe('Project Startup', () => {
 {{ /if }}
 {{ @if (it.aptitudes.includes('process')) }}
     expect(processExample.run).toBeCalled();
+{{ /if }}
+{{ @if (it.aptitudes.includes('search')) }}
+    expect(searchExample).toBeCalled();
 {{ /if }}
 {{ @if (it.aptitudes.includes('ui')) }}
     expect(searchListener.listen).toBeCalled();
