@@ -102,7 +102,7 @@
       "document": {},
 {{ #elif (aptitude === 'filesystem') }}
       "filesystem": {},
-{{ #elif (aptitude === 'keyboard' || aptitude === 'cursor') }}
+{{ #elif (aptitude === 'keyboard') }}
       "keyboard": {},
 {{ #elif (aptitude === 'network') }}
       "network": {
