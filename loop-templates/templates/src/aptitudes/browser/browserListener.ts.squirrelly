@@ -1,0 +1,41 @@
+import { browser } from '@oliveai/ldk';
+
+export async function getInsuranceInfo() {
+    // Assume we know the 9-digit ID will be on the page as 'ID: 123456789'
+    // and the 8-digit group as 'Group: 12345678'
+    const ID_SELECTION_PATTERN = /ID: .{9}/g
+    const GROUP_SELECTION_PATTERN = /Group: .{8}/g
+    const CIGNA_USER_PROFILE_URL = 'https://my.cigna.com'
+
+    await browser.openWindow(CIGNA_USER_PROFILE_URL);
+
+    let insuranceId;
+    let insuranceGroup;
+
+    const browserListener = await browser.listenTextSelection(value => {
+        const idMatches = value.match(ID_SELECTION_PATTERN);
+        const groupMatches = value.match(GROUP_SELECTION_PATTERN);
+
+        // If there is a match, assign the variable
+        if (idMatches) insuranceId = idMatches[0];
+        if (groupMatches) insuranceGroup = groupMatches[0];
+        
+        // If insuranceId and insuranceGroup are defined, we can close
+        // the listener and continue with the rest of the logic of our loop
+        if (insuranceId && insuranceGroup) {
+            browserListener.cancel();
+            // Create/update whispers or execute other logic here
+            // using the ID and Group
+        }
+    }
+}
+
+async function run() {
+    try {
+       getInsuranceInfo();
+    } catch(e) {
+        console.error(e);
+    }
+};
+
+export default { run };

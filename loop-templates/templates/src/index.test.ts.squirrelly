@@ -1,5 +1,8 @@
 {{ @if (it.aptitudes.length > 0) }}
 import {
+{{ @if (it.aptitudes.includes('browser')) }}
+  browserListener,
+{{ /if }}
 {{ @if (it.aptitudes.includes('clipboard')) }}
   clipboardListener,
 {{ /if }}
@@ -60,6 +63,9 @@ describe('Project Startup', () => {
     expect(console.log).toBeCalledWith('Example Loop Started');
     expect(openHandler.start).toBeCalled();
 {{ @if (it.aptitudes.length > 0) }}
+{{ @if (it.aptitudes.includes('browser')) }}
+    expect(browserListener.run).toBeCalled();
+{{ /if }}
 {{ @if (it.aptitudes.includes('clipboard')) }}
     expect(clipboardListener.listen).toBeCalled();
 {{ /if }}

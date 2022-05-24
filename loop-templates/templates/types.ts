@@ -10,6 +10,7 @@ export type TemplateFile = {
   aptitude:
     | 'any'
     | 'nonzero'
+    | 'browser'
     | 'clipboard'
     | 'cursor'
     | 'config'

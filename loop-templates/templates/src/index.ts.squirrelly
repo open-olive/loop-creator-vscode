@@ -1,4 +1,7 @@
 import {
+{{ @if (it.aptitudes.includes('browser')) }}
+  browserListener,
+{{ /if }}
 {{ @if (it.aptitudes.includes('clipboard')) }}
   clipboardListener,
 {{ /if }}
@@ -47,6 +50,9 @@ import {
 
 (async function main(){{ @if (it.isTypeScript) }}{{ it.promiseVoid | safe }}{{ /if }} {
   console.log('Example Loop Started');
+{{ @if (it.aptitudes.includes('browser')) }}
+  browserListener.run();
+{{ /if }}
 {{ @if (it.aptitudes.includes('clipboard')) }}
   clipboardListener.listen();
 {{ /if }}

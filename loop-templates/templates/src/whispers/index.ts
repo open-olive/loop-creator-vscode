@@ -1,3 +1,5 @@
+import browserWhisperTest from './BrowserWhisper.test.ts.squirrelly';
+import browserWhisper from './BrowserWhisper.ts.squirrelly';
 import clipboardWhisperTest from './ClipboardWhisper.test.ts.squirrelly';
 import clipboardWhisper from './ClipboardWhisper.ts.squirrelly';
 import cursorWhisperTest from './CursorWhisper.test.ts.squirrelly';
@@ -34,6 +36,14 @@ import windowWhisper from './WindowWhisper.ts.squirrelly';
 import { FileMap } from '@/types';
 
 const fileMap: FileMap = {
+  browserWhisperTest: {
+    fileName: 'BrowserWhisper.test.ts',
+    aptitude: 'browser'
+  },
+  browserWhisper: {
+    fileName: 'BrowserWhisper.ts',
+    aptitude: 'browser'
+  },
   clipboardWhisperTest: {
     fileName: 'ClipboardWhisper.test.ts',
     aptitude: 'clipboard',
@@ -100,6 +110,8 @@ const fileMap: FileMap = {
 };
 
 export default {
+  browserWhisperTest,
+  browserWhisper,
   clipboardWhisperTest,
   clipboardWhisper,
   cursorWhisperTest,

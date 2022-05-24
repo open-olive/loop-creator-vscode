@@ -1,3 +1,6 @@
+{{ @if (it.aptitudes.includes('browser')) }}
+import browserListener from './browser/browserListener';
+{{ /if }}
 {{ @if (it.aptitudes.includes('clipboard')) }}
 import clipboardListener from './clipboard/clipboardListener';
 {{ /if }}
@@ -42,6 +45,9 @@ import activeWindowListener from './window/activeWindowListener';
 import openHandler from './ui/openHandler';
 
 export {
+{{ @if (it.aptitudes.includes('browser')) }}
+  browserListener,
+{{ /if }}
 {{ @if (it.aptitudes.includes('clipboard')) }}
   clipboardListener,
 {{ /if }}

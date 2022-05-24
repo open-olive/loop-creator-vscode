@@ -1,5 +1,8 @@
 import IntroWhisper from './IntroWhisper';
 import IntroWhisperSimple from './IntroWhisperSimple';
+{{ @if (it.aptitudes.includes('browser')) }}
+import BrowserWhisper from './BrowserWhisper';
+{{ /if }}
 {{ @if (it.aptitudes.includes('clipboard')) }}
 import ClipboardWhisper from './ClipboardWhisper';
 {{ /if }}
@@ -45,6 +48,9 @@ import WindowWhisper from './WindowWhisper';
 export {
   IntroWhisper,
   IntroWhisperSimple,
+{{ @if (it.aptitudes.includes('browser')) }}
+  BrowserWhisper,
+{{ /if }}
 {{ @if (it.aptitudes.includes('clipboard')) }}
   ClipboardWhisper,
 {{ /if }}

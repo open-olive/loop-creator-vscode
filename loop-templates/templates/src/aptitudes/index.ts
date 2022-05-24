@@ -1,3 +1,4 @@
+import browser from './browser';
 import clipboard from './clipboard';
 import cursor from './cursor';
 import config from './config';
@@ -16,6 +17,7 @@ import index from './index.ts.squirrelly';
 import { FileMap } from '@/types';
 
 const fileMap: FileMap = {
+  browser: { fileName: 'browser', aptitude: 'browser' },
   clipboard: { fileName: 'clipboard', aptitude: 'clipboard' },
   cursor: { fileName: 'cursor', aptitude: 'cursor' },
   config: { fileName: 'config', aptitude: 'config'},
@@ -34,6 +36,7 @@ const fileMap: FileMap = {
 };
 
 export default {
+  browser,
   clipboard,
   cursor,
   config,
