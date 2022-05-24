@@ -8,6 +8,7 @@ import ClipboardWhisper from './ClipboardWhisper';
 {{ /if }}
 {{ @if (it.aptitudes.includes('cursor')) }}
 import CursorWhisper from './CursorWhisper';
+{{ /if }}
 {{ @if (it.aptitudes.includes('config')) }}
 import ConfigWhisper from './ConfigWhisper';
 {{ /if }}
@@ -28,6 +29,7 @@ import ProcessWhisper from './ProcessWhisper';
 {{ /if }}
 {{ @if (it.aptitudes.includes('search')) }}
 import SearchWhisper from './SearchWhisper';
+{{ /if }}
 {{ @if (it.aptitudes.includes('system')) }}
 import SystemWhisper from './SystemWhisper';
 {{ /if }}
@@ -56,6 +58,7 @@ export {
 {{ /if }}
 {{ @if (it.aptitudes.includes('cursor')) }}
   CursorWhisper,
+{{ /if }}
 {{ @if (it.aptitudes.includes('config')) }}
   ConfigWhisper,
 {{ /if }}
@@ -76,6 +79,7 @@ export {
 {{ /if }}
 {{ @if (it.aptitudes.includes('search')) }}
   SearchWhisper,
+{{ /if }}
 {{ @if (it.aptitudes.includes('system')) }}
   SystemWhisper,
 {{ /if }}

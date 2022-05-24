@@ -6,6 +6,7 @@ import clipboardListener from './clipboard/clipboardListener';
 {{ /if }}
 {{ @if (it.aptitudes.includes('cursor')) }}
 import cursorListener from './cursor/cursorListener';
+{{ /if }}
 {{ @if (it.aptitudes.includes('config')) }}
 import configExample from './config/configExample';
 {{ /if }}
@@ -53,6 +54,7 @@ export {
 {{ /if }}
 {{ @if (it.aptitudes.includes('cursor')) }}
   cursorListener,
+{{ /if }}
 {{ @if (it.aptitudes.includes('config')) }}
   configExample,
 {{ /if }}
