@@ -93,15 +93,21 @@
   "ldk": {
     "permissions": {
 {{ @each(it.aptitudes) => aptitude }}
-{{ @if (aptitude === 'clipboard') }}
+{{ @if (aptitude === 'browser') }}
+      "browser": {
+        "urlDomains": [
+          {
+            "value": "*.oliveai.dev/*"
+          }
+        ]
+      },
+{{ #elif (aptitude === 'clipboard') }}
       "clipboard": {},
 {{ #elif (aptitude === 'cursor') }}
       "cursor": {},
       "keyboard": {},
 {{ #elif (aptitude === 'config') }}
       "config": {},
-{{ #elif (aptitude === 'browser') }}
-      "browser": {},
 {{ #elif (aptitude === 'document') }}
       "document": {},
 {{ #elif (aptitude === 'filesystem') }}

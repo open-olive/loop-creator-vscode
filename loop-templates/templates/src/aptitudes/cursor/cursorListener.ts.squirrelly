@@ -8,7 +8,7 @@ export async function hotkeyCheck(char{{ it.isTypeScript ? ': string' : ''}} ) {
   if (char === 's' || char === 'S') {
     const position = await cursor.position();
     // we have to convert position.x to integer
-    // ocrCoordinates only takes integers in our backdend.
+    // ocrCoordinates only takes integers in our backend.
     leftParam = parseInt(position.x.toString(), 10);
     topParam = parseInt(position.y.toString(), 10);
     console.log('Cursor position:', topParam, leftParam);

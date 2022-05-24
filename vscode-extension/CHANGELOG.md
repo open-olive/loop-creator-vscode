@@ -10,6 +10,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Adding Config aptitude
 - Added Vault aptitude to VSCode/npx tools.
 - Bringing in System aptitude to VSCode/NPX tools.
+- Adding Browser aptitude
 
 ### Changed
 
