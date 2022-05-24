@@ -1,28 +1,25 @@
 import { whisper } from '@oliveai/ldk';
-
-{{ @if (it.isTypeScript) }}
-interface Props {
-  cursorText{{ it.isTypeScript ? '?: string' : '' }};
-}
-{{ /if }}
+import { stripIndent } from 'common-tags';
 
 export const onClose = (err{{it.isTypeScript ? '?: Error' : ''}}) => {
   if (err) {
-    console.error('There was an error closing Browser whisper', err);
+    console.error('There was an error closing the Browser whisper', err);
   }
   console.log('Browser whisper closed');
 };
 
 export default {
-  show: (cursorText{{ it.isTypeScript ? '?: string' : '' }}) => {
-    const components{{ it.isTypeScript ? ': whisper.Component[]' : '' }} = [];
+  show: (cursorText{{it.isTypeScript ? ': string' : ''}}) => {
+    const components: whisper.Component[] = [];
 
-    const message{{ it.isTypeScript ? ': whisper.Message' : '' }} = {
-      type: whisper.WhisperComponentType.Message,
-      body: cursorText,
+    const markdown{{it.isTypeScript ? ': whisper.Markdown' : ''}} = {
+      type: whisper.WhisperComponentType.Markdown,
+      body: stripIndent`
+      ## Current id of opened browser page:
+      > ${cursorText}`,
     };
 
-    components.push(message);
+    components.push(markdown);
 
     return whisper.create({
       components,

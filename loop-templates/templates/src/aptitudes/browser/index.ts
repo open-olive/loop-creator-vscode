@@ -1,17 +1,17 @@
-import browserListener from './browserListener.ts.squirrelly';
-import browserListenerTest from './browserListener.test.ts.squirrelly';
+import browserExample from './browserExample.ts.squirrelly';
+import browserExampleTest from './browserExample.test.ts.squirrelly';
 import { FileMap } from '@/types';
 
 const fileMap: FileMap = {
-    browserListenerTest: {
-    fileName: 'browserListener.test.ts',
+    browserExampleTest: {
+    fileName: 'browserExample.test.ts',
     aptitude: 'browser',
   },
-  browserListener: { fileName: 'browserListener.ts', aptitude: 'browser' },
+  browserExample: { fileName: 'browserExample.ts', aptitude: 'browser' },
 };
 
 export default {
-    browserListenerTest,
-    browserListener,
+    browserExampleTest,
+    browserExample,
     fileMap,
 };

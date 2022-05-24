@@ -1,7 +1,7 @@
 {{ @if (it.aptitudes.length > 0) }}
 import {
 {{ @if (it.aptitudes.includes('browser')) }}
-  browserListener,
+  browserExample,
 {{ /if }}
 {{ @if (it.aptitudes.includes('clipboard')) }}
   clipboardListener,
@@ -65,7 +65,7 @@ describe('Project Startup', () => {
     expect(openHandler.start).toBeCalled();
 {{ @if (it.aptitudes.length > 0) }}
 {{ @if (it.aptitudes.includes('browser')) }}
-    expect(browserListener.run).toBeCalled();
+    expect(browserExample.run).toBeCalled();
 {{ /if }}
 {{ @if (it.aptitudes.includes('clipboard')) }}
     expect(clipboardListener.listen).toBeCalled();

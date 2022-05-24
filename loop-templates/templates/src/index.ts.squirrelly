@@ -1,6 +1,6 @@
 import {
 {{ @if (it.aptitudes.includes('browser')) }}
-  browserListener,
+  browserExample,
 {{ /if }}
 {{ @if (it.aptitudes.includes('clipboard')) }}
   clipboardListener,
@@ -26,13 +26,11 @@ import {
 {{ @if (it.aptitudes.includes('process')) }}
   processExample,
 {{ /if }}
-
 {{ @if (it.aptitudes.includes('search')) }}
   searchExample,
 {{ /if }}
 {{ @if (it.aptitudes.includes('system')) }}
   systemExample,
-
 {{ /if }}
 {{ @if (it.aptitudes.includes('ui')) }}
   searchListener,
@@ -52,7 +50,7 @@ import {
 (async function main(){{ @if (it.isTypeScript) }}{{ it.promiseVoid | safe }}{{ /if }} {
   console.log('Example Loop Started');
 {{ @if (it.aptitudes.includes('browser')) }}
-  browserListener.run();
+  browserExample.run();
 {{ /if }}
 {{ @if (it.aptitudes.includes('clipboard')) }}
   clipboardListener.listen();
