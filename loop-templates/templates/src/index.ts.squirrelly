@@ -1,6 +1,15 @@
 import {
+{{ @if (it.aptitudes.includes('browser')) }}
+  browserExample,
+{{ /if }}
 {{ @if (it.aptitudes.includes('clipboard')) }}
   clipboardListener,
+{{ /if }}
+{{ @if (it.aptitudes.includes('cursor')) }}
+  cursorListener,
+{{ /if }}
+{{ @if (it.aptitudes.includes('config')) }}
+  configExample,
 {{ /if }}
 {{ @if (it.aptitudes.includes('document')) }}
   documentExample,
@@ -17,11 +26,20 @@ import {
 {{ @if (it.aptitudes.includes('process')) }}
   processExample,
 {{ /if }}
+{{ @if (it.aptitudes.includes('search')) }}
+  searchExample,
+{{ /if }}
+{{ @if (it.aptitudes.includes('system')) }}
+  systemExample,
+{{ /if }}
 {{ @if (it.aptitudes.includes('ui')) }}
   searchListener,
 {{ /if }}
 {{ @if (it.aptitudes.includes('user')) }}
   userExample,
+{{ /if }}
+{{ @if (it.aptitudes.includes('vault')) }}
+  vaultExample,
 {{ /if }}
 {{ @if (it.aptitudes.includes('window')) }}
   activeWindowListener,
@@ -31,8 +49,17 @@ import {
 
 (async function main(){{ @if (it.isTypeScript) }}{{ it.promiseVoid | safe }}{{ /if }} {
   console.log('Example Loop Started');
+{{ @if (it.aptitudes.includes('browser')) }}
+  browserExample.run();
+{{ /if }}
 {{ @if (it.aptitudes.includes('clipboard')) }}
   clipboardListener.listen();
+{{ /if }}
+{{ @if (it.aptitudes.includes('cursor')) }}
+  cursorListener.run();
+{{ /if }}
+{{ @if (it.aptitudes.includes('config')) }}
+  configExample.run();
 {{ /if }}
 {{ @if (it.aptitudes.includes('document')) }}
   documentExample.run();
@@ -49,11 +76,20 @@ import {
 {{ @if (it.aptitudes.includes('process')) }}
   processExample.run();
 {{ /if }}
+{{ @if (it.aptitudes.includes('search')) }}
+  searchExample.run();
+{{ /if }}
 {{ @if (it.aptitudes.includes('ui')) }}
   searchListener.listen();
 {{ /if }}
+{{ @if (it.aptitudes.includes('system')) }}
+  systemExample.run();
+{{ /if }}
 {{ @if (it.aptitudes.includes('user')) }}
   userExample.run();
+{{ /if }}
+{{ @if (it.aptitudes.includes('vault')) }}
+  vaultExample.run();
 {{ /if }}
 {{ @if (it.aptitudes.includes('window')) }}
   activeWindowListener.listen();

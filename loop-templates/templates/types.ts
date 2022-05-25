@@ -10,14 +10,20 @@ export type TemplateFile = {
   aptitude:
     | 'any'
     | 'nonzero'
+    | 'browser'
     | 'clipboard'
+    | 'cursor'
+    | 'config'
     | 'document'
     | 'filesystem'
     | 'keyboard'
     | 'network'
     | 'process'
+    | 'search'
+    | 'system'
     | 'ui'
     | 'user'
+    | 'vault'
     | 'window';
 };
 

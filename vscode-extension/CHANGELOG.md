@@ -7,6 +7,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+- Added Browser, Cursor, Config, Search, System, and Vault aptitudes
+
 ### Changed
 
 ## [0.4.0]
