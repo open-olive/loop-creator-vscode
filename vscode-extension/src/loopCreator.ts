@@ -76,6 +76,7 @@ export class LoopCreator {
     const renderTemplate = async (template: any, filePath: string) => {
       const fileContents = Sqrl.render(template, {
         isTypeScript,
+        hasConfigAptitude: aptitudes.includes("config"),
         projectName,
         aptitudes,
         promiseVoid: ': Promise<void>',

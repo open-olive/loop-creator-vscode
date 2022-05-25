@@ -1,5 +1,14 @@
+{{ @if (it.aptitudes.includes('browser')) }}
+import browserExample from './browser/browserExample';
+{{ /if }}
 {{ @if (it.aptitudes.includes('clipboard')) }}
 import clipboardListener from './clipboard/clipboardListener';
+{{ /if }}
+{{ @if (it.aptitudes.includes('cursor')) }}
+import cursorListener from './cursor/cursorListener';
+{{ /if }}
+{{ @if (it.aptitudes.includes('config')) }}
+import configExample from './config/configExample';
 {{ /if }}
 {{ @if (it.aptitudes.includes('document')) }}
 import documentExample from './document/documentExample';
@@ -16,11 +25,20 @@ import networkExample from './network/networkExample';
 {{ @if (it.aptitudes.includes('process')) }}
 import processExample from './process/processExample';
 {{ /if }}
+{{ @if (it.aptitudes.includes('search')) }}
+import searchExample from './search/searchExample';
+{{ /if }}
 {{ @if (it.aptitudes.includes('ui')) }}
 import searchListener from './ui/searchListener';
 {{ /if }}
+{{ @if (it.aptitudes.includes('system')) }}
+import systemExample from './system/systemExample';
+{{ /if }}
 {{ @if (it.aptitudes.includes('user')) }}
 import userExample from './user/userExample';
+{{ /if }}
+{{ @if (it.aptitudes.includes('vault')) }}
+import vaultExample from './vault/vaultExample';
 {{ /if }}
 {{ @if (it.aptitudes.includes('window')) }}
 import activeWindowListener from './window/activeWindowListener';
@@ -28,8 +46,17 @@ import activeWindowListener from './window/activeWindowListener';
 import openHandler from './ui/openHandler';
 
 export {
+{{ @if (it.aptitudes.includes('browser')) }}
+  browserExample,
+{{ /if }}
 {{ @if (it.aptitudes.includes('clipboard')) }}
   clipboardListener,
+{{ /if }}
+{{ @if (it.aptitudes.includes('cursor')) }}
+  cursorListener,
+{{ /if }}
+{{ @if (it.aptitudes.includes('config')) }}
+  configExample,
 {{ /if }}
 {{ @if (it.aptitudes.includes('document')) }}
   documentExample,
@@ -46,11 +73,20 @@ export {
 {{ @if (it.aptitudes.includes('process')) }}
   processExample,
 {{ /if }}
+{{ @if (it.aptitudes.includes('search')) }}
+  searchExample,
+{{ /if }}
 {{ @if (it.aptitudes.includes('ui')) }}
   searchListener,
 {{ /if }}
+{{ @if (it.aptitudes.includes('system')) }}
+  systemExample,
+{{ /if }}
 {{ @if (it.aptitudes.includes('user')) }}
   userExample,
+{{ /if }}
+{{ @if (it.aptitudes.includes('vault')) }}
+  vaultExample,
 {{ /if }}
 {{ @if (it.aptitudes.includes('window')) }}
   activeWindowListener,
