@@ -29,4 +29,3 @@ describe('Browser Example', () => {
     expect(mockBrowserShow).toBeCalled();
   });
 });
-
