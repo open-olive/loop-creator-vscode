@@ -92,7 +92,7 @@ describe('Project Startup', () => {
     expect(processExample.run).toBeCalled();
 {{ /if }}
 {{ @if (it.aptitudes.includes('search')) }}
-    expect(searchExample).toBeCalled();
+    expect(searchExample.run).toBeCalled();
 {{ /if }}
 {{ @if (it.aptitudes.includes('ui')) }}
     expect(searchListener.listen).toBeCalled();
