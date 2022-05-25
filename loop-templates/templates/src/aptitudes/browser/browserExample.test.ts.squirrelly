@@ -4,29 +4,29 @@ import browserExample from './browserExample';
 
 jest.mock('@oliveai/ldk');
 
-const mockFilesystemShow = jest.fn();
+const mockBrowserShow = jest.fn();
 
 jest.mock('../../whispers', () => {
   return {
     BrowserWhisper: {
-      show: jest.fn(() => mockFilesystemShow()),
+      show: jest.fn(() => mockBrowserShow()),
     },
   };
 });
 
-describe('Filesystem Example', () => {
+describe('Browser Example', () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
 
-  it('should dispaly id of opened browser window', async () => {
+  it('should display id of opened browser window', async () => {
     const testString = 1234;
     browser.openWindow = jest.fn().mockResolvedValue(testString);
 
     await browserExample.run();
 
     expect(BrowserWhisper.show).toBeCalledWith(`${testString}`);
-    expect(mockFilesystemShow).toBeCalled();
+    expect(mockBrowserShow).toBeCalled();
   });
 });
 

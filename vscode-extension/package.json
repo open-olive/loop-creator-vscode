@@ -68,7 +68,7 @@
     "webpack-cli": "^4.9.2"
   },
   "dependencies": {
-    "@oliveai/loop-templates": "^1.0.6",
+    "@oliveai/loop-templates": "file:../loop-templates",
     "buffer": "^6.0.3",
     "http-browserify": "^1.7.0",
     "https-browserify": "^1.0.0",

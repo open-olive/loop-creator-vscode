@@ -8,7 +8,7 @@ const mockWhisperClose = jest.fn();
 const TEST_PARAM_STR = '{"feature":{"button":true}}';
 const TEST_PARAM_STR_FALSE = '{"feature":{"button":false}}';
 
-describe('Filesystem Whisper', () => {
+describe('Config Whisper', () => {
   beforeEach(() => {
     whisper.create = jest.fn().mockResolvedValueOnce({ close: mockWhisperClose });
   });
@@ -16,7 +16,7 @@ describe('Filesystem Whisper', () => {
     jest.resetAllMocks();
   });
 
-  it('creates a whisper w/ button and closes it gracefully', async () => {
+  it('creates a whisper with a button and closes it gracefully', async () => {
     const newWhisper = await ConfigWhisper.show(TEST_PARAM_STR);
     newWhisper.close(() => null);
 
@@ -38,7 +38,7 @@ describe('Filesystem Whisper', () => {
     expect(mockWhisperClose).toBeCalled();
   });
 
-  it('creates a whisper w/o button and closes it gracefully', async () => {
+  it('creates a whisper without a button and closes it gracefully', async () => {
     const newWhisper = await ConfigWhisper.show(TEST_PARAM_STR_FALSE);
     newWhisper.close(() => null);
 

@@ -14,4 +14,4 @@ export default {
     configExample,
     configExampleTest,
     fileMap
-} 
+};

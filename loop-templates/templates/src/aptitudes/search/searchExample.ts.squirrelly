@@ -51,11 +51,13 @@ export function getPeople() {
   return ['George Smith', 'George Jones', 'Alex Smith', 'Geoffrey McPerson', 'Jones Gregory'];
 }
 
-export default function searchExample() {
-  search.createIndex(indexName, documents, config).then((myNewIndex) => {
+const run = async () => {
+  await search.createIndex(indexName, documents, config).then((myNewIndex) => {
     // Using a hard coded search here to illustrate the example.
     myNewIndex.search('geo').then((result) => {
       SearchWhisper.show(JSON.stringify(result));
     });
   });
-}
+};
+
+export default { run };

@@ -105,14 +105,13 @@
       "clipboard": {},
 {{ #elif (aptitude === 'cursor') }}
       "cursor": {},
-      "keyboard": {},
 {{ #elif (aptitude === 'config') }}
       "config": {},
 {{ #elif (aptitude === 'document') }}
       "document": {},
 {{ #elif (aptitude === 'filesystem') }}
       "filesystem": {},
-{{ #elif (aptitude === 'keyboard') }}
+{{ #elif (aptitude === 'keyboard' || (aptitude === 'cursor' && !it.aptitudes.includes('keyboard'))) }}
       "keyboard": {},
 {{ #elif (aptitude === 'network') }}
       "network": {

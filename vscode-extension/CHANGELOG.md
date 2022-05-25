@@ -7,10 +7,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
-- Adding Config aptitude
-- Added Vault aptitude to VSCode/npx tools.
-- Bringing in System aptitude to VSCode/NPX tools.
-- Adding Browser aptitude
+- Added Browser, Cursor, Config, Search, System, and Vault aptitudes
 
 ### Changed
 

@@ -77,7 +77,7 @@ import {
   processExample.run();
 {{ /if }}
 {{ @if (it.aptitudes.includes('search')) }}
-  searchExample();
+  searchExample.run();
 {{ /if }}
 {{ @if (it.aptitudes.includes('ui')) }}
   searchListener.listen();

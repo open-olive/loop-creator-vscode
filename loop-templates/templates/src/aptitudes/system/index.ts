@@ -14,4 +14,4 @@ export default {
     systemExample,
     systemExampleTest,
     fileMap
-}
+};
