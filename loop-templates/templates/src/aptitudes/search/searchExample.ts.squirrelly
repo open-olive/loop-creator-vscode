@@ -1,27 +1,5 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
 import { search } from '@oliveai/ldk';
 import { SearchWhisper } from '../../whispers';
-
-const indexName = 'myIndex';
-const documents = getDocuments();
-const config = getConfig();
-
-// There are many ways you could retrieve or build up your document objects
-// for now we've just built up a small set of various first and last names
-export function getDocuments() {
-  return getPeople().map(personToDocument);
-}
-
-// See https://open-olive.github.io/loop-development-kit/ldk/javascript/interfaces/config.html
-// for info on the config object
-export function getConfig() {
-  return {
-    sortBy: ['-lastName', 'firstName'],
-    searchSize: 2,
-    exactMatchThreshold: 4,
-    beginWithSearch: true,
-  };
-}
 
 export function personToDocument(person{{it.isTypeScript ? ': string' : ''}}) {
   return {
@@ -50,6 +28,27 @@ export function personToDocument(person{{it.isTypeScript ? ': string' : ''}}) {
 export function getPeople() {
   return ['George Smith', 'George Jones', 'Alex Smith', 'Geoffrey McPerson', 'Jones Gregory'];
 }
+
+// There are many ways you could retrieve or build up your document objects
+// for now we've just built up a small set of various first and last names
+export function getDocuments() {
+  return getPeople().map(personToDocument);
+}
+
+// See https://open-olive.github.io/loop-development-kit/ldk/javascript/interfaces/config.html
+// for info on the config object
+export function getConfig() {
+  return {
+    sortBy: ['-lastName', 'firstName'],
+    searchSize: 2,
+    exactMatchThreshold: 4,
+    beginWithSearch: true,
+  };
+}
+
+const indexName = 'myIndex';
+const documents = getDocuments();
+const config = getConfig();
 
 const run = async () => {
   await search.createIndex(indexName, documents, config).then((myNewIndex) => {
