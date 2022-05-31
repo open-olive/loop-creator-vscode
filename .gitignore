@@ -12,6 +12,7 @@
 /eclipse
 /venv
 /ivy*
+/.vscode
 /.apt_generated
 /.classpath
 /.factorypath
