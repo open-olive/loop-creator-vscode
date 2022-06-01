@@ -1,0 +1,26 @@
+name: VSCE Marketplace Publishing
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 14
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+      - run: npm set audit false
+      - run: npm ci
+      - run: npm run build
+      - run: npm run deploy
+        env:
+          ENVIRONMENT: prod
+          GOOGLE_ANALYTICS_ID: ${{ secrets.GOOGLE_ANALYTICS_ID }}
+          # This is for the VSCode Extension Marketplace Personal Access Token.
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
+
