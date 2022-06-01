@@ -16,7 +16,6 @@ jobs:
           node-version: 14.x
       - run: npm set audit false
       - run: npm ci
-      - run: npm run build
       - run: npm run deploy
         env:
           ENVIRONMENT: prod
