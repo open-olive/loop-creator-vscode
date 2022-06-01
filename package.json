@@ -53,7 +53,7 @@
     "test": "node ./out/test/runTest.js"
   },
   "dependencies": {
-    "@oliveai/loop-templates": "1.1.0",
+    "@oliveai/loop-templates": "1.1.1",
     "buffer": "6.0.3",
     "http-browserify": "1.7.0",
     "https-browserify": "1.0.0",
