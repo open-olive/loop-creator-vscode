@@ -122,8 +122,8 @@ export const aptitudes = [
     {
         name: "Whisper",
         description: "Display interactive information using a variety of formats in the Olive Helps Sidebar",
-        isDisabled: false,
-        isSelected: false,
+        isDisabled: true,
+        isSelected: true,
         id: "aptitudesWhisper",
         value: "whisper",
     },

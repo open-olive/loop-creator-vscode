@@ -29,7 +29,7 @@ aptitudes.forEach((aptitude) => {
 
     let spanElement = document.createElement('span');
     spanElement.className = "checkmark";
-    spanElement.style.backgroundColor = (value === "ui") ? "#46464C" : "";
+    spanElement.style.backgroundColor = (isDisabled) ? "#46464C" : "";
     
     labelElement.appendChild(inputElement);
     labelElement.appendChild(spanElement);
@@ -60,10 +60,10 @@ selectAllButton.addEventListener("click", (e) => {
     }
 });
 
-const hidShowDescription = document.getElementById("hideShowDescription");
+const hideShowDescription = document.getElementById("hideShowDescription");
 
 const getDescriptionTextStatus = () => {
-    hidShowDescription.textContent = (showDescription) ? 'Hide Description' : 'Show Description';
+    hideShowDescription.textContent = (showDescription) ? 'Hide Description' : 'Show Description';
     let aptitudeDescriptions = document.getElementsByClassName("aptitude-description");
     if(aptitudeDescriptions.length > 0) {
         for(let aptitudeDescription of aptitudeDescriptions) {
@@ -78,7 +78,7 @@ const getDescriptionTextStatus = () => {
 
 getDescriptionTextStatus();
 
-hidShowDescription.addEventListener("click", () => {
+hideShowDescription.addEventListener("click", () => {
     showDescription = !showDescription;
     getDescriptionTextStatus();
     
