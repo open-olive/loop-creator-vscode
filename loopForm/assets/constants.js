@@ -1,7 +1,7 @@
 export const aptitudes = [
     {
         name: "Browser",
-        description: "Observe browser activity and open pages in the browser (browser extension required)",
+        description: "This Aptitude, combined with the Olive Helps browser extension, allows an author to interact with your browser.",
         isDisabled: false,
         isSelected: false,
         id: "aptitudesBrowser",
@@ -9,7 +9,7 @@ export const aptitudes = [
     },
     {
         name: "Clipboard",
-        description: "Access contents of the clipboard",
+        description: "The Clipboard Aptitude provides the ability to interact with your clipboard on your system.",
         isDisabled: false,
         isSelected: false,
         id: "aptitudesClipboard",
@@ -17,7 +17,7 @@ export const aptitudes = [
     },
     {
         name: "Config",
-        description: "Make network requests to external services",
+        description: "The Config Aptitude is an optional Aptitude that a Loop Developer may implement in order to allow org admins to define loop properties designated by a loop author to be configurable.",
         isDisabled: false,
         isSelected: false,
         id: "aptitudesConfig",
@@ -25,7 +25,7 @@ export const aptitudes = [
     },
     {
         name: "Cursor",
-        description: "Make network requests to external services",
+        description: "The Cursor Aptitude provides the ability to retrieve information about the user's cursor.",
         isDisabled: false,
         isSelected: false,
         id: "aptitudesCursor",
@@ -33,7 +33,7 @@ export const aptitudes = [
     },
     {
         name: "Document",
-        description: "Read and write business documents",
+        description: "The Document Aptitude provides the ability to interact with documents (currently only XLSX files).",
         isDisabled: false,
         isSelected: false,
         id: "aptitudesDocument",
@@ -41,7 +41,7 @@ export const aptitudes = [
     },
     {
         name: "Filesystem",
-        description: "Read and write access to the filesystem",
+        description: "The Filesystem Aptitude provides the ability to interact with files on the system (including things reading, writing, and deleting).",
         isDisabled: false,
         isSelected: false,
         id: "aptitudesFilesystem",
@@ -49,7 +49,7 @@ export const aptitudes = [
     },
     {
         name: "Keyboard",
-        description: "Observe keyboard activity",
+        description: "The Keyboard Aptitude provides access to the the ability to listen to hotkeys pressed and text or characters typed.",
         isDisabled: false,
         isSelected: false,
         id: "aptitudesKeyboard",
@@ -57,7 +57,7 @@ export const aptitudes = [
     },
     {
         name: "Network",
-        description: "Make network requests to external services",
+        description: "The Network aptitude provides the ability make HTTP requests, set up a web socket connection, and encode and decode Uint8Arrays.",
         isDisabled: false,
         isSelected: false,
         id: "aptitudesNetwork",
@@ -65,7 +65,7 @@ export const aptitudes = [
     },
     {
         name: "Process",
-        description: "Observe processes running on the system",
+        description: "The Process Aptitude provides the ability to examine attributes about processes running on the user's computer.",
         isDisabled: false,
         isSelected: false,
         id: "aptitudesProcess",
@@ -73,7 +73,7 @@ export const aptitudes = [
     },
     {
         name: "Screen",
-        description: "Capture and process text visible on your screen",
+        description: "The Screen Aptitude provides the ability to read the user's screen with solutions like Optical Character Recognition (OCR).",
         isDisabled: false,
         isSelected: false,
         id: "aptitudesScreen",
@@ -81,7 +81,7 @@ export const aptitudes = [
     },
     {
         name: "Search",
-        description: "Search within files on the filesystem",
+        description: "The Search Aptitude provides the ability to index a set of documents and search the data using query strings and fuzzy searching.",
         isDisabled: false,
         isSelected: false,
         id: "aptitudesSearch",
@@ -89,7 +89,7 @@ export const aptitudes = [
     },
     {
         name: "System",
-        description: "Access information about the host system",
+        description: "The System Aptitude provides the ability to access information about the user's system.",
         isDisabled: false,
         isSelected: false,
         id: "aptitudesSystem",
@@ -97,7 +97,7 @@ export const aptitudes = [
     },
     {
         name: "UI",
-        description: "Receive a notification whenever the user interacts with UI elements in Olive Helps",
+        description: "Required for Creation: The UI Aptitude provides access to the Olive Helps search bar and global search.",
         isDisabled: true,
         isSelected: true,
         id: "aptitudesUI",
@@ -105,7 +105,7 @@ export const aptitudes = [
     },
     {
         name: "User",
-        description: "Obtain a signed JWT which can be used to identify an Olive Helps user to 3rd party services",
+        description: "The User aptitude provides the ability to retrieve a JWT for the current user which can be used to identify an Olive Helps user to 3rd party services.",
         isDisabled: false,
         isSelected: false,
         id: "aptitudesUser",
@@ -113,7 +113,7 @@ export const aptitudes = [
     },
     {
         name: "Vault",
-        description: "Retrieve and store strings in the system's secure storage",
+        description: "The Vault Aptitude provides the ability to read and write strings in either macOS' Keychain or Window's Credential Manager, depending on the system.",
         isDisabled: false,
         isSelected: false,
         id: "aptitudesVault",
@@ -121,7 +121,7 @@ export const aptitudes = [
     },
     {
         name: "Whisper",
-        description: "Display interactive information using a variety of formats in the Olive Helps Sidebar",
+        description: "Required for Creation: The Whisper Aptitude provides the ability to display pieces of information (Whispers) in the Olive Helps sidebar.",
         isDisabled: true,
         isSelected: true,
         id: "aptitudesWhisper",
@@ -129,7 +129,7 @@ export const aptitudes = [
     },
     {
         name: "Window",
-        description: "See which application windows are open in the system",
+        description: "The Window Aptitude provides the ability to obtain information about windows on a user's desktop (position, name, etc.) as well as listen to window events (gaining focus, losing focus, etc.).",
         isDisabled: false,
         isSelected: false,
         id: "aptitudesWindow",
