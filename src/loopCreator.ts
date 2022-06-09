@@ -216,9 +216,9 @@ export class LoopCreator {
 
     let nonce = randomBytes(16).toString('base64');
 
-    htmlView = htmlView.replace('{{jsUrl}}', scriptUri.toString());
     htmlView = htmlView.replace('{{nonce}}', nonce);
-    htmlView = htmlView.replace("{{oliveLogoPath}}", oliveLogoDiskPath.toString());
+    htmlView = htmlView.replace('{{jsUrl}}', scriptUri.toString());
+    // htmlView = htmlView.replace("{{oliveLogoPath}}", oliveLogoDiskPath.toString());
    
     panel.webview.html = htmlView;
 
