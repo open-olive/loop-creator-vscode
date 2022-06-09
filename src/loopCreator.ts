@@ -13,7 +13,9 @@ import {
 } from 'vscode';
 import * as ua from 'universal-analytics';
 import { openDialogForFolder } from './utils';
-import createLoopFormHtml from './createLoopForm.html';
+import { readFileSync } from 'fs';
+import { randomBytes } from 'crypto';
+
 
 interface IWebviewMessage<T> {
   command: string;
@@ -194,10 +196,31 @@ export class LoopCreator {
       ViewColumn.One,
       {
         enableScripts: true,
+        localResourceRoots: [Uri.file(path.join(this.context.extensionPath, 'loopForm'))]
       }
     );
 
-    panel.webview.html = createLoopFormHtml;
+    const htmlPath = Uri.file(path.join(this.context.extensionPath, '/loopForm/createLoopForm.html'));
+
+    let htmlView = readFileSync(htmlPath.path).toString();
+   
+    const jsDiskPath = Uri.file(
+      path.join(this.context.extensionPath, 'loopForm/assets', 'main.js')
+    );
+
+    const oliveLogoDiskPath = Uri.file(
+      path.join(this.context.extensionPath, 'loopForm/assets', 'newOliveLogo.png')
+    );
+
+    const scriptUri = panel.webview.asWebviewUri(jsDiskPath);
+
+    let nonce = randomBytes(16).toString('base64');
+
+    htmlView = htmlView.replace('{{jsUrl}}', scriptUri.toString());
+    htmlView = htmlView.replace('{{nonce}}', nonce);
+    htmlView = htmlView.replace("{{oliveLogoPath}}", oliveLogoDiskPath.toString());
+   
+    panel.webview.html = htmlView;
 
     panel.webview.onDidReceiveMessage(
       async (message: IWebviewMessage<LoopFormData>) => {
