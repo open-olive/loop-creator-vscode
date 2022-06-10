@@ -218,7 +218,6 @@ export class LoopCreator {
 
     htmlView = htmlView.replace('{{nonce}}', nonce);
     htmlView = htmlView.replace('{{jsUrl}}', scriptUri.toString());
-    // htmlView = htmlView.replace("{{oliveLogoPath}}", oliveLogoDiskPath.toString());
    
     panel.webview.html = htmlView;
 
