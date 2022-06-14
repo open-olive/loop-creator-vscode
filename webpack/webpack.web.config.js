@@ -19,6 +19,7 @@ const resolve = {
     process: false,
     path: require.resolve('path-browserify'),
     fs: false,
+    crypto: false,
     url: require.resolve('url/'),
     http: require.resolve('stream-http'),
     https: require.resolve('https-browserify'),

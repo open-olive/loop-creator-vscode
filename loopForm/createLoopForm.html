@@ -1,0 +1,405 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="connect-src 'self'; style-src 'unsafe-inline';base-uri 'self';form-action 'self'">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  
+  <title>Create Loop</title>
+  <style>
+    body {
+      background-color: #101018;
+      color: #ffffff;
+      font-family: Arial, Helvetica, sans-serif;
+      width: 100%;
+    }
+
+    .browse-button {
+      background: #6800CA;
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      width: 80px;
+      height: 32px;
+    }
+
+    .submit-button {
+      background: #6800CA;
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      width: 112px;
+      height: 32px;
+    }
+
+    .crete-loop-text {
+      width: 100px;
+      padding: 10px;
+      margin-top: 20px;
+    }
+
+    .crete-loop-text span {
+      font-style: normal;
+      font-weight: 500;
+      font-size: 18px;
+      color: #ffffff;
+      align-items: center;
+    }
+
+    .loop-form-block {
+      padding: 10px;
+    }
+
+    .choose-aptitude span {
+      font-style: normal;
+      line-height: 125%;
+      letter-spacing: -0.01em;
+      align-items: center;
+      color: #ffffff;
+      font-size: 16px;
+    }
+    .choose-aptitude a span{
+      font-size: 14px;
+      color: #6800CA;
+    }
+    .aptitude-caption {
+      display: block;
+      padding-top: 20px;
+      width: 750px;
+      word-wrap: break-word;
+    }
+
+    .aptitude-caption span {
+      align-items: center;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 500;
+      color: #ffffff;
+    }
+
+    .choose-aptitude .learn-more {
+      font-size: 14px;
+    }
+
+    .field-block {
+      padding-bottom: 20px;
+    }
+
+    .field-block .aptitude-wrapper {
+      margin-top: 25px;
+    }
+
+    label {
+      padding-bottom: 5px;
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 120%;
+      letter-spacing: 0.01em;
+      font-family: sans-serif;
+      color: #ffffff;
+    }
+
+    select {
+      margin-top: 5px;
+      width: 240px;
+      height: 25px;
+      border-radius: 8px;
+      background: #ffffff;
+      border: 1px solid #E2E2E3;
+      order: 1;
+    }
+
+    input[type='text'] {
+      margin-top: 5px;
+      width: 240px;
+      height: 25px;
+      border-radius: 8px;
+      order: 1;
+      background: #ffffff;
+      border: 1px solid #E2E2E3;
+    }
+
+    .select-buttons button {
+      border-radius: 8px;
+      border: solid 1px #D4D4D6;
+      padding: 10px 16px;
+      margin-top: 30px;
+      margin-right: 10px;
+      background: transparent;
+      color: #F4F4F6;
+    }
+
+    .field-row {
+      width: 60%;
+      display: flex;
+      flex-wrap: wrap;
+      padding-top: 24px;
+    }
+
+    .field-column {
+      flex: 0 1 50%;
+      width: 95px;
+      padding-bottom: 15px;
+      display: block;
+    }
+
+    .aptitude-description {
+      width: 308px;
+      margin-left: 28px;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 135%;
+      color: #ABABAE;
+      letter-spacing: 0.01em;
+    }
+    .container {
+      display: block;
+      position: relative;
+      padding-left: 28px;
+      cursor: pointer;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none; 
+      font-family: sans-serif;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 145%;
+     
+      letter-spacing: 0.01em;
+    }
+
+    .container input {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      height: 0;
+      width: 0;
+    }
+
+    .checkmark {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 17px;
+      width: 17px;
+      background-color: transparent;
+      border: solid 1px #ffffff;
+      border-radius: 4px;
+    }
+
+    .container input:checked~.checkmark {
+      background-color: #ffffff;
+    }
+
+   
+    .checkmark:after {
+      content: "";
+      position: absolute;
+      display: none;
+    }
+
+   
+    .container input:checked~.checkmark:after {
+      display: block;
+    }
+
+    .container input:disabled~.checkmark:after {
+      display: block;
+      border: solid #ffffff;
+      border-width: 0 3px 3px 0;
+    }
+
+    .container .checkmark:after {
+      left: 5px;
+      width: 5px;
+      height: 10px;
+      border: solid #22272F;
+      border-width: 0 3px 3px 0;
+      -webkit-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      transform: rotate(45deg);
+    }
+
+    .check-item {
+      display: block;
+      border: solid #ffffff;
+      border-width: 0 3px 3px 0;
+      
+    }
+
+    .check-item-after {
+      left: 5px;
+      width: 5px;
+      height: 10px;
+      border: solid #22272F;
+      border-width: 0 3px 3px 0;
+      -webkit-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      transform: rotate(45deg);
+    }
+    .olive-brand {
+      display: flex;
+    }
+    .olive-loop-logo {
+      padding-right: 20px;
+    }
+    .olive-logo-title {
+      padding: 10px 15px 0 15px;
+    }
+    .olive-logo-title span {
+      line-height: 115%;
+      font-family: sans-serif;
+      font-style: normal;
+      font-size: 14px;
+      font-weight: 450;
+      color: #ffffff;
+    }
+    .logo-line {
+      border-left: solid 1px #ffffff;
+      height: 23px;
+      margin-top: 10px;
+    }
+    .choose-aptitude a {
+      text-decoration: none;
+      color: #6800CA;
+    }
+    
+  </style>
+</head>
+
+<body>
+  <div class="olive-brand">
+    <div class="olive-loop-logo">
+      <img src="https://static.wixstatic.com/shapes/ae75c9_10a586b9dd6c4e2990808e711f72de9a.svg" width="100" />
+    </div>
+    <div class="logo-line"></div>
+    <div class="olive-logo-title">
+      <span>Loop Develooment Kit</span>
+    </div>
+  </div>
+  
+  <div class="crete-loop-text">
+    <span>Create Loop</span>
+  </div>
+
+  <div class="loop-form-block">
+    <form id="createLoopForm">
+      <div class="field-block">
+        <label>Select your preferred language. (Javascript/Typescript)</label>
+        <span class="required">*</span></span>
+        <br />
+        <span>
+          <select id="language" name="language">
+            <option value="TypeScript">TypeScript</option>
+            <option value="JavaScript">JavaScript</option>
+          </select>
+        </span>
+      </div>
+      <div class="field-block">
+        <label for="path">Project Path</label><span class="required">*</span>
+        <br />
+        <input type="text" id="path" name="path" value="" />
+        <button class="browse-button" onclick="openFolderBrowser()" type="button">
+          Browse
+        </button>
+      </div>
+      <div class="field-block">
+        <label for="path">Project Name</label><span class="required">*</span>
+        <br />
+        <input type="text" id="projectName" name="projectName" value="" />
+      </div>
+      <div class="aptitude-section">
+
+        <div class="choose-aptitude">
+          <span>Select the example Aptitudes you want to include in your loop. See documentation <a href="https://docs.oliveai.dev/aptitudes/what-are-aptitudes">here
+               </a>to find out more about Loop Aptitudes.</span>
+          <div class="aptitude-caption">
+            <span>Aptitudes are the primary way that a Loop interacts with the system.
+              Each aptitude has a unique purpose, functions and triggers. Each Loop will include the Whisper and UI
+              aptitudes by default.
+            </span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="select-buttons">
+        <button id="selectAllButton" type="button">Select All</button>
+        <button id="hideShowDescription" type="button"></button>
+      </div>
+
+      <div class="field-block">
+        <div class="aptitudes-wrapper">
+          <div class="field-row">
+      </div>
+      <div class="pam">
+        <button id="createLoop" class="submit-button" type="submit">Create Loop</button>
+      </div>
+    </form>
+  </div>
+
+  <script nonce="{{nonce}}" src="{{jsUrl}}" defer type="module"></script>
+  <script>
+    window.vscode = acquireVsCodeApi();
+    var descriptionIsDisplayed = true;
+
+    function openFolderBrowser() {
+      vscode.postMessage({ command: 'openFolderDialog' });
+    }
+
+    window.addEventListener('message', (event) => {
+      const message = event.data;
+
+      if (message.command === 'getProjectPath') {
+        document.getElementById('path').value = message.payload;
+      } else {
+        throw new Error(`Invalid command "${message.command}".`);
+      }
+    });
+
+    function hideOrShowDescription() {
+
+    }
+
+    function showNetwork(networkOptions) {
+      var networkchxbox = document.getElementById('aptitudesNetwork');
+      var visible = 'none';
+      if (networkchxbox.checked) {
+        visible = 'table-row';
+      }
+      document.getElementById(networkOptions).style.display = visible;
+    }
+
+    const loopForm = document.getElementById('createLoopForm');
+    loopForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      // Construct a FormData object, which fires the formdata event.
+      new FormData(loopForm);
+    });
+    loopForm.addEventListener('formdata', (e) => {
+      const payload = {
+        aptitudes: [],
+      };
+
+      for (let entry of e.formData.entries()) {
+        const key = entry[0];
+        const value = entry[1];
+        if (key === 'aptitudes') {
+          payload['aptitudes'].push(value);
+        } else {
+          payload[key] = value;
+        }
+      }
+
+      vscode.postMessage({
+        command: 'createLoop',
+        payload: payload,
+      });
+    });
+  </script>
+</body>
+
+</html>
