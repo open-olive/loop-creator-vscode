@@ -4,7 +4,7 @@
   <meta http-equiv="Content-Security-Policy" content="connect-src 'self'; style-src 'unsafe-inline';base-uri 'self';form-action 'self'">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  
+
   <title>Create Loop</title>
   <style>
     body {
@@ -58,10 +58,12 @@
       color: #ffffff;
       font-size: 16px;
     }
+
     .choose-aptitude a span{
       font-size: 14px;
       color: #6800CA;
     }
+
     .aptitude-caption {
       display: block;
       padding-top: 20px;
@@ -151,7 +153,9 @@
       line-height: 135%;
       color: #ABABAE;
       letter-spacing: 0.01em;
+      display: none;
     }
+
     .container {
       display: block;
       position: relative;
@@ -160,13 +164,12 @@
       -webkit-user-select: none;
       -moz-user-select: none;
       -ms-user-select: none;
-      user-select: none; 
+      user-select: none;
       font-family: sans-serif;
       font-style: normal;
       font-weight: 400;
       font-size: 14px;
       line-height: 145%;
-     
       letter-spacing: 0.01em;
     }
 
@@ -193,14 +196,12 @@
       background-color: #ffffff;
     }
 
-   
     .checkmark:after {
       content: "";
       position: absolute;
       display: none;
     }
 
-   
     .container input:checked~.checkmark:after {
       display: block;
     }
@@ -226,7 +227,6 @@
       display: block;
       border: solid #ffffff;
       border-width: 0 3px 3px 0;
-      
     }
 
     .check-item-after {
@@ -239,15 +239,19 @@
       -ms-transform: rotate(45deg);
       transform: rotate(45deg);
     }
+
     .olive-brand {
       display: flex;
     }
+
     .olive-loop-logo {
       padding-right: 20px;
     }
+
     .olive-logo-title {
       padding: 10px 15px 0 15px;
     }
+
     .olive-logo-title span {
       line-height: 115%;
       font-family: sans-serif;
@@ -256,16 +260,17 @@
       font-weight: 450;
       color: #ffffff;
     }
+
     .logo-line {
       border-left: solid 1px #ffffff;
       height: 23px;
       margin-top: 10px;
     }
+
     .choose-aptitude a {
       text-decoration: none;
       color: #6800CA;
     }
-    
   </style>
 </head>
 
@@ -279,7 +284,7 @@
       <span>Loop Development Kit</span>
     </div>
   </div>
-  
+
   <div class="create-loop-text">
     <span>Create Loop</span>
   </div>
@@ -291,7 +296,7 @@
         <span class="required">*</span></span>
         <br />
         <span>
-          <select id="language" name="language">
+          <select id="language" name="language" required>
             <option value="TypeScript">TypeScript</option>
             <option value="JavaScript">JavaScript</option>
           </select>
@@ -300,21 +305,21 @@
       <div class="field-block">
         <label for="path">Project Path</label><span class="required">*</span>
         <br />
-        <input type="text" id="path" name="path" value="" />
+        <input type="text" id="path" name="path" value="" required />
         <button class="browse-button" onclick="openFolderBrowser()" type="button">
           Browse
         </button>
       </div>
       <div class="field-block">
-        <label for="path">Project Name</label><span class="required">*</span>
+        <label for="projectName">Project Name</label><span class="required">*</span>
         <br />
-        <input type="text" id="projectName" name="projectName" value="" />
+        <input type="text" id="projectName" name="projectName" value="" required />
       </div>
       <div class="aptitude-section">
 
         <div class="choose-aptitude">
-          <span>Select the example aptitudes you want to include in your Loop. See documentation <a href="https://docs.oliveai.dev/aptitudes/what-are-aptitudes">here
-               </a>to find out more about Loop aptitudes.</span>
+          <span>Select the example aptitudes you want to include in your Loop.
+            See documentation <a href="https://docs.oliveai.dev/aptitudes/what-are-aptitudes">here</a> to find out more about Loop aptitudes.</span>
           <div class="aptitude-caption">
             <span>Aptitudes are the primary way that a Loop interacts with the system.
               Each aptitude has a unique purpose, functions and triggers. Each Loop will include the Whisper and UI
@@ -359,10 +364,6 @@
       }
     });
 
-    function hideOrShowDescription() {
-
-    }
-
     function showNetwork(networkOptions) {
       var networkchxbox = document.getElementById('aptitudesNetwork');
       var visible = 'none';
@@ -380,19 +381,17 @@
       new FormData(loopForm);
     });
     loopForm.addEventListener('formdata', (e) => {
-      const payload = {
-        aptitudes: [],
-      };
-
-      for (let entry of e.formData.entries()) {
-        const key = entry[0];
-        const value = entry[1];
+      // Take the formdata object, collect all active aptitudes into an array, format the project name, and simply store the rest
+      const payload = [...e.formData.entries()].reduce((acc, [key, value]) => {
         if (key === 'aptitudes') {
-          payload['aptitudes'].push(value);
+          acc[key].push(value);
+        } else if (key === 'projectName') {
+          acc[key] = value.trim().toLowerCase().replace(/\s+/g, '-');
         } else {
-          payload[key] = value;
+          acc[key] = value;
         }
-      }
+        return acc;
+      }, { aptitudes: [] });
 
       vscode.postMessage({
         command: 'createLoop',
