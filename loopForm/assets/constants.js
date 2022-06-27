@@ -72,14 +72,6 @@ export const aptitudes = [
         value: "process",
     },
     {
-        name: "Screen",
-        description: "The Screen Aptitude provides the ability to read the user's screen with solutions like Optical Character Recognition (OCR).",
-        isDisabled: false,
-        isSelected: false,
-        id: "aptitudesScreen",
-        value: "screen",
-    },
-    {
         name: "Search",
         description: "The Search Aptitude provides the ability to index a set of documents and search the data using query strings and fuzzy searching.",
         isDisabled: false,

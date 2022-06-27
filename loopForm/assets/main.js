@@ -49,8 +49,9 @@ aptitudes.forEach((aptitude) => {
 const selectAllButton = document.getElementById("selectAllButton");
 
 selectAllButton.addEventListener("click", (e) => {
-    let aptitudeCheckBoxes = document.getElementsByClassName('check-item');
     selectAllCheckState = !selectAllCheckState;
+    selectAllButton.textContent = (selectAllCheckState) ? 'Deselect All' : 'Select All';
+    let aptitudeCheckBoxes = document.getElementsByClassName('check-item');
     if(aptitudeCheckBoxes.length > 0) {
         for(let aptitude of aptitudeCheckBoxes) {
             if(!(aptitude.disabled)) {
@@ -62,7 +63,8 @@ selectAllButton.addEventListener("click", (e) => {
 
 const hideShowDescription = document.getElementById("hideShowDescription");
 
-const getDescriptionTextStatus = () => {
+hideShowDescription.addEventListener("click", () => {
+    showDescription = !showDescription;
     hideShowDescription.textContent = (showDescription) ? 'Hide Description' : 'Show Description';
     let aptitudeDescriptions = document.getElementsByClassName("aptitude-description");
     if(aptitudeDescriptions.length > 0) {
@@ -74,13 +76,5 @@ const getDescriptionTextStatus = () => {
             }
         }
     }
-};
-
-getDescriptionTextStatus();
-
-hideShowDescription.addEventListener("click", () => {
-    showDescription = !showDescription;
-    getDescriptionTextStatus();
-    
 });
 
