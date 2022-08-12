@@ -200,9 +200,15 @@ export class LoopCreator {
       }
     );
 
-    const htmlPath = Uri.file(path.join(this.context.extensionPath, '/loopForm/createLoopForm.html'));
+    let htmlPath;
 
-    let htmlView = readFileSync(htmlPath.path).toString();
+    if (process.platform === 'win32') {
+      htmlPath = this.context.extensionPath + '\\loopForm\\createLoopForm.html';
+    } else {
+      htmlPath = this.context.extensionPath + '/loopForm/createLoopForm.html';
+    }
+
+    let htmlView = readFileSync(htmlPath).toString();
    
     const jsDiskPath = Uri.file(
       path.join(this.context.extensionPath, 'loopForm/assets', 'main.js')
